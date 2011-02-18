@@ -1,0 +1,59 @@
+JSLintMate
+==========
+
+Quick, simple JSLint in TextMate. Hurt your feelings in style.
+([JSLint][jslint] is a powerful JS code quality tool. It's not the same as
+[JavaScript Lint][javascriptlint].)
+
+[jslint]:         http://jslint.com
+[javascriptlint]: http://www.javascriptlint.com/
+
+
+Setup
+-----
+
+    # Download:
+    sudo git clone git://github.com/rondevera/jslintmate.git /usr/local/src/jslintmate/
+
+    # Install:
+    /usr/local/src/jslintmate/install.sh
+
+
+Usage
+-----
+
+Open a JS file in TextMate. Hit ctrl-L, and a list of errors appears. Each
+error has a link to that line in that file. Fix and repeat.
+
+If JSLint is too strict for your taste, add JSLint options to the top of
+each JS file. These keep your whole team using the same standards, and serve
+as a barebones code style guide. For example:
+
+    /*jslint  eqeqeq:   true,
+              immed:    false,
+              newcap:   true,
+              nomen:    false,
+              onevar:   true,
+              plusplus: false,
+              undef:    true,
+              white:    false */
+    /*global  window, alert, confirm,
+              setTimeout, clearTimeout, setInterval, clearInterval,
+              jQuery, $, MyApp */
+
+The JSLint website has [more info on supported options][jslint-options].
+
+[jslint-options]: http://jslint.com/#JSLINT_OPTIONS
+
+
+About
+-----
+
+Tested with OS X 10.6 and WebKit 531 (Safari 4).
+
+This project is adapted from:
+
+- <http://www.phpied.com/jslint-on-mac-textmate/>
+- <http://www.phpied.com/installing-rhino-on-mac/>
+- <http://wonko.com/post/pretty-jslint-output-for-textmate>
+- <http://www.pulletsforever.com/pulletsforever/Pullets_Forever_Blog/Entries/2009/7/12_Running_JSLint_with_Safaris_JavaScript_Core.html>

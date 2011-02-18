@@ -1,64 +1,7 @@
 #!/usr/bin/env ruby
 
 # Quick, simple JSLint in TextMate. Hurt your feelings in style.
-# (JSLint is a powerful JS code quality tool: http://jslint.com )
-#
-#
-# Installation
-# ============
-#
-# 1.  Install JSLintMate:
-#
-#     sudo git clone git://github.com/rondevera/jslintmate.git /usr/local/src/jslintmate/
-#
-# 2.  Install JSLint (and add adapter for JSC arguments):
-#
-#     curl http://www.JSLint.com/fulljslint.js > ~/Library/JSLint/fulljslint.js
-#     cat /usr/local/src/jslintmate/fulljslint-jsc.js >> ~/Library/JSLint/fulljslint.js
-#
-# 3.  Install the TextMate bundle:
-#
-#     open /usr/local/src/jslintmate/JSLint.tmCommand
-#       # This opens the Bundle Editor in TextMate, where you can change the
-#       # command's shortcut. The default is ctrl-L.
-#
-#
-# Usage
-# =====
-#
-# Open a JS file in TextMate. Hit ctrl-L, and a list of errors appears.
-# Fix and repeat.
-#
-# If JSLint is too strict for your taste, add JSLint options to the top of
-# each JS file. These keep your whole team using the same standards, and serve
-# as a barebones code style guide. For example:
-#
-#     /*jslint  eqeqeq:   true,
-#               immed:    false,
-#               newcap:   true,
-#               nomen:    false,
-#               onevar:   true,
-#               plusplus: false,
-#               undef:    true,
-#               white:    false */
-#     /*global  window, alert, confirm,
-#               setTimeout, clearTimeout, setInterval, clearInterval,
-#               jQuery, $, MyApp */
-#
-# More on JSLint options: http://jslint.com/#JSLINT_OPTIONS
-#
-#
-# About
-# =====
-#
-# Tested with OS X 10.6 and WebKit 531 (Safari 4).
-#
-# This project is adapted from:
-# - http://www.phpied.com/installing-rhino-on-mac/
-# - http://www.phpied.com/jslint-on-mac-textmate/
-# - http://wonko.com/post/pretty-jslint-output-for-textmate
-# - http://www.pulletsforever.com/pulletsforever/Pullets_Forever_Blog/Entries/2009/7/12_Running_JSLint_with_Safaris_JavaScript_Core.html
-
+# (JSLint.com is a powerful JS code quality tool.)
 
 require 'cgi'
 
