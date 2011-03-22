@@ -13,9 +13,10 @@ if ENV['TM_FILEPATH']
   filepath = ENV['TM_FILEPATH']
 
   # Using OS X's JSC:
-  linter = "#{ENV['TM_BUNDLE_SUPPORT']}/lib/jslint.js"
-  cmd    = %{/System/Library/Frameworks/JavaScriptCore.framework/Versions/A/Resources/jsc "#{linter}" -- "$(cat #{filepath})"}
-  lint   = `#{cmd}`
+  linter  = "#{ENV['TM_BUNDLE_SUPPORT']}/lib/jslint.js"
+  cmd     = '/System/Library/Frameworks/JavaScriptCore.framework/' +
+             %{Versions/A/Resources/jsc "#{linter}" -- "$(cat "#{filepath}")"}
+  lint    = `#{cmd}`
 
   # If you prefer to use Rhino (Mozilla's open-source JS engine):
   #
@@ -42,19 +43,11 @@ if ENV['TM_FILEPATH']
                "&line=#{CGI.escapeHTML(line)}"
     char.sub!(/:$/, '')
     desc = %{<span class="desc">#{CGI.escapeHTML(desc)}</span>} if desc
+    loc  = %{<span class="location">#{
+              CGI.escapeHTML("Line #{line}, #{char}")}</span>}
     code = %{<pre>#{CGI.escapeHTML(code)}</pre>} if code
 
-    %{
-      <li>
-        #{desc}
-        <span class="location">
-          #{CGI.escapeHTML('Line ')}
-          <a href="#{line_uri}">#{CGI.escapeHTML(line)}</a>,
-          #{CGI.escapeHTML(char)}
-        </span>
-        #{code}
-      </li>
-    }.strip.split.join(' ')
+    %{<li><a href="#{line_uri}">#{desc} #{loc} #{code}</a></li>}
   end
   lint.gsub!(/^(jslint:)(.+?)$/, '<p><strong>\1</strong>\2</p>')
 
@@ -162,33 +155,50 @@ print <<HTML
     }
     ul.problems li {
       margin: 0;
-      padding: 0.75em 1em 0.25em;
+    }
+    ul.problems a {
+      display: block;
       background: -webkit-gradient(linear, left top, left bottom,
                                           from(#ececec), to(#d2d2d2));
       background: -webkit-linear-gradient(top, #ececec,     #d2d2d2);
       background:         linear-gradient(top, #ececec,     #d2d2d2);
       border-top: 1px solid #f9f9f9;
       border-bottom: 1px solid #ccc;
+      color: #000;
+      padding: 0.75em 1em 0.25em;
+      text-decoration: none;
+      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    }
+    ul.problems a:hover {
+      background: -webkit-gradient(linear, left top, left bottom,
+                                          from(#648bf3), to(#1d60f1));
+      background: -webkit-linear-gradient(top, #648bf3,     #1d60f1);
+      background:         linear-gradient(top, #648bf3,     #1d60f1);
+      border-top-color: #6187ef;
+      border-bottom-color: #165bec;
+      color: #fff;
+      text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
     }
     ul.problems .location {
       float: right;
       color: rgba(0, 0, 0, 0.5);
       font-size: 0.75em;
-      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    }
+    ul.problems a:hover .location {
+      color: rgba(255, 255, 255, 0.75);
     }
     ul.problems .desc {
       padding: 0 4px;
-      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.75);
     }
     ul.problems pre {
       margin-top: 2px;
       padding: 2px 4px;
       overflow: hidden;
       background: -webkit-gradient(linear, left top, left bottom,
-        from(rgba(255, 255, 255, 0.25)),
-        color-stop(0.5, rgba(255, 255, 255, 0.2)),
+        from(           rgba(255, 255, 255, 0.25)),
+        color-stop(0.5, rgba(255, 255, 255, 0.2 )),
         color-stop(0.5, rgba(255, 255, 255, 0.15)),
-        to(rgba(255, 255, 255, 0.1)));
+        to(             rgba(255, 255, 255, 0.1 )));
       background: -webkit-linear-gradient(top, rgba(255, 255, 255, 0.25), 0.5 rgba(255, 255, 255, 0.2), 0.5 rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.1));
       background:         linear-gradient(top, rgba(255, 255, 255, 0.25), 0.5 rgba(255, 255, 255, 0.2), 0.5 rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.1));
       border: 1px solid rgba(0, 0, 0, 0.05);
@@ -199,6 +209,18 @@ print <<HTML
       font-family: Monaco, monospace;
       font-size: 12px;
       text-overflow: ellipsis;
+    }
+    ul.problems a:hover pre {
+      background: -webkit-gradient(linear, left top, left bottom,
+        from(           rgba(0, 0, 0, 0.05)),
+        color-stop(0.5, rgba(0, 0, 0, 0.1 )),
+        color-stop(0.5, rgba(0, 0, 0, 0.15)),
+        to(             rgba(0, 0, 0, 0.2 )));
+      background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.05), 0.5 rgba(0, 0, 0, 0.1), 0.5 rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.2));
+      background:         linear-gradient(top, rgba(0, 0, 0, 0.05), 0.5 rgba(0, 0, 0, 0.1), 0.5 rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.2));
+      border-color: rgba(0, 0, 0, 0.05);
+        -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.15);
+      box-shadow:           0 1px 0 rgba(255, 255, 255, 0.15);
     }
   </style>
 </head>

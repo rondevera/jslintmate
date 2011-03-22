@@ -18,15 +18,15 @@ Via Git:
     cd ~/Library/Application\ Support/TextMate/Bundles
     git clone git://github.com/rondevera/jslintmate.git "JSLintMate.tmbundle"
     osascript -e 'tell app "TextMate" to reload bundles'
-      # If the last line fails, switch to TextMate, then use
-      # Bundles > Bundle Editor > Reload Bundles.
+      # If the last line shows an error, switch to TextMate,
+      # then select Bundles > Bundle Editor > Reload Bundles.
 
 
 Usage
 -----
 
-Open a JS file in TextMate. Hit ctrl-L, and a list of errors appears. Each
-error has a link to that line in that file. Fix and repeat.
+Open a JS file in TextMate. Hit ctrl-L, and a list of errors appears. Click
+each error to jump to that line in the file. Fix and repeat.
 
 If JSLint is too strict for your taste, add JSLint options to the top of
 each JS file. These serve as a barebones code style guide, and let a whole
@@ -51,7 +51,7 @@ The JSLint website has [more info on supported options][jslint-options].
 About
 -----
 
-Tested with OS X 10.6 and WebKit 531 (Safari 4).
+Tested with OS X 10.6 and WebKit 531+ (Safari 4+).
 
 This project is adapted from:
 
