@@ -29,10 +29,11 @@ Open a JS file in TextMate. Hit ctrl-L, and a list of errors appears. Each
 error has a link to that line in that file. Fix and repeat.
 
 If JSLint is too strict for your taste, add JSLint options to the top of
-each JS file. These keep your whole team using the same standards, and serve
-as a barebones code style guide. For example:
+each JS file. These serve as a barebones code style guide, and let a whole
+team keep their standards synced. For example:
 
-    /*jslint  eqeqeq:   true,
+    /*jslint  browser:  true,
+              eqeqeq:   true,
               immed:    false,
               newcap:   true,
               nomen:    false,
@@ -40,9 +41,7 @@ as a barebones code style guide. For example:
               plusplus: false,
               undef:    true,
               white:    false */
-    /*global  window, alert, confirm,
-              setTimeout, clearTimeout, setInterval, clearInterval,
-              jQuery, $, MyApp */
+    /*global  window, jQuery, $, MyApp */
 
 The JSLint website has [more info on supported options][jslint-options].
 
