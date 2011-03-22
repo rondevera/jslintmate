@@ -205,5 +205,15 @@ print <<HTML
 <body>
   #{result}
 </body>
+<script>
+  document.addEventListener('keydown', function(ev){
+    switch(ev.which){
+      case 27: // escape
+        window.close();
+        ev.preventDefault();
+        break;
+    }
+  }, false);
+</script>
 </html>
 HTML
