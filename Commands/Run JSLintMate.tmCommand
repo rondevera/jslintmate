@@ -5,13 +5,13 @@
 	<key>beforeRunningCommand</key>
 	<string>nop</string>
 	<key>command</key>
-	<string>ruby /usr/local/src/jslintmate/jslintmate.rb</string>
+	<string>ruby "$TM_BUNDLE_SUPPORT/lib/jslintmate.rb"</string>
 	<key>input</key>
 	<string>document</string>
 	<key>keyEquivalent</key>
 	<string>^l</string>
 	<key>name</key>
-	<string>JSLint</string>
+	<string>Run JSLintMate</string>
 	<key>output</key>
 	<string>showAsHTML</string>
 	<key>scope</key>

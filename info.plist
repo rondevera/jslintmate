@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>contactEmailRot13</key>
+	<string>uryyb@ebaqriren.pbz</string>
+	<key>contactName</key>
+	<string>Ron DeVera</string>
+	<key>description</key>
+	<string>Support for &lt;a href="http://www.jslint.com/"&gt;JSLint&lt;/a&gt;, the JavaScript code quality tool</string>
+	<key>mainMenu</key>
+	<dict>
+		<key>items</key>
+		<array>
+			<string>2463023D-35B6-4DE2-8DC2-0E6AB47D9F36</string>
+		</array>
+	</dict>
+	<key>name</key>
+	<string>JSLintMate</string>
+	<key>ordering</key>
+	<array>
+		<string>2463023D-35B6-4DE2-8DC2-0E6AB47D9F36</string>
+	</array>
+	<key>uuid</key>
+	<string>E83757B9-C672-4F56-A7EB-B50525448B07</string>
+</dict>
+</plist>

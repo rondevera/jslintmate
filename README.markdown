@@ -12,11 +12,14 @@ Quick, simple JSLint in TextMate. Hurt your feelings in style.
 Setup
 -----
 
-    # Download:
-    sudo git clone git://github.com/rondevera/jslintmate.git /usr/local/src/jslintmate/
+Via Git:
 
-    # Install:
-    /usr/local/src/jslintmate/install.sh
+    mkdir -p ~/Library/Application\ Support/TextMate/Bundles
+    cd ~/Library/Application\ Support/TextMate/Bundles
+    git clone git://github.com/rondevera/jslintmate.git "JSLintMate.tmbundle"
+    osascript -e 'tell app "TextMate" to reload bundles'
+      # If the last line fails, switch to TextMate, then use
+      # Bundles > Bundle Editor > Reload Bundles.
 
 
 Usage

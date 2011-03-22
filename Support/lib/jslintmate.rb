@@ -3,12 +3,19 @@
 # Quick, simple JSLint in TextMate. Hurt your feelings in style.
 # (JSLint.com is a powerful JS code quality tool.)
 
+# To update jslint.js:
+# 1. curl http://www.jslint.com/fulljslint.js > /path/to/JSLintMate.tmbundle/Support/lib/jslint.js
+# 2. cat /path/to/JSLintMate.tmbundle/Support/lib/fulljslint-jsc.js >> /path/to/JSLintMate.tmbundle/Support/lib/jslint.js
+
 require 'cgi'
 
 if ENV['TM_FILEPATH']
+  filepath = ENV['TM_FILEPATH']
+
   # Using OS X's JSC:
-  jslint = '/Users/ron/Library/JSLint/fulljslint.js'
-  lint   = `/System/Library/Frameworks/JavaScriptCore.framework/Versions/A/Resources/jsc #{jslint} -- "$(cat $TM_FILEPATH)"`
+  linter = "#{ENV['TM_BUNDLE_SUPPORT']}/lib/jslint.js"
+  cmd    = %{/System/Library/Frameworks/JavaScriptCore.framework/Versions/A/Resources/jsc "#{linter}" -- "$(cat #{filepath})"}
+  lint   = `#{cmd}`
 
   # Using Rhino
   # ===========
@@ -29,12 +36,12 @@ if ENV['TM_FILEPATH']
   # C.  Modify this script to use Rhino. Disable the JSC lines above, and
   #     use the following instead:
   #
-  #         jslint = '~/Library/JSLint/fulljslint-rhino.js'
-  #         lint   = `java org.mozilla.javascript.tools.shell.Main #{jslint} "$TM_FILEPATH"`
+  #         linter = '~/Library/JSLint/fulljslint-rhino.js'
+  #         lint   = `java org.mozilla.javascript.tools.shell.Main #{linter} "#{filepath}"`
 
   lint.gsub!(/^(Lint at line )(\d+)(.+?:)(.+?)\n(?:(.+?)\n\n)?/m) do
     line = ($2.to_i - 1).to_s
-    line_uri = "txmt://open?url=file://#{ENV['TM_FILEPATH']}" <<
+    line_uri = "txmt://open?url=file://#{filepath}" <<
                "&line=#{CGI.escapeHTML(line)}"
     desc, code = $4, $5
     desc = %{<span class="desc">#{CGI.escapeHTML(desc)}</span>} if desc
@@ -56,18 +63,18 @@ if ENV['TM_FILEPATH']
   if lint =~ /No problems found/
     # Douglas Crockford would be so proud.
     result = %{
-      <header>Lint-free! <span class="filepath">TM_FILEPATH</span></header>
+      <header>Lint-free! <span class="filepath">#{filepath}</span></header>
       <p class="success">Lint-free!</p>
     }
   else
     result = %{
       <header>
-        Problems found in: <span class="filepath">TM_FILEPATH</span>
+        Problems found in: <span class="filepath">#{filepath}</span>
       </header>
       <ul class="problems">#{lint}</ul>
     }
   end
-  result.gsub!(/TM_FILEPATH/, ENV['TM_FILEPATH'])
+  # result.gsub!(/TM_FILEPATH/, ENV['TM_FILEPATH'])
 else # !ENV['TM_FILEPATH']
   result = %{
     <header>Oops!</header>
@@ -84,7 +91,7 @@ print <<HTML
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>JSLint</title>
+  <title>JSLintMate</title>
   <style>
     html, body {
       margin: 0;
