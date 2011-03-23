@@ -12,6 +12,7 @@ require 'cgi'
 
 if ENV['TM_FILEPATH']
   filepath = ENV['TM_FILEPATH']
+  problems_count = 0
 
   # Using OS X's JSC:
   linter  = "#{ENV['TM_BUNDLE_SUPPORT']}/lib/jslint.js"
@@ -51,6 +52,7 @@ if ENV['TM_FILEPATH']
     code = %{<pre>#{CGI.escapeHTML(code)}</pre>} if code
 
     if code
+      problems_count += 1
       %{<li><a href="#{line_uri}">#{desc} #{loc} #{code}</a></li>}
     else
       %{<li class="alert">#{desc} #{loc}</li>}
@@ -67,7 +69,8 @@ if ENV['TM_FILEPATH']
   else
     result = %{
       <header>
-        Problems found in: <span class="filepath">#{filepath}</span>
+        Problem#{'s' if problems_count > 1} found in:
+        <span class="filepath">#{filepath}</span>
       </header>
       <ul class="problems">#{lint}</ul>
     }
@@ -75,7 +78,7 @@ if ENV['TM_FILEPATH']
 else # !ENV['TM_FILEPATH']
   result = %{
     <header>Oops!</header>
-    <p class="error">
+    <p class="alert">
       Please save this file before JSLint can hurt your feelings.
     </p>
   }
@@ -91,17 +94,17 @@ print <<HTML
   <title>JSLintMate</title>
   <style>
     html, body {
+      height: 100%;
       margin: 0;
       padding: 0;
     }
     body {
-      height: 100%;
       overflow: auto;
       overflow-x: hidden;
-      background: -webkit-gradient(linear, left top, left bottom,
-                                          from(#ececec), to(#d2d2d2));
-      background: -webkit-linear-gradient(top, #ececec,     #d2d2d2);
-      background:         linear-gradient(top, #ececec,     #d2d2d2);
+        background: -webkit-gradient(linear, left top, left bottom,
+                                            from(#ececec), to(#d2d2d2));
+        background: -webkit-linear-gradient(top, #ececec,     #d2d2d2);
+      background:           linear-gradient(top, #ececec,     #d2d2d2);
       background-attachment: fixed;
       font-family: "Lucida Grande", "Helvetica Neue", Helvetica, sans-serif;
     }
@@ -118,8 +121,8 @@ print <<HTML
       background:         linear-gradient(top, #333, 0.5 #191919, 0.5 #090909, #090909);
       border-top: 1px solid #555;
       border-bottom: 1px solid #333;
-        -webkit-box-shadow: 0 5px 5px rgba(0, 0, 0, 0.25);
-      box-shadow:           0 5px 5px rgba(0, 0, 0, 0.25);
+        -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+      box-shadow:           0 2px 5px rgba(0, 0, 0, 0.25);
       color: #fff;
       font-size: 1.5em;
       text-shadow: 0 -1px 1px #000;
@@ -147,7 +150,7 @@ print <<HTML
       font-weight: bold;
       text-align: center;
     }
-    p.error {
+    p.alert {
       margin: 2em;
       padding: 1em;
       background: -webkit-gradient(linear, left top, left bottom,
@@ -219,6 +222,7 @@ print <<HTML
       float: right;
       color: rgba(0, 0, 0, 0.5);
       font-size: 0.75em;
+      text-transform: lowercase;
     }
     ul.problems li.alert .location {
       color: rgba(255, 255, 255, 0.75);
