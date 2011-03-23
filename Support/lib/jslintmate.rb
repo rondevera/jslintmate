@@ -4,8 +4,9 @@
 # (JSLint.com is a powerful JS code quality tool.)
 
 # To update jslint.js:
-# 1. curl http://www.jslint.com/fulljslint.js > /path/to/JSLintMate.tmbundle/Support/lib/jslint.js
-# 2. cat /path/to/JSLintMate.tmbundle/Support/lib/fulljslint-jsc.js >> /path/to/JSLintMate.tmbundle/Support/lib/jslint.js
+# 1. cd /path/to/JSLintMate.tmbundle/Support/lib/
+# 2. curl http://www.jslint.com/fulljslint.js > jslint.js
+# 3. cat fulljslint-jsc.js >> jslint.js
 
 require 'cgi'
 
@@ -38,13 +39,15 @@ if ENV['TM_FILEPATH']
   #         lint   = `java org.mozilla.javascript.tools.shell.Main #{linter} "#{filepath}"`
 
   lint.gsub!(/^(Lint at line )(\d+)(.+?:)(.+?)\n(?:(.+?)\n\n)?/m) do
-    line, char, desc, code = ($2.to_i - 1).to_s, $3, $4, $5
+    line, char, desc, code = $2, $3, $4, $5
+
+    line = (line.to_i - 1).to_s
+    char = (char.scan(/\d+/)[0].to_i - 1).to_s
     line_uri = "txmt://open?url=file://#{filepath}" <<
-               "&line=#{CGI.escapeHTML(line)}"
-    char.sub!(/:$/, '')
+               "&line=#{CGI.escapeHTML(line)}&column=#{CGI.escapeHTML(char)}"
     desc = %{<span class="desc">#{CGI.escapeHTML(desc)}</span>} if desc
     loc  = %{<span class="location">#{
-              CGI.escapeHTML("Line #{line}, #{char}")}</span>}
+              CGI.escapeHTML("Line #{line}, character #{char}")}</span>}
     code = %{<pre>#{CGI.escapeHTML(code)}</pre>} if code
 
     %{<li><a href="#{line_uri}">#{desc} #{loc} #{code}</a></li>}
@@ -65,7 +68,6 @@ if ENV['TM_FILEPATH']
       <ul class="problems">#{lint}</ul>
     }
   end
-  # result.gsub!(/TM_FILEPATH/, ENV['TM_FILEPATH'])
 else # !ENV['TM_FILEPATH']
   result = %{
     <header>Oops!</header>
