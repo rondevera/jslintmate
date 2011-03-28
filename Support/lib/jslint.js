@@ -1,10 +1,8 @@
-// http://www.jslint.com/fulljslint.js
-
 // jslint.js
-// 2011-03-18
+// 2011-03-27
 
 // Copyright (c) 2002 Douglas Crockford  (www.JSLint.com)
-//
+
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
 // in the Software without restriction, including without limitation the rights
@@ -177,6 +175,7 @@
 //     maxerr     the maximum number of errors to allow
 //     maxlen     the maximum length of a source line
 //     newcap     true, if constructor names must be capitalized
+//     node       true, if Node.js globals should be predefined
 //     nomen      true, if names should be checked
 //     on         true, if HTML event handlers should be allowed
 //     onevar     true, if only one var statement per function should be allowed
@@ -217,16 +216,16 @@
     ReferenceError, RegExp, ResizeAnimation, RotateAnimation, SQRT1_2,
     SQRT2, ScrollBar, String, Style, SyntaxError, System, Text, TextArea,
     Timer, TypeError, URIError, URL, VBArray, WScript, Web, Window, XMLDOM,
-    XMLHttpRequest, "\\", a, a_function, a_label, a_not_allowed,
-    a_not_defined, a_scope, abbr, acronym, activeborder, activecaption,
-    address, adsafe, adsafe_a, adsafe_autocomplete, adsafe_bad_id,
-    adsafe_div, adsafe_fragment, adsafe_go, adsafe_html, adsafe_id,
-    adsafe_id_go, adsafe_lib, adsafe_lib_second, adsafe_missing_id,
-    adsafe_name_a, adsafe_placement, adsafe_prefix_a, adsafe_script,
-    adsafe_source, adsafe_subscript_a, adsafe_tag, alert, aliceblue, all,
-    already_defined, and, animator, antiquewhite, appleScript, applet,
-    apply, approved, appworkspace, aqua, aquamarine, area, arguments, arity,
-    article, aside, assign, assign_exception,
+    XMLHttpRequest, "\\", __dirname, __filename, a, a_function, a_label,
+    a_not_allowed, a_not_defined, a_scope, abbr, acronym, activeborder,
+    activecaption, address, adsafe, adsafe_a, adsafe_autocomplete,
+    adsafe_bad_id, adsafe_div, adsafe_fragment, adsafe_go, adsafe_html,
+    adsafe_id, adsafe_id_go, adsafe_lib, adsafe_lib_second,
+    adsafe_missing_id, adsafe_name_a, adsafe_placement, adsafe_prefix_a,
+    adsafe_script, adsafe_source, adsafe_subscript_a, adsafe_tag, alert,
+    aliceblue, all, already_defined, and, animator, antiquewhite,
+    appleScript, applet, apply, approved, appworkspace, aqua, aquamarine,
+    area, arguments, arity, article, aside, assign, assign_exception,
     assignment_function_expression, at, attribute_case_a, audio,
     autocomplete, avoid_a, azure, b, background, "background-attachment",
     "background-color", "background-image", "background-position",
@@ -304,48 +303,49 @@
     midnightblue, "min-height", "min-width", mintcream, missing_a,
     missing_a_after_b, missing_option, missing_property, missing_space_a_b,
     missing_url, missing_use_strict, mistyrose, mixed, mm, moccasin, mode,
-    move_invocation, move_var, name, name_function, nav, navajowhite,
-    navigator, navy, nested_comment, newcap, next, noframes, nomen,
-    noscript, not, not_a_constructor, not_a_defined, not_a_function,
-    not_a_label, not_a_scope, not_greater, nud, object, ol, oldlace, olive,
-    olivedrab, on, onevar, opacity, open, openURL, opera, optgroup, option,
-    orange, orangered, orchid, outer, outline, "outline-color",
-    "outline-style", "outline-width", output, overflow, "overflow-x",
-    "overflow-y", p, padding, "padding-bottom", "padding-left",
-    "padding-right", "padding-top", "page-break-after", "page-break-before",
-    palegoldenrod, palegreen, paleturquoise, palevioletred, papayawhip,
-    param, parameter_a_get_b, parameter_set_a, paren, parent, parseFloat,
-    parseInt, passfail, pc, peachpuff, peru, pink, play, plum, plusplus,
-    pop, popupMenu, position, postscript, powderblue, pre, predef,
-    preferenceGroups, preferences, prev, print, progress, projection,
-    prompt, prototype, pt, purple, push, px, q, quit, quote, quotes, radix,
-    random, range, raw, readFile, readUrl, read_only, reason, red,
-    redefinition_a, regexp, reloadWidget, replace, report, reserved,
-    reserved_a, resolvePath, resumeUpdates, rhino, right, rosybrown,
-    royalblue, rp, rt, ruby, runCommand, runCommandInBg, saddlebrown, safe,
-    salmon, samp, sandybrown, saveAs, savePreferences, scanned_a_b, screen,
-    script, scrollbar, seagreen, seal, search, seashell, second, section,
-    select, serialize, setInterval, setTimeout, shift,
-    showWidgetPreferences, sienna, silver, skyblue, slash_equal, slateblue,
-    slategray, sleep, slice, small, snow, sort, source, span, spawn, speak,
-    speech, split, springgreen, src, stack, statement_block, steelblue,
-    stopping, strange_loop, strict, strong, style, styleproperty, sub,
-    subscript, substr, sup, supplant, suppressUpdates, sync, system, table,
-    "table-layout", tag_a_in_b, tan, tbody, td, teal, tellWidget, test,
-    "text-align", "text-decoration", "text-indent", "text-shadow",
-    "text-transform", textarea, tfoot, th, thead, third, thistle,
-    threeddarkshadow, threedface, threedhighlight, threedlightshadow,
-    threedshadow, thru, time, title, toLowerCase, toString, toUpperCase,
-    toint32, token, tomato, too_long, too_many, top, tr, trailing_decimal_a,
-    tree, tt, tty, turquoise, tv, type, u, ul, unclosed, unclosed_comment,
-    unclosed_regexp, undef, unescape, unescaped_a, unexpected_a,
-    unexpected_char_a_b, unexpected_comment, unexpected_member_a,
-    unexpected_space_a_b, "unicode-bidi", unnecessary_initialize,
-    unnecessary_use, unreachable_a_b, unrecognized_style_attribute_a,
-    unrecognized_tag_a, unsafe, unused, unwatch, updateNow, url, urls,
-    use_array, use_braces, use_object, used_before_a, value, valueOf, var,
-    var_a_not, version, "vertical-align", video, violet, visibility, was,
-    watch, weird_assignment, weird_condition, weird_new, weird_program,
+    module, move_invocation, move_var, name, name_function, nav,
+    navajowhite, navigator, navy, nested_comment, newcap, next, node,
+    noframes, nomen, noscript, not, not_a_constructor, not_a_defined,
+    not_a_function, not_a_label, not_a_scope, not_greater, nud, object, ol,
+    oldlace, olive, olivedrab, on, onevar, opacity, open, openURL, opera,
+    optgroup, option, orange, orangered, orchid, outer, outline,
+    "outline-color", "outline-style", "outline-width", output, overflow,
+    "overflow-x", "overflow-y", p, padding, "padding-bottom",
+    "padding-left", "padding-right", "padding-top", "page-break-after",
+    "page-break-before", palegoldenrod, palegreen, paleturquoise,
+    palevioletred, papayawhip, param, parameter_a_get_b, parameter_set_a,
+    paren, parent, parseFloat, parseInt, passfail, pc, peachpuff, peru,
+    pink, play, plum, plusplus, pop, popupMenu, position, postscript,
+    powderblue, pre, predef, preferenceGroups, preferences, prev, print,
+    process, progress, projection, prompt, prototype, pt, purple, push, px,
+    q, quit, quote, quotes, radix, random, range, raw, readFile, readUrl,
+    read_only, reason, red, redefinition_a, regexp, reloadWidget, replace,
+    report, require, reserved, reserved_a, resolvePath, resumeUpdates,
+    rhino, right, rosybrown, royalblue, rp, rt, ruby, runCommand,
+    runCommandInBg, saddlebrown, safe, salmon, samp, sandybrown, saveAs,
+    savePreferences, scanned_a_b, screen, script, scrollbar, seagreen, seal,
+    search, seashell, second, section, select, serialize, setInterval,
+    setTimeout, shift, showWidgetPreferences, sienna, silver, skyblue,
+    slash_equal, slateblue, slategray, sleep, slice, small, snow, sort,
+    source, span, spawn, speak, speech, split, springgreen, src, stack,
+    statement_block, steelblue, stopping, strange_loop, strict, strong,
+    style, styleproperty, sub, subscript, substr, sup, supplant,
+    suppressUpdates, sync, system, table, "table-layout", tag_a_in_b, tan,
+    tbody, td, teal, tellWidget, test, "text-align", "text-decoration",
+    "text-indent", "text-shadow", "text-transform", textarea, tfoot, th,
+    thead, third, thistle, threeddarkshadow, threedface, threedhighlight,
+    threedlightshadow, threedshadow, thru, time, title, toLowerCase,
+    toString, toUpperCase, toint32, token, tomato, too_long, too_many, top,
+    tr, trailing_decimal_a, tree, tt, tty, turquoise, tv, type, u, ul,
+    unclosed, unclosed_comment, unclosed_regexp, undef, unescape,
+    unescaped_a, unexpected_a, unexpected_char_a_b, unexpected_comment,
+    unexpected_member_a, unexpected_space_a_b, "unicode-bidi",
+    unnecessary_initialize, unnecessary_use, unreachable_a_b,
+    unrecognized_style_attribute_a, unrecognized_tag_a, unsafe, unused,
+    unwatch, updateNow, url, urls, use_array, use_braces, use_object,
+    used_before_a, value, valueOf, var, var_a_not, version,
+    "vertical-align", video, violet, visibility, was, watch,
+    weird_assignment, weird_condition, weird_new, weird_program,
     weird_relation, weird_ternary, wheat, white, "white-space", whitesmoke,
     widget, width, window, windowframe, windows, windowtext, "word-spacing",
     "word-wrap", wrap, wrap_immediate, wrap_regexp, write_is_wrong,
@@ -375,58 +375,58 @@ var JSLINT = (function () {
 // These are operators that should not be used with the ! operator.
 
         bang = {
-            '<': true,
-            '<=': true,
-            '==': true,
+            '<'  : true,
+            '<=' : true,
+            '==' : true,
             '===': true,
             '!==': true,
-            '!=': true,
-            '>': true,
-            '>=': true,
-            '+': true,
-            '-': true,
-            '*': true,
-            '/': true,
-            '%': true
+            '!=' : true,
+            '>'  : true,
+            '>=' : true,
+            '+'  : true,
+            '-'  : true,
+            '*'  : true,
+            '/'  : true,
+            '%'  : true
         },
 
 // These are property names that should not be permitted in the safe subset.
 
         banned = {
-            'arguments'     : true,
-            callee          : true,
-            caller          : true,
-            constructor     : true,
-            'eval'          : true,
-            prototype       : true,
-            stack           : true,
-            unwatch         : true,
-            valueOf         : true,
-            watch           : true
+            'arguments' : true,
+            callee      : true,
+            caller      : true,
+            constructor : true,
+            'eval'      : true,
+            prototype   : true,
+            stack       : true,
+            unwatch     : true,
+            valueOf     : true,
+            watch       : true
         },
         begin,          // The root token
 
 // browser contains a set of global names that are commonly provided by a
-// web browser environment. self and window are intentially excluded because
-// of the high likelihood for misue.
+// web browser environment.
 
         browser = {
-            clearInterval   : false,
-            clearTimeout    : false,
-            document        : false,
-            event           : false,
-            frames          : false,
-            history         : false,
-            Image           : false,
-            location        : false,
-            name            : false,
-            navigator       : false,
-            Option          : false,
-            parent          : false,
-            screen          : false,
-            setInterval     : false,
-            setTimeout      : false,
-            XMLHttpRequest  : false
+            clearInterval  : false,
+            clearTimeout   : false,
+            document       : false,
+            event          : false,
+            frames         : false,
+            history        : false,
+            Image          : false,
+            location       : false,
+            name           : false,
+            navigator      : false,
+            Option         : false,
+            parent         : false,
+            screen         : false,
+            setInterval    : false,
+            setTimeout     : false,
+            window         : false,
+            XMLHttpRequest : false
         },
 
 // bundle contains the text messages.
@@ -959,6 +959,14 @@ var JSLINT = (function () {
         lines,
         lookahead,
         member,
+        node = {
+            global     : true,
+            module     : true,
+            process    : true,
+            require    : true,
+            __filename : true,
+            __dirname  : true
+        },
         properties,
         next_token,
         older_token,
@@ -1327,6 +1335,9 @@ var JSLINT = (function () {
             if (option.windows) {
                 combine(predefined, windows);
             }
+            if (option.node) {
+                combine(predefined, node);
+            }
             if (option.widget) {
                 combine(predefined, widget);
             }
@@ -1355,7 +1366,7 @@ var JSLINT = (function () {
         character = offender.from || 0;
         warning = {
             id: '(error)',
-            raw: message,
+            raw: bundle[message] || message,
             evidence: lines[line - 1] || '',
             line: line,
             character: character,
@@ -1364,7 +1375,7 @@ var JSLINT = (function () {
             c: c,
             d: d
         };
-        warning.reason = message.supplant(warning);
+        warning.reason = warning.raw.supplant(warning);
         JSLINT.errors.push(warning);
         if (option.passfail) {
             quit(bundle.stopping, line, character);
@@ -1397,15 +1408,14 @@ var JSLINT = (function () {
 
     function expected_at(at) {
         if (option.white && next_token.from !== at) {
-            warn(bundle.expected_a_at_b_c, next_token, next_token.value, at,
+            warn('expected_a_at_b_c', next_token, next_token.value, at,
                 next_token.from);
         }
     }
 
     function aint(it, name, expected) {
-
         if (it[name] !== expected) {
-            warn(bundle.expected_a_b, it, expected, it[name]);
+            warn('expected_a_b', it, expected, it[name]);
             return true;
         } else {
             return false;
@@ -1427,12 +1437,13 @@ var JSLINT = (function () {
                 at: at,
                 line: line
             };
-            if (comments_off || src || (xmode && xmode !== 'script' && xmode !== 'style' && xmode !== 'styleproperty')) {
-                warn_at(bundle.unexpected_comment, line, character);
+            if (comments_off || src || (xmode && xmode !== 'script' &&
+                    xmode !== 'style' && xmode !== 'styleproperty')) {
+                warn_at('unexpected_comment', line, character);
             } else if (xmode === 'script' && /<\//i.test(source_row)) {
-                warn_at(bundle.unexpected_a, line, character, '<\/');
+                warn_at('unexpected_a', line, character, '<\/');
             } else if (option.safe && ax.test(comment)) {
-                warn_at(bundle.dangerous_comment, line, at);
+                warn_at('dangerous_comment', line, at);
             }
             if (older_token.comments) {
                 older_token.comments.push(comment_object);
@@ -1452,15 +1463,15 @@ var JSLINT = (function () {
             line += 1;
             at = source_row.search(/ \t/);
             if (at >= 0) {
-                warn_at(bundle.mixed, line, at + 1);
+                warn_at('mixed', line, at + 1);
             }
             source_row = source_row.replace(/\t/g, tab);
             at = source_row.search(cx);
             if (at >= 0) {
-                warn_at(bundle.unsafe, line, at);
+                warn_at('unsafe', line, at);
             }
             if (option.maxlen && option.maxlen < source_row.length) {
-                warn_at(bundle.too_long, line, source_row.length);
+                warn_at('too_long', line, source_row.length);
             }
             return true;
         }
@@ -1471,7 +1482,7 @@ var JSLINT = (function () {
             var id, the_token;
             if (type === '(string)' || type === '(range)') {
                 if (jx.test(value)) {
-                    warn_at(bundle.url, line, from);
+                    warn_at('url', line, from);
                 }
             }
             the_token = Object.create(syntax[(
@@ -1484,11 +1495,11 @@ var JSLINT = (function () {
             if (type === '(identifier)') {
                 the_token.identifier = true;
                 if (value === '__iterator__' || value === '__proto__') {
-                    fail_at(bundle.reserved_a, line, from, value);
+                    fail_at('reserved_a', line, from, value);
                 } else if (option.nomen &&
                         (value.charAt(0) === '_' ||
                         value.charAt(value.length - 1) === '_')) {
-                    warn_at(bundle.dangling_a, line, from, value);
+                    warn_at('dangling_a', line, from, value);
                 }
             }
             if (value !== undefined) {
@@ -1532,7 +1543,8 @@ var JSLINT = (function () {
                 var c, value = '';
                 from = character;
                 if (source_row.charAt(0) !== begin) {
-                    fail_at(bundle.expected_a_b, line, character, begin, source_row.charAt(0));
+                    fail_at('expected_a_b', line, character, begin,
+                        source_row.charAt(0));
                 }
                 for (;;) {
                     source_row = source_row.slice(1);
@@ -1540,7 +1552,7 @@ var JSLINT = (function () {
                     c = source_row.charAt(0);
                     switch (c) {
                     case '':
-                        fail_at(bundle.missing_a, line, character, c);
+                        fail_at('missing_a', line, character, c);
                         break;
                     case end:
                         source_row = source_row.slice(1);
@@ -1548,7 +1560,7 @@ var JSLINT = (function () {
                         return it('(range)', value);
                     case xquote:
                     case '\\':
-                        warn_at(bundle.unexpected_a, line, character, c);
+                        warn_at('unexpected_a', line, character, c);
                         break;
                     }
                     value += c;
@@ -1581,14 +1593,14 @@ var JSLINT = (function () {
                         j += n;
                         if (i >= 32 && i <= 126 &&
                                 i !== 34 && i !== 92 && i !== 39) {
-                            warn_at(bundle.unexpected_a, line, character, '\\');
+                            warn_at('unexpected_a', line, character, '\\');
                         }
                         character += n;
                         c = String.fromCharCode(i);
                     }
 
                     if (json_mode && x !== '"') {
-                        warn_at(bundle.expected_a, line, character, '"');
+                        warn_at('expected_a', line, character, '"');
                     }
 
                     if (xquote === x || (xmode === 'scriptstring' && !xquote)) {
@@ -1600,7 +1612,7 @@ var JSLINT = (function () {
                         while (j >= source_row.length) {
                             j = 0;
                             if (xmode !== 'html' || !next_line()) {
-                                fail_at(bundle.unclosed, line, from);
+                                fail_at('unclosed', line, from);
                             }
                         }
                         c = source_row.charAt(j);
@@ -1613,30 +1625,30 @@ var JSLINT = (function () {
                             if (c === '\n' || c === '\r') {
                                 break;
                             }
-                            warn_at(bundle.control_a,
+                            warn_at('control_a',
                                 line, character + j, source_row.slice(0, j));
                         } else if (c === xquote) {
-                            warn_at(bundle.bad_html, line, character + j);
+                            warn_at('bad_html', line, character + j);
                         } else if (c === '<') {
                             if (option.safe && xmode === 'html') {
-                                warn_at(bundle.adsafe_a, line, character + j, c);
+                                warn_at('adsafe_a', line, character + j, c);
                             } else if (source_row.charAt(j + 1) === '/' && (xmode || option.safe)) {
-                                warn_at(bundle.expected_a_b, line, character,
+                                warn_at('expected_a_b', line, character,
                                     '<\\/', '</');
                             } else if (source_row.charAt(j + 1) === '!' && (xmode || option.safe)) {
-                                warn_at(bundle.unexpected_a, line, character, '<!');
+                                warn_at('unexpected_a', line, character, '<!');
                             }
                         } else if (c === '\\') {
                             if (xmode === 'html') {
                                 if (option.safe) {
-                                    warn_at(bundle.adsafe_a, line, character + j, c);
+                                    warn_at('adsafe_a', line, character + j, c);
                                 }
                             } else if (xmode === 'styleproperty') {
                                 j += 1;
                                 character += 1;
                                 c = source_row.charAt(j);
                                 if (c !== x) {
-                                    warn_at(bundle.unexpected_a, line, character, '\\');
+                                    warn_at('unexpected_a', line, character, '\\');
                                 }
                             } else {
                                 j += 1;
@@ -1644,7 +1656,7 @@ var JSLINT = (function () {
                                 c = source_row.charAt(j);
                                 switch (c) {
                                 case xquote:
-                                    warn_at(bundle.bad_html, line, character + j);
+                                    warn_at('bad_html', line, character + j);
                                     break;
                                 case '\\':
                                 case '"':
@@ -1652,7 +1664,7 @@ var JSLINT = (function () {
                                     break;
                                 case '\'':
                                     if (json_mode) {
-                                        warn_at(bundle.unexpected_a, line, character, '\\\'');
+                                        warn_at('unexpected_a', line, character, '\\\'');
                                     }
                                     break;
                                 case 'b':
@@ -1675,18 +1687,18 @@ var JSLINT = (function () {
                                     break;
                                 case 'v':
                                     if (json_mode) {
-                                        warn_at(bundle.unexpected_a, line, character, '\\v');
+                                        warn_at('unexpected_a', line, character, '\\v');
                                     }
                                     c = '\v';
                                     break;
                                 case 'x':
                                     if (json_mode) {
-                                        warn_at(bundle.unexpected_a, line, character, '\\x');
+                                        warn_at('unexpected_a', line, character, '\\x');
                                     }
                                     hex(2);
                                     break;
                                 default:
-                                    warn_at(bundle.unexpected_a, line, character, '\\');
+                                    warn_at('unexpected_a', line, character, '\\');
                                 }
                             }
                         }
@@ -1727,46 +1739,46 @@ var JSLINT = (function () {
                             if (xmode === 'html') {
                                 return it('(error)', source_row.charAt(0));
                             } else {
-                                fail_at(bundle.unexpected_a,
+                                fail_at('unexpected_a',
                                     line, character, source_row.substr(0, 1));
                             }
                         }
                     } else {
 
-    //      identifier
+//      identifier
 
                         if (c.isAlpha() || c === '_' || c === '$') {
                             return it('(identifier)', symbol);
                         }
 
-    //      number
+//      number
 
                         if (c.isDigit()) {
                             if (xmode !== 'style' &&
                                     xmode !== 'styleproperty' &&
                                     source_row.substr(0, 1).isAlpha()) {
-                                warn_at(bundle.expected_space_a_b,
+                                warn_at('expected_space_a_b',
                                     line, character, c, source_row.charAt(0));
                             }
                             if (c === '0') {
                                 digit = symbol.substr(1, 1);
                                 if (digit.isDigit()) {
                                     if (token.id !== '.' && xmode !== 'styleproperty') {
-                                        warn_at(bundle.unexpected_a,
+                                        warn_at('unexpected_a',
                                             line, character, symbol);
                                     }
                                 } else if (json_mode && (digit === 'x' || digit === 'X')) {
-                                    warn_at(bundle.unexpected_a, line, character, '0x');
+                                    warn_at('unexpected_a', line, character, '0x');
                                 }
                             }
                             if (symbol.substr(symbol.length - 1) === '.') {
-                                warn_at(bundle.trailing_decimal_a, line,
+                                warn_at('trailing_decimal_a', line,
                                     character, symbol);
                             }
                             if (xmode !== 'style') {
                                 digit = +symbol;
                                 if (!isFinite(digit)) {
-                                    warn_at(bundle.bad_number, line, character, symbol);
+                                    warn_at('bad_number', line, character, symbol);
                                 }
                                 symbol = digit;
                             }
@@ -1774,20 +1786,20 @@ var JSLINT = (function () {
                         }
                         switch (symbol) {
 
-    //      string
+//      string
 
                         case '"':
                         case "'":
                             return string(symbol);
 
-    //      // comment
+//      // comment
 
                         case '//':
                             collect_comment(source_row, '//', line, character);
                             source_row = '';
                             break;
 
-    //      /* comment
+//      /* comment
 
                         case '/*':
                             quote = '/*';
@@ -1799,20 +1811,20 @@ var JSLINT = (function () {
                                 collect_comment(source_row, quote, line, character);
                                 quote = '';
                                 if (!next_line()) {
-                                    fail_at(bundle.unclosed_comment, line, character);
+                                    fail_at('unclosed_comment', line, character);
                                 }
                             }
                             collect_comment(source_row.slice(0, i), quote, character, line);
                             character += i + 2;
                             if (source_row.substr(i, 1) === '/') {
-                                fail_at(bundle.nested_comment, line, character);
+                                fail_at('nested_comment', line, character);
                             }
                             source_row = source_row.substr(i + 2);
                             break;
 
                         case '':
                             break;
-    //      /
+//      /
                         case '/':
                             if (token.id === '/=') {
                                 fail_at(
@@ -1831,11 +1843,11 @@ var JSLINT = (function () {
                                     length += 1;
                                     switch (c) {
                                     case '':
-                                        fail_at(bundle.unclosed_regexp, line, from);
+                                        fail_at('unclosed_regexp', line, from);
                                         return;
                                     case '/':
                                         if (depth > 0) {
-                                            warn_at(bundle.unescaped_a,
+                                            warn_at('unescaped_a',
                                                 line, from + length, '/');
                                         }
                                         c = source_row.substr(0, length - 1);
@@ -1845,21 +1857,21 @@ var JSLINT = (function () {
                                             length += 1;
                                         }
                                         if (source_row.charAt(length).isAlpha()) {
-                                            fail_at(bundle.unexpected_a,
+                                            fail_at('unexpected_a',
                                                 line, from, source_row.charAt(length));
                                         }
                                         character += length;
                                         source_row = source_row.substr(length);
                                         quote = source_row.charAt(0);
                                         if (quote === '/' || quote === '*') {
-                                            fail_at(bundle.confusing_regexp,
+                                            fail_at('confusing_regexp',
                                                 line, from);
                                         }
                                         return it('(regexp)', c);
                                     case '\\':
                                         c = source_row.charAt(length);
                                         if (c < ' ') {
-                                            warn_at(bundle.control_a,
+                                            warn_at('control_a',
                                                 line, from + length, String(c));
                                         } else if (c === '<') {
                                             warn_at(
@@ -1900,7 +1912,7 @@ var JSLINT = (function () {
                                         break;
                                     case ')':
                                         if (depth === 0) {
-                                            warn_at(bundle.unescaped_a,
+                                            warn_at('unescaped_a',
                                                 line, from + length, ')');
                                         } else {
                                             depth -= 1;
@@ -1913,7 +1925,7 @@ var JSLINT = (function () {
                                             j += 1;
                                         }
                                         if (j > 1) {
-                                            warn_at(bundle.use_braces,
+                                            warn_at('use_braces',
                                                 line, from + length, j);
                                         }
                                         break;
@@ -1922,16 +1934,16 @@ var JSLINT = (function () {
                                         if (c === '^') {
                                             length += 1;
                                             if (option.regexp) {
-                                                warn_at(bundle.insecure_a,
+                                                warn_at('insecure_a',
                                                     line, from + length, c);
                                             } else if (source_row.charAt(length) === ']') {
-                                                fail_at(bundle.unescaped_a,
+                                                fail_at('unescaped_a',
                                                     line, from + length, '^');
                                             }
                                         }
                                         quote = false;
                                         if (c === ']') {
-                                            warn_at(bundle.empty_class, line,
+                                            warn_at('empty_class', line,
                                                 from + length - 1);
                                             quote = true;
                                         }
@@ -1941,7 +1953,7 @@ klass:                                  do {
                                             switch (c) {
                                             case '[':
                                             case '^':
-                                                warn_at(bundle.unescaped_a,
+                                                warn_at('unescaped_a',
                                                     line, from + length, c);
                                                 quote = true;
                                                 break;
@@ -1949,14 +1961,14 @@ klass:                                  do {
                                                 if (quote) {
                                                     quote = false;
                                                 } else {
-                                                    warn_at(bundle.unescaped_a,
+                                                    warn_at('unescaped_a',
                                                         line, from + length, '-');
                                                     quote = true;
                                                 }
                                                 break;
                                             case ']':
                                                 if (!quote) {
-                                                    warn_at(bundle.unescaped_a,
+                                                    warn_at('unescaped_a',
                                                         line, from + length - 1, '-');
                                                 }
                                                 break klass;
@@ -1981,7 +1993,7 @@ klass:                                  do {
                                                 quote = true;
                                                 break;
                                             case '/':
-                                                warn_at(bundle.unescaped_a,
+                                                warn_at('unescaped_a',
                                                     line, from + length - 1, '/');
                                                 quote = true;
                                                 break;
@@ -2006,7 +2018,7 @@ klass:                                  do {
                                         break;
                                     case '.':
                                         if (option.regexp) {
-                                            warn_at(bundle.insecure_a, line,
+                                            warn_at('insecure_a', line,
                                                 from + length, c);
                                         }
                                         break;
@@ -2016,7 +2028,7 @@ klass:                                  do {
                                     case '}':
                                     case '+':
                                     case '*':
-                                        warn_at(bundle.unescaped_a, line,
+                                        warn_at('unescaped_a', line,
                                             from + length, c);
                                         break;
                                     case '<':
@@ -2116,7 +2128,7 @@ klass:                                  do {
                             }
                             return it('(punctuator)', symbol);
 
-    //      punctuator
+//      punctuator
 
                         case '<!--':
                             length = line;
@@ -2128,21 +2140,21 @@ klass:                                  do {
                                 }
                                 i = source_row.indexOf('<!');
                                 if (i >= 0) {
-                                    fail_at(bundle.nested_comment,
+                                    fail_at('nested_comment',
                                         line, character + i);
                                 }
                                 if (!next_line()) {
-                                    fail_at(bundle.unclosed_comment, length, c);
+                                    fail_at('unclosed_comment', length, c);
                                 }
                             }
                             length = source_row.indexOf('<!');
                             if (length >= 0 && length < i) {
-                                fail_at(bundle.nested_comment,
+                                fail_at('nested_comment',
                                     line, character + length);
                             }
                             character += i;
                             if (source_row.charAt(i + 2) !== '>') {
-                                fail_at(bundle.expected_a, line, character, '-->');
+                                fail_at('expected_a', line, character, '-->');
                             }
                             character += 3;
                             source_row = source_row.slice(i + 3);
@@ -2161,7 +2173,7 @@ klass:                                  do {
                                     symbol += c;
                                 }
                                 if (symbol.length !== 4 && symbol.length !== 7) {
-                                    warn_at(bundle.bad_color_a, line,
+                                    warn_at('bad_color_a', line,
                                         from + length, symbol);
                                 }
                                 return it('(color)', symbol);
@@ -2182,7 +2194,7 @@ klass:                                  do {
                                     if (!((c >= '0' && c <= '9') ||
                                             (c >= 'a' && c <= 'z') ||
                                             c === '#')) {
-                                        fail_at(bundle.bad_entity, line, from + length,
+                                        fail_at('bad_entity', line, from + length,
                                             character);
                                     }
                                 }
@@ -2201,9 +2213,9 @@ klass:                                  do {
 
         if (option.safe && funct['(global)'] &&
                 typeof predefined[symbol] !== 'boolean') {
-            warn(bundle.adsafe_a, token, symbol);
+            warn('adsafe_a', token, symbol);
         } else if (symbol === 'hasOwnProperty') {
-            warn(bundle.bad_name_a, token, symbol);
+            warn('bad_name_a', token, symbol);
         }
 
 // Define symbol in the current function in the current scope.
@@ -2217,11 +2229,11 @@ klass:                                  do {
         funct[symbol] = type;
         if (funct['(global)']) {
             if (global[symbol] === false) {
-                warn(bundle.read_only);
+                warn('read_only');
             }
             global[symbol] = true;
             if (Object.prototype.hasOwnProperty.call(implied, symbol)) {
-                warn(bundle.used_before_a, next_token, symbol);
+                warn('used_before_a', next_token, symbol);
                 delete implied[symbol];
             }
         } else {
@@ -2335,17 +2347,17 @@ klass:                                  do {
         switch (token.id) {
         case '(number)':
             if (next_token.id === '.') {
-                warn(bundle.trailing_decimal_a);
+                warn('trailing_decimal_a');
             }
             break;
         case '-':
             if (next_token.id === '-' || next_token.id === '--') {
-                warn(bundle.confusing_a);
+                warn('confusing_a');
             }
             break;
         case '+':
             if (next_token.id === '+' || next_token.id === '++') {
-                warn(bundle.confusing_a);
+                warn('confusing_a');
             }
             break;
         }
@@ -2355,10 +2367,10 @@ klass:                                  do {
 
         if (id && next_token.id !== id) {
             if (match) {
-                warn(bundle.expected_a_b_from_c_d, next_token, id,
+                warn('expected_a_b_from_c_d', next_token, id,
                     match.id, match.line, next_token.value);
             } else if (!next_token.identifier || next_token.value !== id) {
-                warn(bundle.expected_a_b, next_token, id, next_token.value);
+                warn('expected_a_b', next_token, id, next_token.value);
             }
         }
         prev_token = token;
@@ -2379,7 +2391,7 @@ klass:                                  do {
         comments_off = true;
         option.white = false;
         if (lookahead.length > 0 || next_token.comments) {
-            warn(bundle.unexpected_a, this);
+            warn('unexpected_a', this);
         }
         switch (command) {
         case '/*properties':
@@ -2391,16 +2403,16 @@ klass:                                  do {
             break;
         case '/*jslint':
             if (option.safe) {
-                warn(bundle.adsafe_a, this);
+                warn('adsafe_a', this);
             }
             break;
         case '/*global':
             if (option.safe) {
-                warn(bundle.adsafe_a, this);
+                warn('adsafe_a', this);
             }
             break;
         default:
-            fail("What?");
+            fail('unpexpected_a', this);
         }
 loop:   for (;;) {
             for (;;) {
@@ -2413,7 +2425,7 @@ loop:   for (;;) {
                 advance();
             }
             if (next_token.arity !== 'string' && !next_token.identifier) {
-                fail(bundle.unexpected_a, next_token);
+                fail('unexpected_a', next_token);
             }
             name = next_token.value;
             advance();
@@ -2425,31 +2437,31 @@ loop:   for (;;) {
                     case 'true':
                         if (typeof scope[name] === 'object' ||
                                 global[name] === false) {
-                            fail(bundle.unexpected_a);
+                            fail('unexpected_a');
                         }
                         global[name] = true;
                         advance('true');
                         break;
                     case 'false':
                         if (typeof scope[name] === 'object') {
-                            fail(bundle.unexpected_a);
+                            fail('unexpected_a');
                         }
                         global[name] = false;
                         advance('false');
                         break;
                     default:
-                        fail(bundle.unexpected_a);
+                        fail('unexpected_a');
                     }
                 } else {
                     if (typeof scope[name] === 'object') {
-                        fail(bundle.unexpected_a);
+                        fail('unexpected_a');
                     }
                     global[name] = false;
                 }
                 break;
             case '/*jslint':
                 if (next_token.id !== ':') {
-                    fail(bundle.expected_a_b, next_token, ':', next_token.value);
+                    fail('expected_a_b', next_token, ':', next_token.value);
                 }
                 advance(':');
                 switch (name) {
@@ -2458,7 +2470,7 @@ loop:   for (;;) {
                     if (typeof value !== 'number' ||
                             !isFinite(value) || value < 0 ||
                             Math.floor(value) !== value) {
-                        fail(bundle.expected_small_a);
+                        fail('expected_small_a');
                     }
                     if (value > 0) {
                         old_option_white = true;
@@ -2471,7 +2483,7 @@ loop:   for (;;) {
                             !isFinite(value) ||
                             value <= 0 ||
                             Math.floor(value) !== value) {
-                        fail(bundle.expected_small_a, next_token);
+                        fail('expected_small_a', next_token);
                     }
                     option.maxerr = value;
                     break;
@@ -2479,7 +2491,7 @@ loop:   for (;;) {
                     value = +next_token.value;
                     if (typeof value !== 'number' || !isFinite(value) || value < 0 ||
                             Math.floor(value) !== value) {
-                        fail(bundle.expected_small_a);
+                        fail('expected_small_a');
                     }
                     option.maxlen = value;
                     break;
@@ -2489,7 +2501,7 @@ loop:   for (;;) {
                     } else if (next_token.id === 'false') {
                         old_option_white = false;
                     } else {
-                        fail(bundle.unexpected_a);
+                        fail('unexpected_a');
                     }
                     break;
                 default:
@@ -2498,7 +2510,7 @@ loop:   for (;;) {
                     } else if (next_token.id === 'false') {
                         option[name] = false;
                     } else {
-                        fail(bundle.unexpected_a);
+                        fail('unexpected_a');
                     }
                 }
                 advance();
@@ -2507,7 +2519,7 @@ loop:   for (;;) {
                 properties[name] = true;
                 break;
             default:
-                fail(bundle.unexpected_a);
+                fail('unexpected_a');
             }
         }
         if (command === '/*jslint') {
@@ -2579,7 +2591,7 @@ loop:   for (;;) {
         if (right.id !== '(end)' && option.white &&
                 (token.line !== right.line ||
                 token.thru + 1 !== right.from)) {
-            warn(bundle.expected_space_a_b, right, token.value, right.value);
+            warn('expected_space_a_b', right, token.value, right.value);
         }
     }
 
@@ -2588,7 +2600,7 @@ loop:   for (;;) {
         right = right || next_token;
         if (right.id !== '(end)' && (left.line !== right.line ||
                 (option.white && left.thru + 1 !== right.from))) {
-            warn(bundle.expected_space_a_b, right, left.value, right.value);
+            warn('expected_space_a_b', right, left.value, right.value);
         }
     }
 
@@ -2597,7 +2609,7 @@ loop:   for (;;) {
         right = right || next_token;
         if ((option.white || xmode === 'styleproperty' || xmode === 'style') &&
                 left.thru !== right.from && left.line === right.line) {
-            warn(bundle.unexpected_space_a_b, right, left.value, right.value);
+            warn('unexpected_space_a_b', right, left.value, right.value);
         }
     }
 
@@ -2606,7 +2618,7 @@ loop:   for (;;) {
         right = right || next_token;
         if (right.id !== '(end)' && (left.line !== right.line ||
                 (option.white && left.thru !== right.from))) {
-            warn(bundle.unexpected_space_a_b, right, left.value, right.value);
+            warn('unexpected_space_a_b', right, left.value, right.value);
         }
     }
 
@@ -2615,14 +2627,14 @@ loop:   for (;;) {
             left = left || token;
             right = right || next_token;
             if (left.thru === right.from && left.line === right.line) {
-                warn(bundle.missing_space_a_b, right, left.value, right.value);
+                warn('missing_space_a_b', right, left.value, right.value);
             }
         }
     }
 
     function comma() {
         if (next_token.id !== ',') {
-            warn_at(bundle.expected_a_b, token.line, token.thru, ',', next_token.value);
+            warn_at('expected_a_b', token.line, token.thru, ',', next_token.value);
         } else {
             if (option.white) {
                 no_space_only();
@@ -2636,7 +2648,7 @@ loop:   for (;;) {
 
     function semicolon() {
         if (next_token.id !== ';') {
-            warn_at(bundle.expected_a_b, token.line, token.thru, ';', next_token.value);
+            warn_at('expected_a_b', token.line, token.thru, ';', next_token.value);
         } else {
             if (option.white) {
                 no_space_only();
@@ -2652,7 +2664,7 @@ loop:   for (;;) {
     function use_strict() {
         if (next_token.value === 'use strict') {
             if (strict_mode) {
-                warn(bundle.unnecessary_use);
+                warn('unnecessary_use');
             }
             edge();
             advance();
@@ -2737,12 +2749,12 @@ loop:   for (;;) {
 
         var left;
         if (next_token.id === '(end)') {
-            fail(bundle.unexpected_a, token, next_token.id);
+            fail('unexpected_a', token, next_token.id);
         }
         advance();
         if (option.safe && typeof predefined[token.value] === 'boolean' &&
                 (next_token.id !== '(' && next_token.id !== '.')) {
-            warn(bundle.adsafe, token);
+            warn('adsafe', token);
         }
         if (initial) {
             anonname = 'anonymous';
@@ -2755,12 +2767,12 @@ loop:   for (;;) {
                 left = token.nud();
             } else {
                 if (next_token.arity === 'number' && token.id === '.') {
-                    warn(bundle.leading_decimal_a, token,
+                    warn('leading_decimal_a', token,
                         next_token.value);
                     advance();
                     return token;
                 } else {
-                    fail(bundle.expected_identifier_a, token, token.id);
+                    fail('expected_identifier_a', token, token.id);
                 }
             }
             while (rbp < next_token.lbp) {
@@ -2768,7 +2780,7 @@ loop:   for (;;) {
                 if (token.led) {
                     left = token.led(left);
                 } else {
-                    fail(bundle.expected_operator_a, token, token.id);
+                    fail('expected_operator_a', token, token.id);
                 }
             }
         }
@@ -2853,10 +2865,10 @@ loop:   for (;;) {
             this.arity = 'prefix';
             if (this.id === '++' || this.id === '--') {
                 if (option.plusplus) {
-                    warn(bundle.unexpected_a, this);
+                    warn('unexpected_a', this);
                 } else if ((!this.first.identifier || this.first.reserved) &&
                         this.first.id !== '.' && this.first.id !== '[') {
-                    warn(bundle.bad_operand, this);
+                    warn('bad_operand', this);
                 }
             }
             return this;
@@ -2954,20 +2966,20 @@ loop:   for (;;) {
             switch (node.id) {
             case '{':
             case '[':
-                warn(bundle.unexpected_a, node);
+                warn('unexpected_a', node);
                 break;
             case '!':
-                warn(bundle.confusing_a, node);
+                warn('confusing_a', node);
                 break;
             }
             break;
         case 'function':
         case 'regexp':
-            warn(bundle.unexpected_a, node);
+            warn('unexpected_a', node);
             break;
         default:
             if (node.id  === 'NaN') {
-                warn(bundle.isNaN, node);
+                warn('isnan', node);
             }
         }
         return node;
@@ -2978,13 +2990,13 @@ loop:   for (;;) {
         var x = infix(s, 100, function (left, that) {
             check_relation(left);
             if (eqeq) {
-                warn(bundle.expected_a_b, that, eqeq, that.id);
+                warn('expected_a_b', that, eqeq, that.id);
             }
             var right = expression(100);
             if (are_similar(left, right) ||
                     ((left.arity === 'string' || left.arity === 'number') &&
                     (right.arity === 'string' || right.arity === 'number'))) {
-                warn(bundle.weird_relation, that);
+                warn('weird_relation', that);
             }
             that.first = left;
             that.second = check_relation(right);
@@ -2998,48 +3010,48 @@ loop:   for (;;) {
         var x = infix(s, 20, function (left, that) {
             var l;
             if (option.bitwise && bit) {
-                warn(bundle.unexpected_a, that);
+                warn('unexpected_a', that);
             }
             that.first = left;
             if (funct[left.value] === false) {
-                warn(bundle.read_only, left);
+                warn('read_only', left);
             } else if (left['function']) {
-                warn(bundle.a_function, left);
+                warn('a_function', left);
             }
             if (option.safe) {
                 l = left;
                 do {
                     if (typeof predefined[l.value] === 'boolean') {
-                        warn(bundle.adsafe, l);
+                        warn('adsafe', l);
                     }
                     l = l.first;
                 } while (l);
             }
             if (left) {
                 if (left === syntax['function']) {
-                    warn(bundle.identifier_function, token);
+                    warn('identifier_function', token);
                 }
                 if (left.id === '.' || left.id === '[') {
                     if (!left.first || left.first.value === 'arguments') {
-                        warn(bundle.bad_assignment, that);
+                        warn('bad_assignment', that);
                     }
                     that.second = expression(19);
                     if (that.id === '=' && are_similar(that.first, that.second)) {
-                        warn(bundle.weird_assignment, that);
+                        warn('weird_assignment', that);
                     }
                     return that;
                 } else if (left.identifier && !left.reserved) {
                     if (funct[left.value] === 'exception') {
-                        warn(bundle.assign_exception, left);
+                        warn('assign_exception', left);
                     }
                     that.second = expression(19);
                     if (that.id === '=' && are_similar(that.first, that.second)) {
-                        warn(bundle.weird_assignment, that);
+                        warn('weird_assignment', that);
                     }
                     return that;
                 }
             }
-            fail(bundle.bad_assignment, that);
+            fail('bad_assignment', that);
         });
         x.assign = true;
         return x;
@@ -3049,7 +3061,7 @@ loop:   for (;;) {
     function bitwise(s, p) {
         return infix(s, p, function (left, that) {
             if (option.bitwise) {
-                warn(bundle.unexpected_a, that);
+                warn('unexpected_a', that);
             }
             that.first = left;
             that.second = expression(p);
@@ -3063,10 +3075,10 @@ loop:   for (;;) {
         x.led = function (left) {
             no_space_only(prev_token, token);
             if (option.plusplus) {
-                warn(bundle.unexpected_a, this);
+                warn('unexpected_a', this);
             } else if ((!left.identifier || left.reserved) &&
                     left.id !== '.' && left.id !== '[') {
-                warn(bundle.bad_operand, this);
+                warn('bad_operand', this);
             }
             this.first = left;
             this.arity = 'suffix';
@@ -3080,9 +3092,9 @@ loop:   for (;;) {
         if (next_token.identifier) {
             advance();
             if (option.safe && banned[token.value]) {
-                warn(bundle.adsafe_a, token);
+                warn('adsafe_a', token);
             } else if (token.reserved && !option.es5) {
-                warn(bundle.expected_identifier_a_reserved, token);
+                warn('expected_identifier_a_reserved', token);
             }
             return token.value;
         }
@@ -3095,9 +3107,9 @@ loop:   for (;;) {
             return i;
         }
         if (token.id === 'function' && next_token.id === '(') {
-            warn(bundle.name_function);
+            warn('name_function');
         } else {
-            fail(bundle.expected_identifier_a);
+            fail('expected_identifier_a');
         }
     }
 
@@ -3112,7 +3124,7 @@ loop:   for (;;) {
 // We don't like the empty statement.
 
         if (next_token.id === ';') {
-            warn(bundle.unexpected_a);
+            warn('unexpected_a');
             semicolon();
             return;
         }
@@ -3129,10 +3141,10 @@ loop:   for (;;) {
             scope = Object.create(old_scope);
             add_label(label.value, 'label');
             if (next_token.labeled !== true) {
-                warn(bundle.label_a_b, next_token, label.value, next_token.value);
+                warn('label_a_b', next_token, label.value, next_token.value);
             }
             if (jx.test(label.value + ':')) {
-                warn(bundle.url, label);
+                warn('url', label);
             }
             next_token.label = label;
         }
@@ -3164,13 +3176,13 @@ loop:   for (;;) {
 
                 if (the_statement.id === '(') {
                     if (the_statement.first.id === 'new') {
-                        warn(bundle.bad_new);
+                        warn('bad_new');
                     }
                 } else if (!the_statement.assign &&
                         the_statement.id !== 'delete' &&
                         the_statement.id !== '++' &&
                         the_statement.id !== '--') {
-                    warn(bundle.assignment_function_expression, token);
+                    warn('assignment_function_expression', token);
                 }
                 semicolon();
             }
@@ -3189,11 +3201,11 @@ loop:   for (;;) {
 
         while (next_token.postscript !== true) {
             if (next_token.id === ';') {
-                warn(bundle.unexpected_a, next_token);
+                warn('unexpected_a', next_token);
                 semicolon();
             } else {
                 if (disruptor) {
-                    warn(bundle.unreachable_a_b, next_token, next_token.value,
+                    warn('unreachable_a_b', next_token, next_token.value,
                         disruptor.value);
                     disruptor = null;
                 }
@@ -3231,16 +3243,16 @@ loop:   for (;;) {
             step_in();
             if (!ordinary && !use_strict() && !old_strict_mode &&
                     option.strict && funct['(context)']['(global)']) {
-                warn(bundle.missing_use_strict);
+                warn('missing_use_strict');
             }
             array = statements();
             strict_mode = old_strict_mode;
             step_out('}', curly);
             discard();
         } else if (!ordinary) {
-            fail(bundle.expected_a_b, next_token, '{', next_token.value);
+            fail('expected_a_b', next_token, '{', next_token.value);
         } else {
-            warn(bundle.expected_a_b, next_token, '{', next_token.value);
+            warn('expected_a_b', next_token, '{', next_token.value);
             array = [statement()];
             array.disrupt = array[0].disrupt;
         }
@@ -3248,7 +3260,7 @@ loop:   for (;;) {
         scope = old_scope;
         in_block = old_inblock;
         if (ordinary && array.length === 0) {
-            warn(bundle.empty_block);
+            warn('empty_block');
         }
         return array;
     }
@@ -3256,7 +3268,7 @@ loop:   for (;;) {
 
     function tally_property(name) {
         if (properties && typeof properties[name] !== 'boolean') {
-            warn(bundle.unexpected_member_a, token, name);
+            warn('unexpected_member_a', token, name);
         }
         if (typeof member[name] === 'number') {
             member[name] += 1;
@@ -3301,7 +3313,7 @@ loop:   for (;;) {
 
                 switch (funct[variable]) {
                 case 'error':
-                    warn(bundle.unexpected_a, token);
+                    warn('unexpected_a', token);
                     funct[variable] = 'var';
                     break;
                 case 'unused':
@@ -3315,7 +3327,7 @@ loop:   for (;;) {
                     this['function'] = true;
                     break;
                 case 'label':
-                    warn(bundle.a_label, token, variable);
+                    warn('a_label', token, variable);
                     break;
                 }
 
@@ -3327,7 +3339,7 @@ loop:   for (;;) {
                     funct[variable] = global[variable];
                 } else {
                     if (option.undef) {
-                        warn(bundle.not_a_defined, token, variable);
+                        warn('not_a_defined', token, variable);
                     } else {
                         note_implied(token);
                     }
@@ -3342,10 +3354,10 @@ loop:   for (;;) {
                 case 'function':
                 case 'var':
                 case 'unused':
-                    warn(bundle.a_scope, token, variable);
+                    warn('a_scope', token, variable);
                     break;
                 case 'label':
-                    warn(bundle.a_label, token, variable);
+                    warn('a_label', token, variable);
                     break;
                 case 'outer':
                 case true:
@@ -3360,11 +3372,11 @@ loop:   for (;;) {
                         funct[variable] = site;
                         functions[0][variable] = true;
                     } else if (site === null) {
-                        warn(bundle.a_not_allowed, token, variable);
+                        warn('a_not_allowed', token, variable);
                         note_implied(token);
                     } else if (typeof site !== 'object') {
                         if (option.undef) {
-                            warn(bundle.a_not_defined, token, variable);
+                            warn('a_not_defined', token, variable);
                         } else {
                             funct[variable] = true;
                         }
@@ -3387,10 +3399,10 @@ loop:   for (;;) {
                             funct[variable] = site['(global)'] ? true : 'outer';
                             break;
                         case 'error':
-                            warn(bundle.not_a_defined, token);
+                            warn('not_a_defined', token);
                             break;
                         case 'label':
-                            warn(bundle.a_label, token, variable);
+                            warn('a_label', token, variable);
                             break;
                         }
                     }
@@ -3399,7 +3411,7 @@ loop:   for (;;) {
             return this;
         },
         led: function () {
-            fail(bundle.expected_operator_a);
+            fail('expected_operator_a');
         }
     };
 
@@ -3437,14 +3449,14 @@ loop:   for (;;) {
 
     reservevar('arguments', function (x) {
         if (strict_mode && funct['(global)']) {
-            warn(bundle.strict, x);
+            warn('strict', x);
         } else if (option.safe) {
-            warn(bundle.adsafe, x);
+            warn('adsafe', x);
         }
     });
     reservevar('eval', function (x) {
         if (option.safe) {
-            warn(bundle.adsafe, x);
+            warn('adsafe', x);
         }
     });
     reservevar('false');
@@ -3454,9 +3466,9 @@ loop:   for (;;) {
     reservevar('this', function (x) {
         if (strict_mode && ((funct['(statement)'] &&
                 funct['(name)'].charAt(0) > 'Z') || funct['(global)'])) {
-            warn(bundle.strict, x);
+            warn('strict', x);
         } else if (option.safe) {
-            warn(bundle.adsafe, x);
+            warn('adsafe', x);
         }
     });
     reservevar('true');
@@ -3467,7 +3479,7 @@ loop:   for (;;) {
     assignop('-=');
     assignop('*=');
     assignop('/=').nud = function () {
-        fail(bundle.slash_equal);
+        fail('slash_equal');
     };
     assignop('%=');
     assignop('&=', true);
@@ -3487,7 +3499,7 @@ loop:   for (;;) {
         that.third = expression(10);
         that.arity = 'ternary';
         if (are_similar(that.second, that.third)) {
-            warn(bundle.weird_ternary, that);
+            warn('weird_ternary', that);
         }
         return that;
     });
@@ -3495,7 +3507,7 @@ loop:   for (;;) {
     infix('||', 40, function (left, that) {
         function paren_check(that) {
             if (that.id === '&&' && !that.paren) {
-                warn(bundle.and, that);
+                warn('and', that);
             }
             return that;
         }
@@ -3503,7 +3515,7 @@ loop:   for (;;) {
         that.first = paren_check(expected_condition(expected_relation(left)));
         that.second = paren_check(expected_relation(expression(40)));
         if (are_similar(that.first, that.second)) {
-            warn(bundle.weird_condition, that);
+            warn('weird_condition', that);
         }
         return that;
     });
@@ -3512,7 +3524,7 @@ loop:   for (;;) {
         that.first = expected_condition(expected_relation(left));
         that.second = expected_relation(expression(50));
         if (are_similar(that.first, that.second)) {
-            warn(bundle.weird_condition, that);
+            warn('weird_condition', that);
         }
         return that;
     });
@@ -3520,7 +3532,7 @@ loop:   for (;;) {
     prefix('void', function () {
         this.first = expression(0);
         if (this.first.arity !== 'number' || this.first.value) {
-            warn(bundle.unexpected_a, this);
+            warn('unexpected_a', this);
             return this;
         }
         return this;
@@ -3544,7 +3556,7 @@ loop:   for (;;) {
     bitwise('>>>', 120);
 
     infix('in', 120, function (left, that) {
-        warn(bundle.infix_in, that);
+        warn('infix_in', that);
         that.left = left;
         that.right = expression(130);
         return that;
@@ -3553,17 +3565,17 @@ loop:   for (;;) {
     infix('+', 130, function (left, that) {
         if (!left.value) {
             if (left.arity === 'number') {
-                warn(bundle.unexpected_a, left);
+                warn('unexpected_a', left);
             } else if (left.arity === 'string') {
-                warn(bundle.expected_a_b, left, 'String', '\'\'');
+                warn('expected_a_b', left, 'String', '\'\'');
             }
         }
         var right = expression(130);
         if (!right.value) {
             if (right.arity === 'number') {
-                warn(bundle.unexpected_a, right);
+                warn('unexpected_a', right);
             } else if (right.arity === 'string') {
-                warn(bundle.expected_a_b, right, 'String', '\'\'');
+                warn('expected_a_b', right, 'String', '\'\'');
             }
         }
         if (left.arity === right.arity &&
@@ -3571,7 +3583,7 @@ loop:   for (;;) {
             left.value += right.value;
             left.thru = right.thru;
             if (left.arity === 'string' && jx.test(left.value)) {
-                warn(bundle.url, left);
+                warn('url', left);
             }
             discard(right);
             discard(that);
@@ -3583,24 +3595,24 @@ loop:   for (;;) {
     });
     prefix('+', 'num');
     prefix('+++', function () {
-        warn(bundle.confusing_a, token);
+        warn('confusing_a', token);
         this.first = expression(150);
         this.arity = 'prefix';
         return this;
     });
     infix('+++', 130, function (left) {
-        warn(bundle.confusing_a, token);
+        warn('confusing_a', token);
         this.first = left;
         this.second = expression(130);
         return this;
     });
     infix('-', 130, function (left, that) {
         if ((left.arity === 'number' && left.value === 0) || left.arity === 'string') {
-            warn(bundle.unexpected_a, left);
+            warn('unexpected_a', left);
         }
         var right = expression(130);
         if ((right.arity === 'number' && right.value === 0) || right.arity === 'string') {
-            warn(bundle.unexpected_a, left);
+            warn('unexpected_a', left);
         }
         if (left.arity === right.arity && left.arity === 'number') {
             left.value -= right.value;
@@ -3615,24 +3627,24 @@ loop:   for (;;) {
     });
     prefix('-');
     prefix('---', function () {
-        warn(bundle.confusing_a, token);
+        warn('confusing_a', token);
         this.first = expression(150);
         this.arity = 'prefix';
         return this;
     });
     infix('---', 130, function (left) {
-        warn(bundle.confusing_a, token);
+        warn('confusing_a', token);
         this.first = left;
         this.second = expression(130);
         return this;
     });
     infix('*', 140, function (left, that) {
         if ((left.arity === 'number' && (left.value === 0 || left.value === 1)) || left.arity === 'string') {
-            warn(bundle.unexpected_a, left);
+            warn('unexpected_a', left);
         }
         var right = expression(140);
         if ((right.arity === 'number' && (right.value === 0 || right.value === 1)) || right.arity === 'string') {
-            warn(bundle.unexpected_a, right);
+            warn('unexpected_a', right);
         }
         if (left.arity === right.arity && left.arity === 'number') {
             left.value *= right.value;
@@ -3647,11 +3659,11 @@ loop:   for (;;) {
     });
     infix('/', 140, function (left, that) {
         if ((left.arity === 'number' && left.value === 0) || left.arity === 'string') {
-            warn(bundle.unexpected_a, left);
+            warn('unexpected_a', left);
         }
         var right = expression(140);
         if ((right.arity === 'number' && (right.value === 0 || right.value === 1)) || right.arity === 'string') {
-            warn(bundle.unexpected_a, right);
+            warn('unexpected_a', right);
         }
         if (left.arity === right.arity && left.arity === 'number') {
             left.value /= right.value;
@@ -3666,11 +3678,11 @@ loop:   for (;;) {
     });
     infix('%', 140, function (left, that) {
         if ((left.arity === 'number' && (left.value === 0 || left.value === 1)) || left.arity === 'string') {
-            warn(bundle.unexpected_a, left);
+            warn('unexpected_a', left);
         }
         var right = expression(140);
         if ((right.arity === 'number' && (right.value === 0 || right.value === 1)) || right.arity === 'string') {
-            warn(bundle.unexpected_a, right);
+            warn('unexpected_a', right);
         }
         if (left.arity === right.arity && left.arity === 'number') {
             left.value %= right.value;
@@ -3693,7 +3705,7 @@ loop:   for (;;) {
         one_space();
         var p = expression(0);
         if (!p || (p.id !== '.' && p.id !== '[')) {
-            warn(bundle.deleted);
+            warn('deleted');
         }
         this.first = p;
         return this;
@@ -3703,7 +3715,7 @@ loop:   for (;;) {
     prefix('~', function () {
         no_space_only();
         if (option.bitwise) {
-            warn(bundle.unexpected_a, this);
+            warn('unexpected_a', this);
         }
         expression(150);
         return this;
@@ -3713,7 +3725,7 @@ loop:   for (;;) {
         this.first = expression(150);
         this.arity = 'prefix';
         if (bang[this.first.id] === true) {
-            warn(bundle.confusing_a, this);
+            warn('confusing_a', this);
         }
         return this;
     });
@@ -3726,7 +3738,7 @@ loop:   for (;;) {
             if (c.identifier) {
                 switch (c.value) {
                 case 'Object':
-                    warn(bundle.use_object, token);
+                    warn('use_object', token);
                     break;
                 case 'Array':
                     if (next_token.id === '(') {
@@ -3743,30 +3755,30 @@ loop:   for (;;) {
                             }
                             while (next_token.id !== ')' && next_token.id !== '(end)') {
                                 if (i) {
-                                    warn(bundle.use_array, p);
+                                    warn('use_array', p);
                                     i = false;
                                 }
                                 advance();
                             }
                         } else {
-                            warn(bundle.use_array, token);
+                            warn('use_array', token);
                         }
                         advance(')', p);
                         discard();
                         return p;
                     }
-                    warn(bundle.use_array, token);
+                    warn('use_array', token);
                     break;
                 case 'Number':
                 case 'String':
                 case 'Boolean':
                 case 'Math':
                 case 'JSON':
-                    warn(bundle.not_a_constructor, c);
+                    warn('not_a_constructor', c);
                     break;
                 case 'Function':
                     if (!option.evil) {
-                        warn(bundle.function_eval);
+                        warn('function_eval');
                     }
                     break;
                 case 'Date':
@@ -3776,20 +3788,20 @@ loop:   for (;;) {
                     if (c.id !== 'function') {
                         i = c.value.substr(0, 1);
                         if (option.newcap && (i < 'A' || i > 'Z')) {
-                            warn(bundle.constructor_name_a, token);
+                            warn('constructor_name_a', token);
                         }
                     }
                 }
             } else {
                 if (c.id !== '.' && c.id !== '[' && c.id !== '(') {
-                    warn(bundle.bad_constructor, token);
+                    warn('bad_constructor', token);
                 }
             }
         } else {
-            warn(bundle.weird_new, this);
+            warn('weird_new', this);
         }
         if (next_token.id !== '(') {
-            warn(bundle.missing_a, next_token, '()');
+            warn('missing_a', next_token, '()');
         }
         return this;
     });
@@ -3801,7 +3813,7 @@ loop:   for (;;) {
             no_space_only(prev_token, token);
         }
         if (!left.immed && left.id === 'function') {
-            warn(bundle.wrap_immediate);
+            warn('wrap_immediate');
         }
         var p = [];
         if (left) {
@@ -3810,18 +3822,18 @@ loop:   for (;;) {
                     if (left.value !== 'Number' && left.value !== 'String' &&
                             left.value !== 'Boolean' && left.value !== 'Date') {
                         if (left.value === 'Math' || left.value === 'JSON') {
-                            warn(bundle.not_a_function, left);
+                            warn('not_a_function', left);
                         } else if (left.value === 'Object') {
-                            warn(bundle.use_object, token);
+                            warn('use_object', token);
                         } else if (left.value === 'Array' || option.newcap) {
-                            warn(bundle.missing_a, left, 'new');
+                            warn('missing_a', left, 'new');
                         }
                     }
                 }
             } else if (left.id === '.') {
                 if (option.safe && left.first.value === 'Math' &&
                         left.second === 'random') {
-                    warn(bundle.adsafe, left);
+                    warn('adsafe', left);
                 }
             }
         }
@@ -3841,22 +3853,22 @@ loop:   for (;;) {
         step_out(')', that);
         if (typeof left === 'object') {
             if (left.value === 'parseInt' && p.length === 1) {
-                warn(bundle.radix, left);
+                warn('radix', left);
             }
             if (!option.evil) {
                 if (left.value === 'eval' || left.value === 'Function' ||
                         left.value === 'execScript') {
-                    warn(bundle.evil, left);
+                    warn('evil', left);
                 } else if (p[0] && p[0].arity === 'string' &&
                         (left.value === 'setTimeout' ||
                         left.value === 'setInterval')) {
-                    warn(bundle.implied_evil, left);
+                    warn('implied_evil', left);
                 }
             }
             if (!left.identifier && left.id !== '.' && left.id !== '[' &&
                     left.id !== '(' && left.id !== '&&' && left.id !== '||' &&
                     left.id !== '?') {
-                warn(bundle.bad_invocation, left);
+                warn('bad_invocation', left);
             }
         }
         that.first = left;
@@ -3879,9 +3891,9 @@ loop:   for (;;) {
         discard();
         if (value.id === 'function') {
             if (next_token.id === '(') {
-                warn(bundle.move_invocation);
+                warn('move_invocation');
             } else {
-                warn(bundle.bad_wrap, this);
+                warn('bad_wrap', this);
             }
         }
         return value;
@@ -3898,22 +3910,22 @@ loop:   for (;;) {
         that.second = token;
         if (left && left.value === 'arguments' &&
                 (name === 'callee' || name === 'caller')) {
-            warn(bundle.avoid_a, left, 'arguments.' + name);
+            warn('avoid_a', left, 'arguments.' + name);
         } else if (!option.evil && left && left.value === 'document' &&
                 (name === 'write' || name === 'writeln')) {
-            warn(bundle.write_is_wrong, left);
+            warn('write_is_wrong', left);
         } else if (option.adsafe) {
             if (!adsafe_top && left.value === 'ADSAFE') {
                 if (name === 'id' || name === 'lib') {
-                    warn(bundle.adsafe, that);
+                    warn('adsafe', that);
                 } else if (name === 'go') {
                     if (xmode !== 'script') {
-                        warn(bundle.adsafe, that);
+                        warn('adsafe', that);
                     } else if (adsafe_went || next_token.id !== '(' ||
                             peek(0).arity !== 'string' ||
                             peek(0).value !== adsafe_id ||
                             peek(1).id !== ',') {
-                        fail(bundle.adsafe_a, that, 'go');
+                        fail('adsafe_a', that, 'go');
                     }
                     adsafe_went = true;
                     adsafe_may = false;
@@ -3922,11 +3934,11 @@ loop:   for (;;) {
             adsafe_top = false;
         }
         if (!option.evil && (name === 'eval' || name === 'execScript')) {
-            warn(bundle.evil);
+            warn('evil');
         } else if (option.safe) {
             for (;;) {
                 if (banned[name] === true) {
-                    warn(bundle.adsafe_a, token, name);
+                    warn('adsafe_a', token, name);
                 }
                 if (typeof predefined[left.value] !== 'boolean' ||
                         next_token.id === '(') {
@@ -3934,12 +3946,12 @@ loop:   for (;;) {
                 }
                 if (standard_property[name] === true) {
                     if (next_token.id === '.') {
-                        warn(bundle.adsafe, that);
+                        warn('adsafe', that);
                     }
                     break;
                 }
                 if (next_token.id !== '.') {
-                    warn(bundle.adsafe, that);
+                    warn('adsafe', that);
                     break;
                 }
                 advance('.');
@@ -3963,24 +3975,24 @@ loop:   for (;;) {
         var e = expression(0), s;
         if (e.arity === 'string') {
             if (option.safe && banned[e.value] === true) {
-                warn(bundle.adsafe_a, e);
+                warn('adsafe_a', e);
             } else if (!option.evil &&
                     (e.value === 'eval' || e.value === 'execScript')) {
-                warn(bundle.evil, e);
+                warn('evil', e);
             } else if (option.safe &&
                     (e.value.charAt(0) === '_' || e.value.charAt(0) === '-')) {
-                warn(bundle.adsafe_subscript_a, e);
+                warn('adsafe_subscript_a', e);
             }
             tally_property(e.value);
             if (!option.sub && ix.test(e.value)) {
                 s = syntax[e.value];
                 if (!s || !s.reserved) {
-                    warn(bundle.subscript, e);
+                    warn('subscript', e);
                 }
             }
         } else if (e.arity !== 'number' || e.value < 0) {
             if (option.safe) {
-                warn(bundle.adsafe_subscript_a, e);
+                warn('adsafe_subscript_a', e);
             }
         }
         step_out(']', that);
@@ -3997,7 +4009,7 @@ loop:   for (;;) {
         step_in('array');
         while (next_token.id !== '(end)') {
             while (next_token.id === ',') {
-                warn(bundle.unexpected_a, next_token);
+                warn('unexpected_a', next_token);
                 advance(',');
                 discard();
             }
@@ -4009,7 +4021,7 @@ loop:   for (;;) {
             if (next_token.id === ',') {
                 comma();
                 if (next_token.id === ']' && !option.es5) {
-                    warn(bundle.unexpected_a, token);
+                    warn('unexpected_a', token);
                     break;
                 }
             } else {
@@ -4029,10 +4041,10 @@ loop:   for (;;) {
                 id = next_token.value;
                 if (option.safe) {
                     if (banned[id]) {
-                        warn(bundle.adsafe_a);
+                        warn('adsafe_a');
                     } else if (id.charAt(0) === '_' ||
                             id.charAt(id.length - 1) === '_') {
-                        warn(bundle.dangling_a);
+                        warn('dangling_a');
                     }
                 }
                 advance();
@@ -4122,7 +4134,7 @@ loop:   for (;;) {
             edge();
             if (next_token.value === 'get' && peek().id !== ':') {
                 if (!option.es5) {
-                    warn(bundle.get_set);
+                    warn('get_set');
                 }
                 get = next_token;
                 advance('get');
@@ -4130,15 +4142,15 @@ loop:   for (;;) {
                 name = next_token;
                 i = property_name();
                 if (!i) {
-                    fail(bundle.missing_property);
+                    fail('missing_property');
                 }
                 do_function(get, '');
                 if (funct['(loopage)']) {
-                    warn(bundle.function_loop, get);
+                    warn('function_loop', get);
                 }
                 p = get.first;
                 if (p) {
-                    warn(bundle.parameter_a_get_b, p[0], p[0].value, i);
+                    warn('parameter_a_get_b', p[0], p[0].value, i);
                 }
                 comma();
                 set = next_token;
@@ -4148,21 +4160,21 @@ loop:   for (;;) {
                 one_space_only();
                 j = property_name();
                 if (i !== j) {
-                    fail(bundle.expected_a_b, token, i, j || next_token.value);
+                    fail('expected_a_b', token, i, j || next_token.value);
                 }
                 do_function(set, '');
                 p = set.first;
                 if (!p || p.length !== 1) {
-                    fail(bundle.parameter_set_a, set, 'value');
+                    fail('parameter_set_a', set, 'value');
                 } else if (p[0].value !== 'value') {
-                    fail(bundle.expected_a_b, p[0], 'value', p[0].value);
+                    fail('expected_a_b', p[0], 'value', p[0].value);
                 }
                 name.first = [get, set];
             } else {
                 name = next_token;
                 i = property_name();
                 if (typeof i !== 'string') {
-                    fail(bundle.missing_property);
+                    fail('missing_property');
                 }
                 advance(':');
                 discard();
@@ -4171,7 +4183,7 @@ loop:   for (;;) {
             }
             this.first.push(name);
             if (seen[i] === true) {
-                warn(bundle.duplicate_a, next_token, i);
+                warn('duplicate_a', next_token, i);
             }
             seen[i] = true;
             tally_property(i);
@@ -4183,10 +4195,10 @@ loop:   for (;;) {
                 if (next_token.id !== ',') {
                     break;
                 }
-                warn(bundle.unexpected_a, next_token);
+                warn('unexpected_a', next_token);
             }
             if (next_token.id === '}' && !option.es5) {
-                warn(bundle.unexpected_a, token);
+                warn('unexpected_a', token);
             }
         }
         step_out('}', this);
@@ -4196,7 +4208,7 @@ loop:   for (;;) {
 
     stmt('{', function () {
         discard();
-        warn(bundle.statement_block);
+        warn('statement_block');
         this.arity = 'statement';
         this.block = statements();
         this.disrupt = this.block.disrupt;
@@ -4221,7 +4233,7 @@ loop:   for (;;) {
         var assign, id, name;
 
         if (funct['(onevar)'] && option.onevar) {
-            warn(bundle.combine_var);
+            warn('combine_var');
         } else if (!funct['(global)']) {
             funct['(onevar)'] = true;
         }
@@ -4232,7 +4244,7 @@ loop:   for (;;) {
             name = next_token;
             id = identifier();
             if (funct['(global)'] && predefined[id] === false) {
-                warn(bundle.redefinition_a, token, id);
+                warn('redefinition_a', token, id);
             }
             add_label(id, 'error');
 
@@ -4243,10 +4255,10 @@ loop:   for (;;) {
                 advance('=');
                 spaces();
                 if (next_token.id === 'undefined') {
-                    warn(bundle.unnecessary_initialize, token, id);
+                    warn('unnecessary_initialize', token, id);
                 }
                 if (peek(0).id === '=' && next_token.identifier) {
-                    fail(bundle.var_a_not);
+                    fail('var_a_not');
                 }
                 assign.second = expression(0);
                 assign.arity = 'infix';
@@ -4276,7 +4288,7 @@ loop:   for (;;) {
     stmt('function', function () {
         one_space();
         if (in_block) {
-            warn(bundle.function_block, token);
+            warn('function_block', token);
         }
         var i = identifier();
         if (i) {
@@ -4285,7 +4297,7 @@ loop:   for (;;) {
         }
         do_function(this, i, true);
         if (next_token.id === '(' && next_token.line === token.line) {
-            fail(bundle.function_statement);
+            fail('function_statement');
         }
         this.arity = 'statement';
         return this;
@@ -4299,7 +4311,7 @@ loop:   for (;;) {
         }
         do_function(this, i);
         if (funct['(loopage)']) {
-            warn(bundle.function_loop);
+            warn('function_loop');
         }
         this.arity = 'function';
         return this;
@@ -4343,7 +4355,7 @@ loop:   for (;;) {
 
         var exception_variable, old_scope, paren;
         if (option.adsafe) {
-            warn(bundle.adsafe_a, this);
+            warn('adsafe_a', this);
         }
         one_space();
         this.arity = 'statement';
@@ -4364,7 +4376,7 @@ loop:   for (;;) {
             exception_variable = next_token.value;
             this.first = exception_variable;
             if (!next_token.identifier) {
-                warn(bundle.expected_identifier_a, next_token);
+                warn('expected_identifier_a', next_token);
             } else {
                 add_label(exception_variable, 'exception');
             }
@@ -4384,7 +4396,7 @@ loop:   for (;;) {
             one_space();
             this.third = block(false);
         } else if (!this.second) {
-            fail(bundle.expected_a_b, next_token, 'catch', next_token.value);
+            fail('expected_a_b', next_token, 'catch', next_token.value);
         }
         return this;
     });
@@ -4410,7 +4422,7 @@ loop:   for (;;) {
         one_space();
         this.block = block(true);
         if (this.block.disrupt) {
-            warn(bundle.strange_loop, prev_token);
+            warn('strange_loop', prev_token);
         }
         funct['(breakage)'] -= 1;
         funct['(loopage)'] -= 1;
@@ -4456,7 +4468,7 @@ loop:   for (;;) {
                 particular = expression(0);
                 the_case.first.push(particular);
                 if (particular.id === 'NaN') {
-                    warn(bundle.unexpected_a, particular);
+                    warn('unexpected_a', particular);
                 }
                 no_space_only();
                 advance(':');
@@ -4478,15 +4490,15 @@ loop:   for (;;) {
                         unbroken = false;
                     }
                 } else {
-                    warn(bundle.missing_a_after_b, next_token, 'break', 'case');
+                    warn('missing_a_after_b', next_token, 'break', 'case');
                 }
             } else {
-                warn(bundle.empty_case);
+                warn('empty_case');
             }
             this.second.push(the_case);
         }
         if (this.second.length === 0) {
-            warn(bundle.missing_a, next_token, 'case');
+            warn('missing_a', next_token, 'case');
         }
         if (next_token.id === 'default') {
             spaces();
@@ -4515,7 +4527,7 @@ loop:   for (;;) {
 
     stmt('debugger', function () {
         if (!option.debug) {
-            warn(bundle.unexpected_a, this);
+            warn('unexpected_a', this);
         }
         this.arity = 'statement';
         return this;
@@ -4528,7 +4540,7 @@ loop:   for (;;) {
         this.arity = 'statement';
         this.block = block(true);
         if (this.block.disrupt) {
-            warn(bundle.strange_loop, prev_token);
+            warn('strange_loop', prev_token);
         }
         one_space();
         advance('while');
@@ -4560,7 +4572,7 @@ loop:   for (;;) {
         spaces(this, paren);
         no_space();
         if (next_token.id === 'var') {
-            fail(bundle.move_var);
+            fail('move_var');
         }
         edge();
         if (peek(0).id === 'in') {
@@ -4572,7 +4584,7 @@ loop:   for (;;) {
             case 'var':
                 break;
             default:
-                warn(bundle.bad_in_a, value);
+                warn('bad_in_a', value);
             }
             advance();
             the_in = next_token;
@@ -4627,7 +4639,7 @@ loop:   for (;;) {
                     }
                 }
                 if (!ok) {
-                    warn(bundle.for_if, this);
+                    warn('for_if', this);
                 }
             }
         } else {
@@ -4652,7 +4664,7 @@ loop:   for (;;) {
             }
             semicolon(token);
             if (next_token.id === ';') {
-                fail(bundle.expected_a_b, next_token, ')', ';');
+                fail('expected_a_b', next_token, ')', ';');
             }
             if (next_token.id !== ')') {
                 this.third = [];
@@ -4672,7 +4684,7 @@ loop:   for (;;) {
             blok = block(true);
         }
         if (blok.disrupt) {
-            warn(bundle.strange_loop, prev_token);
+            warn('strange_loop', prev_token);
         }
         this.block = blok;
         funct['(breakage)'] -= 1;
@@ -4684,14 +4696,14 @@ loop:   for (;;) {
         var label = next_token.value;
         this.arity = 'statement';
         if (funct['(breakage)'] === 0) {
-            warn(bundle.unexpected_a, this);
+            warn('unexpected_a', this);
         }
         if (next_token.identifier && token.line === next_token.line) {
             one_space_only();
             if (funct[label] !== 'label') {
-                warn(bundle.not_a_label, next_token);
+                warn('not_a_label', next_token);
             } else if (scope[label] !== funct) {
-                warn(bundle.not_a_scope, next_token);
+                warn('not_a_scope', next_token);
             }
             this.first = next_token;
             advance();
@@ -4701,19 +4713,19 @@ loop:   for (;;) {
 
     disrupt_stmt('continue', function () {
         if (!option['continue']) {
-            warn(bundle.unexpected_a, this);
+            warn('unexpected_a', this);
         }
         var label = next_token.value;
         this.arity = 'statement';
         if (funct['(breakage)'] === 0) {
-            warn(bundle.unexpected_a, this);
+            warn('unexpected_a', this);
         }
         if (next_token.identifier && token.line === next_token.line) {
             one_space_only();
             if (funct[label] !== 'label') {
-                warn(bundle.not_a_label, next_token);
+                warn('not_a_label', next_token);
             } else if (scope[label] !== funct) {
-                warn(bundle.not_a_scope, next_token);
+                warn('not_a_scope', next_token);
             }
             this.first = next_token;
             advance();
@@ -4726,7 +4738,7 @@ loop:   for (;;) {
         if (next_token.id !== ';' && next_token.line === token.line) {
             one_space_only();
             if (next_token.id === '/' || next_token.id === '(regexp)') {
-                warn(bundle.wrap_regexp);
+                warn('wrap_regexp');
             }
             this.first = expression(20);
         }
@@ -4774,16 +4786,16 @@ loop:   for (;;) {
             if (next_token.id !== '}') {
                 while (next_token.id !== '(end)') {
                     while (next_token.id === ',') {
-                        warn(bundle.unexpected_a, next_token);
+                        warn('unexpected_a', next_token);
                         comma();
                     }
                     if (next_token.arity !== 'string') {
-                        warn(bundle.expected_string_a);
+                        warn('expected_string_a');
                     }
                     if (object[next_token.value] === true) {
-                        warn(bundle.duplicate_a);
+                        warn('duplicate_a');
                     } else if (next_token.value === '__proto__') {
-                        warn(bundle.dangling_a);
+                        warn('dangling_a');
                     } else {
                         object[next_token.value] = true;
                     }
@@ -4795,7 +4807,7 @@ loop:   for (;;) {
                     }
                     comma();
                     if (next_token.id === '}') {
-                        warn(bundle.unexpected_a, token);
+                        warn('unexpected_a', token);
                         break;
                     }
                 }
@@ -4809,7 +4821,7 @@ loop:   for (;;) {
             if (next_token.id !== ']') {
                 while (next_token.id !== '(end)') {
                     while (next_token.id === ',') {
-                        warn(bundle.unexpected_a, next_token);
+                        warn('unexpected_a', next_token);
                         comma();
                     }
                     json_value();
@@ -4818,7 +4830,7 @@ loop:   for (;;) {
                     }
                     comma();
                     if (next_token.id === ']') {
-                        warn(bundle.unexpected_a, token);
+                        warn('unexpected_a', token);
                         break;
                     }
                 }
@@ -4846,7 +4858,7 @@ loop:   for (;;) {
             advance('(number)');
             break;
         default:
-            fail(bundle.unexpected_a);
+            fail('unexpected_a');
         }
     }
 
@@ -4894,18 +4906,18 @@ loop:   for (;;) {
                     }
                     number = next_token.value;
                     if (next_token.arity !== 'number' || number < 0) {
-                        warn(bundle.expected_positive_a, next_token);
+                        warn('expected_positive_a', next_token);
                         advance();
                     } else {
                         advance();
                         if (next_token.id === '%') {
                             advance('%');
                             if (number > 100) {
-                                warn(bundle.expected_percent_a, token, number);
+                                warn('expected_percent_a', token, number);
                             }
                         } else {
                             if (number > 255) {
-                                warn(bundle.expected_small_a, token, number);
+                                warn('expected_small_a', token, number);
                             }
                         }
                     }
@@ -4914,11 +4926,11 @@ loop:   for (;;) {
                     comma();
                     number = +next_token.value;
                     if (next_token.arity !== 'number' || number < 0 || number > 1) {
-                        warn(bundle.expected_fraction_a, next_token);
+                        warn('expected_fraction_a', next_token);
                     }
                     advance();
                     if (next_token.id === '%') {
-                        warn(bundle.unexpected_a);
+                        warn('unexpected_a');
                         advance('%');
                     }
                 }
@@ -4948,7 +4960,7 @@ loop:   for (;;) {
                 no_space_only();
                 advance();
             } else if (+token.value !== 0) {
-                warn(bundle.expected_linear_a);
+                warn('expected_linear_a');
             }
             return true;
         }
@@ -5005,7 +5017,7 @@ loop:   for (;;) {
             advance();
             advance('(');
             if (!next_token.identifier) {
-                warn(bundle.expected_name_a);
+                warn('expected_name_a');
             }
             advance();
             advance(')');
@@ -5018,7 +5030,7 @@ loop:   for (;;) {
     function css_comma_list() {
         while (next_token.id !== ';') {
             if (!css_name() && !css_string()) {
-                warn(bundle.expected_name_a);
+                warn('expected_name_a');
             }
             if (next_token.id !== ',') {
                 return true;
@@ -5036,7 +5048,7 @@ loop:   for (;;) {
             if (next_token.id === ',') {
                 comma();
                 if (next_token.arity !== 'string') {
-                    warn(bundle.expected_string_a);
+                    warn('expected_string_a');
                 }
                 advance();
             }
@@ -5047,20 +5059,20 @@ loop:   for (;;) {
             advance();
             advance('(');
             if (!next_token.identifier) {
-                warn(bundle.expected_name_a);
+                warn('expected_name_a');
             }
             advance();
             if (next_token.id === ',') {
                 comma();
                 if (next_token.arity !== 'string') {
-                    warn(bundle.expected_string_a);
+                    warn('expected_string_a');
                 }
                 advance();
             }
             if (next_token.id === ',') {
                 comma();
                 if (next_token.arity !== 'string') {
-                    warn(bundle.expected_string_a);
+                    warn('expected_string_a');
                 }
                 advance();
             }
@@ -5078,7 +5090,7 @@ loop:   for (;;) {
             advance('(');
             for (i = 0; i < 4; i += 1) {
                 if (!css_length()) {
-                    warn(bundle.expected_number_a);
+                    warn('expected_number_a');
                     break;
                 }
             }
@@ -5097,19 +5109,19 @@ loop:   for (;;) {
             c = url.charAt(0);
             if (c === '"' || c === '\'') {
                 if (url.slice(-1) !== c) {
-                    warn(bundle.bad_url);
+                    warn('bad_url');
                 } else {
                     url = url.slice(1, -1);
                     if (url.indexOf(c) >= 0) {
-                        warn(bundle.bad_url);
+                        warn('bad_url');
                     }
                 }
             }
             if (!url) {
-                warn(bundle.missing_url);
+                warn('missing_url');
             }
             if (option.safe && ux.test(url)) {
-                fail(bundle.adsafe_a, next_token, url);
+                fail('adsafe_a', next_token, url);
             }
             urls.push(url);
             advance();
@@ -5127,7 +5139,7 @@ loop:   for (;;) {
                     css_url();
                     break;
                 case 'expression':
-                    warn(bundle.unexpected_a);
+                    warn('unexpected_a');
                     advance();
                     break;
                 default:
@@ -5346,30 +5358,30 @@ loop:   for (;;) {
         while (next_token.id === '*' || next_token.id === '#' ||
                 next_token.value === '_') {
             if (!option.css) {
-                warn(bundle.unexpected_a);
+                warn('unexpected_a');
             }
             advance();
         }
         if (next_token.id === '-') {
             if (!option.css) {
-                warn(bundle.unexpected_a);
+                warn('unexpected_a');
             }
             advance('-');
             if (!next_token.identifier) {
-                warn(bundle.expected_nonstandard_style_attribute);
+                warn('expected_nonstandard_style_attribute');
             }
             advance();
             return css_any;
         } else {
             if (!next_token.identifier) {
-                warn(bundle.expected_style_attribute);
+                warn('expected_style_attribute');
             } else {
                 if (Object.prototype.hasOwnProperty.call(css_attribute_data, next_token.value)) {
                     v = css_attribute_data[next_token.value];
                 } else {
                     v = css_any;
                     if (!option.css) {
-                        warn(bundle.unrecognized_style_attribute_a);
+                        warn('unrecognized_style_attribute_a');
                     }
                 }
             }
@@ -5466,7 +5478,7 @@ loop:   for (;;) {
                 return;
             }
         }
-        warn(bundle.unexpected_a);
+        warn('unexpected_a');
     }
 
     function substyle() {
@@ -5477,7 +5489,7 @@ loop:   for (;;) {
                 return;
             }
             while (next_token.id === ';') {
-                warn(bundle.unexpected_a);
+                warn('unexpected_a');
                 semicolon();
             }
             v = style_attribute();
@@ -5486,7 +5498,7 @@ loop:   for (;;) {
                 advance();
             } else {
                 if (!style_value(v)) {
-                    warn(bundle.unexpected_a);
+                    warn('unexpected_a');
                     advance();
                 }
             }
@@ -5496,12 +5508,12 @@ loop:   for (;;) {
                 if (next_token.identifier && next_token.value === 'important') {
                     advance();
                 } else {
-                    warn(bundle.expected_a_b,
+                    warn('expected_a_b',
                         next_token, 'important', next_token.value);
                 }
             }
             if (next_token.id === '}' || next_token.id === xquote) {
-                warn(bundle.expected_a_b, next_token, ';', next_token.value);
+                warn('expected_a_b', next_token, ';', next_token.value);
             } else {
                 semicolon();
             }
@@ -5512,7 +5524,7 @@ loop:   for (;;) {
         if (next_token.identifier) {
             if (!Object.prototype.hasOwnProperty.call(html_tag, option.cap ?
                     next_token.value.toLowerCase() : next_token.value)) {
-                warn(bundle.expected_tagname_a);
+                warn('expected_tagname_a');
             }
             advance();
         } else {
@@ -5551,7 +5563,7 @@ loop:   for (;;) {
                     advance();
                     advance('(');
                     if (!next_token.identifier) {
-                        warn(bundle.expected_lang_a);
+                        warn('expected_lang_a');
                     }
                     advance(')');
                     break;
@@ -5568,19 +5580,19 @@ loop:   for (;;) {
                     advance();
                     advance('(');
                     if (next_token.id === ':' && peek(0).value === 'not') {
-                        warn(bundle.not);
+                        warn('not');
                     }
                     style_selector();
                     advance(')');
                     break;
                 default:
-                    warn(bundle.expected_pseudo_a);
+                    warn('expected_pseudo_a');
                 }
                 break;
             case '#':
                 advance('#');
                 if (!next_token.identifier) {
-                    warn(bundle.expected_id_a);
+                    warn('expected_id_a');
                 }
                 advance();
                 break;
@@ -5590,14 +5602,14 @@ loop:   for (;;) {
             case '.':
                 advance('.');
                 if (!next_token.identifier) {
-                    warn(bundle.expected_class_a);
+                    warn('expected_class_a');
                 }
                 advance();
                 break;
             case '[':
                 advance('[');
                 if (!next_token.identifier) {
-                    warn(bundle.expected_attribute_a);
+                    warn('expected_attribute_a');
                 }
                 advance();
                 if (next_token.id === '=' || next_token.value === '~=' ||
@@ -5607,21 +5619,21 @@ loop:   for (;;) {
                         next_token.id === '^=') {
                     advance();
                     if (next_token.arity !== 'string') {
-                        warn(bundle.expected_string_a);
+                        warn('expected_string_a');
                     }
                     advance();
                 }
                 advance(']');
                 break;
             default:
-                fail(bundle.expected_selector_a);
+                fail('expected_selector_a');
             }
         }
     }
 
     function style_pattern() {
         if (next_token.id === '{') {
-            warn(bundle.expected_style_pattern);
+            warn('expected_style_pattern');
         }
         for (;;) {
             style_selector();
@@ -5660,7 +5672,7 @@ loop:   for (;;) {
                 case 'import':
                     advance();
                     if (!css_url()) {
-                        warn(bundle.expected_a_b,
+                        warn('expected_a_b',
                             next_token, 'url', next_token.value);
                         advance();
                     }
@@ -5670,7 +5682,7 @@ loop:   for (;;) {
                     advance();
                     for (;;) {
                         if (!next_token.identifier || css_media[next_token.value] === true) {
-                            fail(bundle.expected_media_a);
+                            fail('expected_media_a');
                         }
                         advance();
                         if (next_token.id !== ',') {
@@ -5683,10 +5695,10 @@ loop:   for (;;) {
                     advance('}');
                     break;
                 default:
-                    warn(bundle.expected_at_a);
+                    warn('expected_at_a');
                 }
             } else {
-                warn(bundle.expected_at_a);
+                warn('expected_at_a');
             }
         }
         style_list();
@@ -5698,21 +5710,21 @@ loop:   for (;;) {
     function do_begin(n) {
         if (n !== 'html' && !option.fragment) {
             if (n === 'div' && option.adsafe) {
-                fail(bundle.adsafe_fragment);
+                fail('adsafe_fragment');
             } else {
-                fail(bundle.expected_a_b, token, 'html', n);
+                fail('expected_a_b', token, 'html', n);
             }
         }
         if (option.adsafe) {
             if (n === 'html') {
-                fail(bundle.adsafe_html, token);
+                fail('adsafe_html', token);
             }
             if (option.fragment) {
                 if (n !== 'div') {
-                    fail(bundle.adsafe_div, token);
+                    fail('adsafe_div', token);
                 }
             } else {
-                fail(bundle.adsafe_fragment, token);
+                fail('adsafe_fragment', token);
             }
         }
         option.browser = true;
@@ -5724,57 +5736,57 @@ loop:   for (;;) {
         if (a === 'id') {
             u = typeof v === 'string' ? v.toUpperCase() : '';
             if (ids[u] === true) {
-                warn(bundle.duplicate_a, next_token, v);
+                warn('duplicate_a', next_token, v);
             }
             if (!/^[A-Za-z][A-Za-z0-9._:\-]*$/.test(v)) {
-                warn(bundle.bad_id_a, next_token, v);
+                warn('bad_id_a', next_token, v);
             } else if (option.adsafe) {
                 if (adsafe_id) {
                     if (v.slice(0, adsafe_id.length) !== adsafe_id) {
-                        warn(bundle.adsafe_prefix_a, next_token, adsafe_id);
+                        warn('adsafe_prefix_a', next_token, adsafe_id);
                     } else if (!/^[A-Z]+_[A-Z]+$/.test(v)) {
-                        warn(bundle.adsafe_bad_id);
+                        warn('adsafe_bad_id');
                     }
                 } else {
                     adsafe_id = v;
                     if (!/^[A-Z]+_$/.test(v)) {
-                        warn(bundle.adsafe_bad_id);
+                        warn('adsafe_bad_id');
                     }
                 }
             }
             x = v.search(dx);
             if (x >= 0) {
-                warn(bundle.unexpected_char_a_b, token, v.charAt(x), a);
+                warn('unexpected_char_a_b', token, v.charAt(x), a);
             }
             ids[u] = true;
         } else if (a === 'class' || a === 'type' || a === 'name') {
             x = v.search(qx);
             if (x >= 0) {
-                warn(bundle.unexpected_char_a_b, token, v.charAt(x), a);
+                warn('unexpected_char_a_b', token, v.charAt(x), a);
             }
             ids[u] = true;
         } else if (a === 'href' || a === 'background' ||
                 a === 'content' || a === 'data' ||
                 a.indexOf('src') >= 0 || a.indexOf('url') >= 0) {
             if (option.safe && ux.test(v)) {
-                fail(bundle.bad_url, next_token, v);
+                fail('bad_url', next_token, v);
             }
             urls.push(v);
         } else if (a === 'for') {
             if (option.adsafe) {
                 if (adsafe_id) {
                     if (v.slice(0, adsafe_id.length) !== adsafe_id) {
-                        warn(bundle.adsafe_prefix_a, next_token, adsafe_id);
+                        warn('adsafe_prefix_a', next_token, adsafe_id);
                     } else if (!/^[A-Z]+_[A-Z]+$/.test(v)) {
-                        warn(bundle.adsafe_bad_id);
+                        warn('adsafe_bad_id');
                     }
                 } else {
-                    warn(bundle.adsafe_bad_id);
+                    warn('adsafe_bad_id');
                 }
             }
         } else if (a === 'name') {
             if (option.adsafe && v.indexOf('_') >= 0) {
-                warn(bundle.adsafe_name_a, next_token, v);
+                warn('adsafe_name_a', next_token, v);
             }
         }
     }
@@ -5791,18 +5803,18 @@ loop:   for (;;) {
         }
         if (stack.length > 0) {
             if (name === 'html') {
-                fail(bundle.unexpected_a, token, name);
+                fail('unexpected_a', token, name);
             }
             x = tag.parent;
             if (x) {
                 if (x.indexOf(' ' + stack[stack.length - 1].name + ' ') < 0) {
-                    fail(bundle.tag_a_in_b, token, name, x);
+                    fail('tag_a_in_b', token, name, x);
                 }
             } else if (!option.adsafe && !option.fragment) {
                 i = stack.length;
                 do {
                     if (i <= 0) {
-                        fail(bundle.tag_a_in_b, token, name, 'body');
+                        fail('tag_a_in_b', token, name, 'body');
                     }
                     i -= 1;
                 } while (stack[i].name !== 'body');
@@ -5811,24 +5823,24 @@ loop:   for (;;) {
         switch (name) {
         case 'div':
             if (option.adsafe && stack.length === 1 && !adsafe_id) {
-                warn(bundle.adsafe_missing_id);
+                warn('adsafe_missing_id');
             }
             break;
         case 'script':
             xmode = 'script';
             advance('>');
             if (attribute.lang) {
-                warn(bundle.lang, token);
+                warn('lang', token);
             }
             if (option.adsafe && stack.length !== 1) {
-                warn(bundle.adsafe_placement, token);
+                warn('adsafe_placement', token);
             }
             if (attribute.src) {
                 if (option.adsafe && (!adsafe_may || !approved[attribute.src])) {
-                    warn(bundle.adsafe_source, token);
+                    warn('adsafe_source', token);
                 }
                 if (attribute.type) {
-                    warn(bundle.type, token);
+                    warn('type', token);
                 }
             } else {
                 step_in(next_token.from);
@@ -5841,37 +5853,37 @@ loop:   for (;;) {
 
                 if (option.adsafe) {
                     if (adsafe_went) {
-                        fail(bundle.adsafe_script, token);
+                        fail('adsafe_script', token);
                     }
                     if (script.length !== 1 ||
                             aint(script[0],             'id',    '(') ||
                             aint(script[0].first,       'id',    '.') ||
                             aint(script[0].first.first, 'value', 'ADSAFE') ||
                             aint(script[0].second[0],   'value', adsafe_id)) {
-                        fail(bundle.adsafe_id_go);
+                        fail('adsafe_id_go');
                     }
                     switch (script[0].first.second.value) {
                     case 'id':
                         if (adsafe_may || script[0].second.length !== 1) {
-                            fail(bundle.adsafe_id, next_token);
+                            fail('adsafe_id', next_token);
                         }
                         adsafe_may = true;
                         break;
                     case 'go':
                         if (!adsafe_may) {
-                            fail(bundle.adsafe_id);
+                            fail('adsafe_id');
                         }
                         if (script[0].second.length !== 2 ||
                                 aint(script[0].second[1], 'id', 'function') ||
                                 script[0].second[1].first.length !== 2 ||
                                 aint(script[0].second[1].first[0], 'value', 'dom') ||
                                 aint(script[0].second[1].first[1], 'value', 'lib')) {
-                            fail(bundle.adsafe_go, next_token);
+                            fail('adsafe_go', next_token);
                         }
                         adsafe_went = true;
                         break;
                     default:
-                        fail(bundle.adsafe_id_go);
+                        fail('adsafe_id_go');
                     }
                 }
                 indent = null;
@@ -5879,7 +5891,7 @@ loop:   for (;;) {
             xmode = 'html';
             advance('</');
             if (!next_token.identifier && next_token.value !== 'script') {
-                warn(bundle.expected_a_b, next_token, 'script', next_token.value);
+                warn('expected_a_b', next_token, 'script', next_token.value);
             }
             advance();
             xmode = 'outer';
@@ -5891,7 +5903,7 @@ loop:   for (;;) {
             xmode = 'html';
             advance('</');
             if (!next_token.identifier && next_token.value !== 'style') {
-                warn(bundle.expected_a_b, next_token, 'style', next_token.value);
+                warn('expected_a_b', next_token, 'style', next_token.value);
             }
             advance();
             xmode = 'outer';
@@ -5911,11 +5923,11 @@ loop:   for (;;) {
             case 'hidden':
             case 'image':
                 if (option.adsafe && attribute.autocomplete !== 'off') {
-                    warn(bundle.adsafe_autocomplete);
+                    warn('adsafe_autocomplete');
                 }
                 break;
             default:
-                warn(bundle.bad_type);
+                warn('bad_type');
             }
             break;
         case 'applet':
@@ -5930,7 +5942,7 @@ loop:   for (;;) {
         case 'object':
         case 'param':
             if (option.adsafe) {
-                warn(bundle.adsafe_tag, next_token, name);
+                warn('adsafe_tag', next_token, name);
             }
             break;
         }
@@ -5955,7 +5967,7 @@ loop:   for (;;) {
                 attributes = {};
                 tag_name = next_token;
                 if (!tag_name.identifier) {
-                    warn(bundle.bad_name_a, tag_name);
+                    warn('bad_name_a', tag_name);
                 }
                 name = tag_name.value;
                 if (option.cap) {
@@ -5969,7 +5981,7 @@ loop:   for (;;) {
                 }
                 tag = html_tag[name];
                 if (typeof tag !== 'object') {
-                    fail(bundle.unrecognized_tag_a, tag_name, name);
+                    fail('unrecognized_tag_a', tag_name, name);
                 }
                 is_empty = tag.empty;
                 tag_name.type = name;
@@ -5977,7 +5989,7 @@ loop:   for (;;) {
                     if (next_token.id === '/') {
                         advance('/');
                         if (next_token.id !== '>') {
-                            warn(bundle.expected_a_b, next_token, '>', next_token.value);
+                            warn('expected_a_b', next_token, '>', next_token.value);
                         }
                         break;
                     }
@@ -5986,9 +5998,9 @@ loop:   for (;;) {
                     }
                     if (!next_token.identifier) {
                         if (next_token.id === '(end)' || next_token.id === '(error)') {
-                            warn(bundle.expected_a_b, next_token, '>', next_token.value);
+                            warn('expected_a_b', next_token, '>', next_token.value);
                         }
-                        warn(bundle.bad_name_a);
+                        warn('bad_name_a');
                     }
                     option.white = true;
                     spaces();
@@ -5996,22 +6008,22 @@ loop:   for (;;) {
                     option.white = old_white;
                     advance();
                     if (!option.cap && attribute !== attribute.toLowerCase()) {
-                        warn(bundle.attribute_case_a, token);
+                        warn('attribute_case_a', token);
                     }
                     attribute = attribute.toLowerCase();
                     xquote = '';
                     if (Object.prototype.hasOwnProperty.call(attributes, attribute)) {
-                        warn(bundle.duplicate_a, token, attribute);
+                        warn('duplicate_a', token, attribute);
                     }
                     if (attribute.slice(0, 2) === 'on') {
                         if (!option.on) {
-                            warn(bundle.html_handlers);
+                            warn('html_handlers');
                         }
                         xmode = 'scriptstring';
                         advance('=');
                         quote = next_token.id;
                         if (quote !== '"' && quote !== '\'') {
-                            fail(bundle.expected_a_b, next_token, '"', next_token.value);
+                            fail('expected_a_b', next_token, '"', next_token.value);
                         }
                         xquote = quote;
                         wmode = option.white;
@@ -6021,7 +6033,7 @@ loop:   for (;;) {
                         statements();
                         option.white = wmode;
                         if (next_token.id !== quote) {
-                            fail(bundle.expected_a_b, next_token, quote, next_token.value);
+                            fail('expected_a_b', next_token, quote, next_token.value);
                         }
                         xmode = 'html';
                         xquote = '';
@@ -6032,7 +6044,7 @@ loop:   for (;;) {
                         advance('=');
                         quote = next_token.id;
                         if (quote !== '"' && quote !== '\'') {
-                            fail(bundle.expected_a_b, next_token, '"', next_token.value);
+                            fail('expected_a_b', next_token, '"', next_token.value);
                         }
                         xmode = 'styleproperty';
                         xquote = quote;
@@ -6052,7 +6064,7 @@ loop:   for (;;) {
                                     next_token.arity !== 'string' &&
                                     next_token.arity !== 'number' &&
                                     next_token.id !== '(color)') {
-                                warn(bundle.expected_attribute_value_a, token, attribute);
+                                warn('expected_attribute_value_a', token, attribute);
                             }
                             advance();
                         } else {
@@ -6073,7 +6085,7 @@ loop:   for (;;) {
                 xmode = 'html';
                 advance('</');
                 if (!next_token.identifier) {
-                    warn(bundle.bad_name_a);
+                    warn('bad_name_a');
                 }
                 name = next_token.value;
                 if (option.cap) {
@@ -6081,25 +6093,25 @@ loop:   for (;;) {
                 }
                 advance();
                 if (!stack) {
-                    fail(bundle.unexpected_a, next_token, closetag(name));
+                    fail('unexpected_a', next_token, closetag(name));
                 }
                 tag_name = stack.pop();
                 if (!tag_name) {
-                    fail(bundle.unexpected_a, next_token, closetag(name));
+                    fail('unexpected_a', next_token, closetag(name));
                 }
                 if (tag_name.name !== name) {
-                    fail(bundle.expected_a_b,
+                    fail('expected_a_b',
                         next_token, closetag(tag_name.name), closetag(name));
                 }
                 if (next_token.id !== '>') {
-                    fail(bundle.expected_a_b, next_token, '>', next_token.value);
+                    fail('expected_a_b', next_token, '>', next_token.value);
                 }
                 xmode = 'outer';
                 advance('>');
                 break;
             case '<!':
                 if (option.safe) {
-                    warn(bundle.adsafe_a);
+                    warn('adsafe_a');
                 }
                 xmode = 'html';
                 for (;;) {
@@ -6108,13 +6120,13 @@ loop:   for (;;) {
                         break;
                     }
                     if (next_token.value.indexOf('--') >= 0) {
-                        fail(bundle.unexpected_a, next_token, '--');
+                        fail('unexpected_a', next_token, '--');
                     }
                     if (next_token.value.indexOf('<') >= 0) {
-                        fail(bundle.unexpected_a, next_token, '<');
+                        fail('unexpected_a', next_token, '<');
                     }
                     if (next_token.value.indexOf('>') >= 0) {
-                        fail(bundle.unexpected_a, next_token, '>');
+                        fail('unexpected_a', next_token, '>');
                     }
                 }
                 xmode = 'outer';
@@ -6124,7 +6136,7 @@ loop:   for (;;) {
                 return;
             default:
                 if (next_token.id === '(end)') {
-                    fail(bundle.missing_a, next_token,
+                    fail('missing_a', next_token,
                         '</' + stack[stack.length - 1].value + '>');
                 } else {
                     advance();
@@ -6136,7 +6148,7 @@ loop:   for (;;) {
             }
         }
         if (next_token.id !== '(end)') {
-            fail(bundle.unexpected_a);
+            fail('unexpected_a');
         }
     }
 
@@ -6249,11 +6261,11 @@ loop:   for (;;) {
         try {
             advance();
             if (next_token.arity === 'number') {
-                fail(bundle.unexpected_a);
+                fail('unexpected_a');
             } else if (next_token.value.charAt(0) === '<') {
                 html();
                 if (option.adsafe && !adsafe_went) {
-                    warn(bundle.adsafe_go, this);
+                    warn('adsafe_go', this);
                 }
             } else {
                 switch (next_token.id) {
@@ -6272,12 +6284,12 @@ loop:   for (;;) {
                     if (token.id !== '@' || !next_token.identifier ||
                             next_token.value !== 'charset' || token.line !== 1 ||
                             token.from !== 1) {
-                        fail(bundle.css);
+                        fail('css');
                     }
                     advance();
                     if (next_token.arity !== 'string' &&
                             next_token.value !== 'UTF-8') {
-                        fail(bundle.css);
+                        fail('css');
                     }
                     advance();
                     semicolon();
@@ -6286,7 +6298,7 @@ loop:   for (;;) {
 
                 default:
                     if (option.adsafe && option.fragment) {
-                        fail(bundle.expected_a_b,
+                        fail('expected_a_b',
                             next_token, '<div>', next_token.value);
                     }
 
@@ -6299,7 +6311,7 @@ loop:   for (;;) {
                         semicolon();
                     }
                     if (next_token.value === 'use strict') {
-                        warn(bundle.function_strict);
+                        warn('function_strict');
                         use_strict();
                     }
                     adsafe_top = true;
@@ -6313,10 +6325,10 @@ loop:   for (;;) {
                             JSLINT.tree[0].second.length !== 2 ||
                             JSLINT.tree[0].second[0].arity !== 'string' ||
                             aint(JSLINT.tree[0].second[1], 'id', 'function'))) {
-                        fail(bundle.adsafe_lib);
+                        fail('adsafe_lib');
                     }
                     if (JSLINT.tree.disrupt) {
-                        warn(bundle.weird_program, prev_token);
+                        warn('weird_program', prev_token);
                     }
                 }
             }
@@ -6569,47 +6581,8 @@ loop:   for (;;) {
     };
     itself.jslint = itself;
 
-    itself.edition = '2011-03-18';
+    itself.edition = '2011-03-27';
 
     return itself;
 
 }());
-
-
-
-// Source:
-// http://blog.pulletsforever.com/2009/07/09/running_jslint_with_safaris_javascript_core/
-// Append this to jslint.js so that JSC can run it.
-
-// jsc.js
-// 2009-07-08
-/*
-Copyright (c) 2002 Douglas CrockfordÂ  (www.JSLint.com) JSC Edition
-Copyright (c) 2009 Apple Inc.
-*/
-// This is the JSC companion to fulljslint.js.
-/*extern JSLINT */
-(function (a) {
-    if (!a[0]) {
-    print('Usage: jslint.js -- "$(cat myFile.js)"');
-    quit(1);
-}
-if (!JSLINT(a[0], {bitwise: true, eqeqeq: true, immed: true,
-    newcap: true, nomen: true, onevar: true, plusplus: true,
-    regexp: true, undef: true, white: true})) {
-        for (var i = 0; i < JSLINT.errors.length; i += 1) {
-            var e = JSLINT.errors[i];
-            if (e) {
-                print('Lint at line ' + (e.line + 1) + ' character ' +
-                    (e.character + 1) + ': ' + e.reason);
-                print((e.evidence || '').
-                replace(/^\s*(\S*(\s+\S+)*)\s*$/, "$1"));
-                print('');
-            }
-        }
-    quit(2);
-} else {
-    print("jslint: No problems found.");
-    quit();
-}
-}(arguments));

@@ -3,22 +3,43 @@
 # Quick, simple JSLint in TextMate. Hurt your feelings in style.
 # (JSLint.com is a powerful JS code quality tool.)
 
-# To update jslint.js:
-# 1. cd /path/to/JSLintMate.tmbundle/Support/lib/
-# 2. curl http://www.jslint.com/fulljslint.js > jslint.js
-# 3. cat fulljslint-jsc.js >> jslint.js
+# Usage (in a TextMate bundle):
+#
+#   ruby '/path/to/jslintmate.rb' <options>
+#
+# Options:
+#
+#   --linter          'jslint' (default) or 'jshint'
+#   --linter-options  Format: 'option1=value1,option2=value'
+#
+# To update jslint.js and jshint.js:
+#
+#   cd /path/to/JSLintMate.tmbundle/Support/lib/
+#   curl -o jslint.js http://www.jslint.com/fulljslint.js
+#   curl -o jshint.js http://jshint.com/jshint.js
 
 require 'cgi'
+
+# Parse Ruby arguments
+args = ARGV.inject({}) do |hsh, s|
+  k, v = s.split('=', 2)
+  k.sub!(/^--/, '')
+  hsh.merge(k => v)
+end
+linter_name    = args['linter'] == 'jshint' ? 'jshint' : 'jslint'
+linter_options = args['linter-options'] || ''
 
 if ENV['TM_FILEPATH']
   filepath = ENV['TM_FILEPATH']
   problems_count = 0
 
-  # Using OS X's JSC:
-  linter  = "#{ENV['TM_BUNDLE_SUPPORT']}/lib/jslint.js"
+  # Prepare OS X's JSC
+  linter  = "#{ENV['TM_BUNDLE_SUPPORT']}/lib/#{linter_name}.js"
+  jsc     = "#{ENV['TM_BUNDLE_SUPPORT']}/lib/jsc.js"
   cmd     = '/System/Library/Frameworks/JavaScriptCore.framework/' +
-             %{Versions/A/Resources/jsc "#{linter}" -- "$(cat "#{filepath}")"}
-  lint    = `#{cmd}`
+             %{Versions/A/Resources/jsc "#{linter}" "#{jsc}" -- } +
+             %{"$(cat "#{filepath}")" "#{linter_options}"}
+  lint    = `#{cmd}` # Find problems
 
   # If you prefer to use Rhino (Mozilla's open-source JS engine):
   #
@@ -39,6 +60,7 @@ if ENV['TM_FILEPATH']
   #         linter = '~/Library/JSLint/fulljslint-rhino.js'
   #         lint   = `java org.mozilla.javascript.tools.shell.Main #{linter} "#{filepath}"`
 
+  # Format problems
   lint.gsub!(/^(Lint at line )(\d+)(.+?:)(.+?)\n(?:(.+?)\n\n)?/m) do
     line, char, desc, code = $2, $3, $4, $5
 
@@ -91,7 +113,7 @@ print <<HTML
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>JSLintMate</title>
+  <title>JSLintMate#{' (with JSHint)' if linter_name == 'jshint'}</title>
   <style>
     html, body {
       margin: 0;
