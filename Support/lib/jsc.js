@@ -27,7 +27,7 @@ Copyright (c) 2009 Apple Inc.
   // Check for JS code
   if (!a[0]) {
     print('Usage: jsc (jslint|jshint).js jsc.js -- "$(cat myFile.js)" ' +
-          '[--linter-options=opt1=val1,opt2=val2]');
+          '[opt1=val1,opt2=val2]');
     quit(1);
   }
 
