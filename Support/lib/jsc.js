@@ -41,7 +41,7 @@ Copyright (c) 2009 Apple Inc.
           case 'false': return false;
           default:      return v;
         }
-      })();
+      }());
     });
   }
 

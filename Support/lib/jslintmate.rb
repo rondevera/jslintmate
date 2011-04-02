@@ -27,18 +27,42 @@ args = ARGV.inject({}) do |hsh, s|
   hsh.merge(k => v)
 end
 linter_name    = args['linter'] == 'jshint' ? 'jshint' : 'jslint'
-linter_options = args['linter-options'] || ''
+linter_options = args['linter-options']
+linter_options_filepath = args['linter-options-file']
 
 if ENV['TM_FILEPATH']
   filepath = ENV['TM_FILEPATH']
   problems_count = 0
 
+  # Prepare linter options
+  if linter_options_filepath
+    require 'yaml'
+
+    # Convert any existing linter options to a hash
+    linter_options =  if linter_options
+                        linter_options.split(',').inject({}) do |hsh, kv|
+                          k, v = kv.split('='); hsh.merge(k => v)
+                        end
+                      else
+                        {}
+                      end
+
+    # Parse linter options file
+    linter_options.merge!(
+      YAML.load_file(linter_options_filepath).reject{ |k, v| v.is_a?(Array) })
+
+    # Stringify linter options in `a=1,b=2` format
+    linter_options =
+      linter_options.inject([]) { |a, (k, v)| a << "#{k}=#{v}" }.join(',')
+  end
+
   # Prepare OS X's JSC
   linter  = "#{ENV['TM_BUNDLE_SUPPORT']}/lib/#{linter_name}.js"
   jsc     = "#{ENV['TM_BUNDLE_SUPPORT']}/lib/jsc.js"
-  cmd     = '/System/Library/Frameworks/JavaScriptCore.framework/' +
-             %{Versions/A/Resources/jsc "#{linter}" "#{jsc}" -- } +
-             %{"$(cat "#{filepath}")" "#{linter_options}"}
+  cmd     = '/System/Library/Frameworks/JavaScriptCore.framework/' <<
+             %{Versions/A/Resources/jsc "#{linter}" "#{jsc}" -- } <<
+             %{"$(cat "#{filepath}")"}
+  cmd     << %{ "#{linter_options}"} if linter_options
   lint    = `#{cmd}` # Find problems
 
   # If you prefer to use Rhino (Mozilla's open-source JS engine):
@@ -59,6 +83,8 @@ if ENV['TM_FILEPATH']
   #
   #         linter = '~/Library/JSLint/fulljslint-rhino.js'
   #         lint   = `java org.mozilla.javascript.tools.shell.Main #{linter} "#{filepath}"`
+  #
+  # See also: http://www.phpied.com/installing-rhino-on-mac/
 
   # Format problems
   lint.gsub!(/^(Lint at line )(\d+)(.+?:)(.+?)\n(?:(.+?)\n\n)?/m) do
