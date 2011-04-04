@@ -7,7 +7,7 @@
 	<key>contactName</key>
 	<string>Ron DeVera</string>
 	<key>description</key>
-	<string>Support for &lt;a href="http://www.jslint.com/"&gt;JSLint&lt;/a&gt;, the JavaScript code quality tool</string>
+	<string>Support for &lt;a href="http://www.jslint.com/"&gt;JSLint&lt;/a&gt; and &lt;a href="http://www.jshint.com/"&gt;JSHint&lt;/a&gt;, the JavaScript code quality tools</string>
 	<key>mainMenu</key>
 	<dict>
 		<key>items</key>
