@@ -203,6 +203,7 @@ print <<HTML
       width: 13px;
       height: 13px;
       background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAANCAYAAABy6+R8AAAABGdBTUEAANjr9RwUqgAAACBjSFJNAABtmAAAbZgAAAAAAABtmAAAAAAAAG2YAAAAAAAAbZhH+0sNAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAfklEQVQokWP8//8/A6mAiWQdBDQpMDAwvGdgYOinik0sBGwyZGBgeIAh8///f3Qs8P////P/IeA9FnmszstnYGCYiM952DQ1MjAwCEDZG4jVxMDAwOAPpTeSoskBSn9gYGAowJDFERDvoQGxH8pHUcOIIxkpQPEBbJK4NOEFAAWhZQnFaJuvAAAAAElFTkSuQmCC) 0 0 no-repeat;
+        /* Image from Dashboard Widget resources in OS X */
         -webkit-border-radius: 7px;
       border-radius:           7px;
       opacity: 0;
