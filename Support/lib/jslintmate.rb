@@ -99,16 +99,16 @@ if ENV['TM_FILEPATH']
     char = (char.scan(/\d+/)[0].to_i - 1).to_s
     line_uri = "txmt://open?url=file://#{filepath}" <<
                "&line=#{CGI.escapeHTML(line)}&column=#{CGI.escapeHTML(char)}"
-    desc = %{<span class="desc">#{CGI.escapeHTML(desc)}</span>} if desc
+    desc = %{<span class="desc">#{CGI.escapeHTML(desc).strip}</span>} if desc
     loc  = %{<span class="location">#{
               CGI.escapeHTML("Line #{line}, character #{char}")}</span>}
-    code = %{<pre>#{CGI.escapeHTML(code)}</pre>} if code
+    code = %{<pre>#{CGI.escapeHTML(code).strip}</pre>} if code
 
     if code
       problems_count += 1
-      %{<li><a href="#{line_uri}">#{desc} #{loc} #{code}</a></li>}
+      %{<li><a href="#{line_uri}">#{loc} #{desc} #{code}</a></li>}
     else
-      %{<li class="alert">#{desc} #{loc}</li>}
+      %{<li class="alert">#{loc} #{desc}</li>}
     end
   end
   lint.gsub!(/^(jslint:)(.+?)$/, '<p><strong>\1</strong>\2</p>')
@@ -312,6 +312,8 @@ print <<HTML
       color: rgba(255, 255, 255, 0.75);
     }
     ul.problems .desc {
+      display: block;
+      margin-right: 10em;
       padding: 0 4px;
     }
     ul.problems pre {
