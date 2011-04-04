@@ -111,7 +111,6 @@ if ENV['TM_FILEPATH']
       %{<li class="alert">#{loc} #{desc}</li>}
     end
   end
-  lint.gsub!(/^(jslint:)(.+?)$/, '<p><strong>\1</strong>\2</p>')
 
   if lint =~ /No problems found/
     # Douglas Crockford would be so proud.
