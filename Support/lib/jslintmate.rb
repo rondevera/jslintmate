@@ -27,7 +27,7 @@ args = ARGV.inject({}) do |hsh, s|
   hsh.merge(k => v)
 end
 linter_name    = args['linter'] == 'jshint' ? 'jshint' : 'jslint'
-linter_options = args['linter-options']
+linter_options = args['linter-options'] || 'undef=true'
 linter_options_filepath = args['linter-options-file']
 
 link_to_jslintmate = %{
