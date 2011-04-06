@@ -20,7 +20,18 @@
 
 require 'cgi'
 
-VERSION = '1.0'
+module JSLintMate
+  VERSION = '1.0'
+
+  def self.link_to_jslintmate
+    %{
+      <a href="https://github.com/rondevera/jslintmate" class="info"
+        title="More info on JSLintMate #{JSLintMate::VERSION}">info</a>
+    }.strip.split.join(' ')
+  end
+end
+
+
 
 # Parse Ruby arguments
 args = ARGV.inject({}) do |hsh, s|
@@ -31,11 +42,6 @@ end
 linter_name    = args['linter'] == 'jshint' ? 'jshint' : 'jslint'
 linter_options = args['linter-options'] || 'undef=true'
 linter_options_filepath = args['linter-options-file']
-
-link_to_jslintmate = %{
-  <a href="https://github.com/rondevera/jslintmate" class="info"
-    title="More info on JSLintMate #{VERSION}">info</a>
-}.strip.split.join(' ')
 
 if ENV['TM_FILEPATH']
   filepath = ENV['TM_FILEPATH']
@@ -119,7 +125,7 @@ if ENV['TM_FILEPATH']
     result = %{
       <header>
         Lint-free! <span class="filepath">#{filepath}</span>
-        #{link_to_jslintmate}
+        #{JSLintMate.link_to_jslintmate}
       </header>
       <p class="success">Lint-free!</p>
     }
@@ -128,7 +134,7 @@ if ENV['TM_FILEPATH']
       <header>
         Problem#{'s' if problems_count > 1} found in:
         <span class="filepath">#{filepath}</span>
-        #{link_to_jslintmate}
+        #{JSLintMate.link_to_jslintmate}
       </header>
       <ul class="problems">#{lint}</ul>
     }
@@ -137,7 +143,7 @@ else # !ENV['TM_FILEPATH']
   result = %{
     <header>
       Oops!
-      #{link_to_jslintmate}
+      #{JSLintMate.link_to_jslintmate}
     </header>
     <p class="alert">
       Please save this file before JSLint can hurt your feelings.
