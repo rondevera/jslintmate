@@ -3,14 +3,21 @@ JSLintMate
 
 Quick, simple **JSLint (or JSHint) in TextMate**. Hurt your feelings in style.
 
-JSLintMate uses jsc and Ruby behind the scenes; both are part of OS X by
+JSLintMate uses Ruby and [JSC][jsc] behind the scenes; both are part of OS X by
 default. No need to install anything else.
 
-([JSLint][jslint] is a powerful JS code quality tool from Douglas Crockford.
-[JSHint][jshint] is a community-driven project based on JSLint, and doesn't
-hurt your feelings so much. They're not the same as
-[JavaScript Lint][javascriptlint].)
+<img src="https://github.com/rondevera/jslintmate/raw/master/Support/images/jslintmate-screenshots.png"
+  alt="JSLintMate screenshots" width="892" height="525" />
 
+(CSS geeks: Only two images are used throughout the UI. The red, striped error
+uses only CSS.)
+
+*What are these things?* [JSLint][jslint] is a powerful JS code quality tool
+from expert Douglas Crockford. [JSHint][jshint] is a community-driven project
+based on JSLint, and doesn't hurt your feelings so much. They're not the same
+as [JavaScript Lint][javascriptlint], but awesome nonetheless.
+
+[jsc]:            http://trac.webkit.org/wiki/JSC
 [jslint]:         http://jslint.com
 [jshint]:         http://jshint.com
 [javascriptlint]: http://www.javascriptlint.com/
@@ -42,6 +49,9 @@ Usage
     JSHint), and a list of errors appears.
 3.  Click an error to jump to that line in the file. Fix and repeat.
 
+This bundle doesn't run JSLint/JSHint on save because doing so can incur
+noticeable overhead.
+
 
 Options
 -------
@@ -61,12 +71,16 @@ keep their standards synced. For example:
               white:    false */
     /*global  window, jQuery, $, MyApp */
 
-Tired of listing JSLint options atop every JS file? Here are two alternatives:
+This example is specifically for JSLint. To use it with JSHint, just change
+`/*jslint` to `/*jshint`.
+
+Tired of listing JSLint/JSHint options atop every JS file? Here are two
+alternatives:
 
 * Specify a **YAML config file**:
 
   1.  Within TextMate, go to Bundles > Bundle Editor > Edit Commands.
-  2.  Expand "JSLintMate" and highlight "Run JSLintMate".
+  2.  Expand "JavaScript JSLintMate" and highlight "Run JSLintMate".
   3.  Add the config file path as `--linter-options-file`. For example (no
       line breaks):
 
@@ -74,15 +88,15 @@ Tired of listing JSLint options atop every JS file? Here are two alternatives:
 
       Customize this file path as needed.
 
-  This is great for sharing a config file with project collaborators, so that
-  everyone uses the same JSLint options for all JS files. The simple YAML
-  config file used by [jslint\_on\_rails][jslint_on_rails_config] is a good
-  example.
+  This is great for sharing options with project collaborators--everyone uses
+  the same options for all JS files, and different projects can have different
+  options. The simple YAML config file used by
+  [jslint\_on\_rails][jslint_on_rails_config] is a good example.
 
-* Specify **global JSLint options** for use across projects:
+* Specify **global JSLint/JSHint options** for use across projects:
 
   1.  Within TextMate, go to Bundles > Bundle Editor > Edit Commands.
-  2.  Expand "JSLintMate" and highlight "Run JSLintMate".
+  2.  Expand "JavaScript JSLintMate" and highlight "Run JSLintMate".
   3.  Add your list of options as `--linter-options`. For example (no line
       breaks):
 
@@ -109,11 +123,23 @@ For more info, read about [JSLint's options][jslint-options] and
 About
 -----
 
-Tested with OS X 10.6 and WebKit 531+ (Safari 4+). Probably works with older
-software, but not guaranteed.
+Found a bug or have a suggestion? [Please open an issue][issues] or ping
+[@ronalddevera on Twitter][twitter]. If you want to hack on some features,
+feel free to fork and send a pull request.
+
+Tested with OS X 10.6, WebKit 531+ (Safari 4+), and TextMate 1.5.10. Probably
+works with older software, but not guaranteed.
 
 This project is adapted from:
 
 - <http://www.phpied.com/jslint-on-mac-textmate/>
 - <http://wonko.com/post/pretty-jslint-output-for-textmate>
 - <http://blog.pulletsforever.com/2009/07/09/running_jslint_with_safaris_javascript_core/>
+
+JSLintMate is released under the [MIT License][license]. The bundle contains
+copies of JSLint and JSHint, which use their own license(s). Use JSLintMate
+for good, not evil.
+
+[issues]:   https://github.com/rondevera/jslintmate/issues
+[twitter]:  https://twitter.com/ronalddevera
+[license]:  https://github.com/rondevera/jslintmate/blob/master/LICENSE
