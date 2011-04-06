@@ -27,7 +27,7 @@ Setup
 -----
 
 [Download JSLintMate.tmbundle][download] and double-click it.
-TextMate should install it for you automatically--that's all.
+TextMate should install it for you automatically&mdash;that's all.
 
 Or via Git:
 
@@ -88,9 +88,9 @@ alternatives:
 
       Customize this file path as needed.
 
-  This is great for sharing options with project collaborators--everyone uses
-  the same options for all JS files, and different projects can have different
-  options. The simple YAML config file used by
+  This is great for sharing options with project collaborators&mdash;everyone
+  uses the same options for all JS files, and different projects can have
+  different options. The simple YAML config file used by
   [jslint\_on\_rails][jslint_on_rails_config] is a good example.
 
 * Specify **global JSLint/JSHint options** for use across projects:
