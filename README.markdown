@@ -62,22 +62,22 @@ teammates keep their standards synced. Three ways to do this:
 
 * Set options at the **top of each JS file**:
 
-  Adding options atop each JS file gives you fine-grained control. For
-  example:
+    Adding options atop each JS file gives you fine-grained control. For
+    example:
 
-        /*jslint  browser:  true,
-                  eqeqeq:   true,
-                  immed:    false,
-                  newcap:   true,
-                  nomen:    false,
-                  onevar:   true,
-                  plusplus: false,
-                  undef:    true,
-                  white:    false */
-        /*global  window, jQuery, $, MyApp */
+          /*jslint  browser:  true,
+                    eqeqeq:   true,
+                    immed:    false,
+                    newcap:   true,
+                    nomen:    false,
+                    onevar:   true,
+                    plusplus: false,
+                    undef:    true,
+                    white:    false */
+          /*global  window, jQuery, $, MyApp */
 
-  This example is specifically for JSLint. To use it with JSHint, just change
-  `/*jslint` to `/*jshint`.
+    This example is specifically for JSLint. To use it with JSHint, just
+    change `/*jslint` to `/*jshint`.
 
 * Specify a **YAML config file**:
 
