@@ -81,27 +81,27 @@ teammates keep their standards synced. Three ways to do this:
 
 * Specify a **YAML config file**:
 
-  A YAML file is great for sharing options with project
-  collaborators&mdash;everyone uses the same options for all JS files, and
-  different projects can have different options. The simple YAML config file
-  used by [jslint\_on\_rails][jslint_on_rails_config] is a good example.
-  Setup:
+    A YAML file is great for sharing options with project
+    collaborators&mdash;everyone uses the same options for all JS files, and
+    different projects can have different options. The simple YAML config file
+    used by [jslint\_on\_rails][jslint_on_rails_config] is a good example.
+    Setup:
 
-  1.  Within TextMate, go to *Bundles > Bundle Editor > Edit Commands*.
-  2.  Expand *JavaScript JSLintMate* and highlight *Run JSLintMate*.
-  3.  Add the config file path as `--linter-options-file`. For example
-      (customize the file path as needed; no line breaks):
+    1.  Within TextMate, go to *Bundles > Bundle Editor > Edit Commands*.
+    2.  Expand *JavaScript JSLintMate* and highlight *Run JSLintMate*.
+    3.  Add the config file path as `--linter-options-file`. For example
+        (customize the file path as needed; no line breaks):
 
-            ruby path/to/jslintmate.rb --linter-options-file="$TM_PROJECT_DIRECTORY/config/jslint.yml"
+              ruby path/to/jslintmate.rb --linter-options-file="$TM_PROJECT_DIRECTORY/config/jslint.yml"
 
 * Specify **global JSLint/JSHint options** for use across projects:
 
-  1.  Within TextMate, go to *Bundles > Bundle Editor > Edit Commands*.
-  2.  Expand *JavaScript JSLintMate* and highlight *Run JSLintMate*.
-  3.  Add your list of options as `--linter-options`. For example (no line
-      breaks):
+    1.  Within TextMate, go to *Bundles > Bundle Editor > Edit Commands*.
+    2.  Expand *JavaScript JSLintMate* and highlight *Run JSLintMate*.
+    3.  Add your list of options as `--linter-options`. For example (no line
+        breaks):
 
-            ruby path/to/jslintmate.rb --linter-options=browser=true,onevar=false
+              ruby path/to/jslintmate.rb --linter-options=browser=true,onevar=false
 
 You can specify `--linter-options` and `--linter-options-file` together.
 Options from the config file will merge with (and selectively override)
