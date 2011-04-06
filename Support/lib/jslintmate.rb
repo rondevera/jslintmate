@@ -20,6 +20,8 @@
 
 require 'cgi'
 
+VERSION = '1.0'
+
 # Parse Ruby arguments
 args = ARGV.inject({}) do |hsh, s|
   k, v = s.split('=', 2)
@@ -32,7 +34,7 @@ linter_options_filepath = args['linter-options-file']
 
 link_to_jslintmate = %{
   <a href="https://github.com/rondevera/jslintmate" class="info"
-    title="More info on JSLintMate">info</a>
+    title="More info on JSLintMate #{VERSION}">info</a>
 }.strip.split.join(' ')
 
 if ENV['TM_FILEPATH']

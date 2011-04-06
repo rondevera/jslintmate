@@ -46,6 +46,7 @@ Copyright (c) 2009 Apple Inc.
   }
 
   if (!linter(a[0], linterOptions)) {
+    // Format errors
     (function(){
       var errorsCount = linter.errors.length, i, e;
       for (i = 0; i < errorsCount; i += 1) {
