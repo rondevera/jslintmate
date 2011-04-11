@@ -48,7 +48,7 @@ if ENV['TM_FILEPATH']
   problems_count = 0
 
   # Prepare linter options
-  if linter_options_filepath
+  if linter_options_filepath && File.exists?(linter_options_filepath)
     require 'yaml'
 
     # Convert any existing linter options to a hash
