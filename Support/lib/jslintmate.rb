@@ -164,12 +164,13 @@ if ENV['TM_FILEPATH']
   end
 else # !ENV['TM_FILEPATH']
   result = %{
-    <header>
+    <header class="alert">
       Oops!
       #{JSLintMate.link_to_jslintmate}
     </header>
     <p class="alert">
-      Please save this file before JSLint can hurt your feelings.
+      Please save this file before
+      #{linter_name == 'jshint' ? 'JSHint' : 'JSLint'} can hurt your feelings.
     </p>
   }
 end
