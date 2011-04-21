@@ -22,7 +22,7 @@ require 'cgi'
 require 'erb'
 
 module JSLintMate
-  VERSION = '1.0'
+  VERSION = File.read(File.join(ENV['TM_BUNDLE_PATH'], 'VERSION')).strip
 
   def self.lib_path(*args)
     # Usage:

@@ -1,6 +1,13 @@
 JSLintMate
 ==========
 
+1.0.1 (2011-04-20)
+------------------
+
+* Fixed appearance when running JSLint/JSHint against a file that hasn't been
+  saved yet.
+
+
 1.0 (2011-04-11)
 ----------------
 
