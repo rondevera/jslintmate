@@ -9,8 +9,8 @@ default. No need to install anything else.
 <img src="https://github.com/rondevera/jslintmate/raw/master/Support/images/jslintmate-screenshots.png"
   alt="JSLintMate screenshots" width="892" height="525" />
 
-(CSS geeks: Only two images are used throughout the UI. The red, striped error
-uses only CSS.)
+(CSS geeks: Only three images are used throughout the UI. The red, striped
+error uses only CSS.)
 
 *What are these things?* [JSLint][jslint] is a powerful JS code quality tool
 from expert Douglas Crockford. [JSHint][jshint] is a community-driven project
