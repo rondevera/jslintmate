@@ -1,6 +1,9 @@
 JSLintMate
 ==========
 
+1.0.2 (2011-04-22)
+------------------
+
 * Fixed path issue when customizing bundle commands, e.g., when adding
   `--linter-options-file`.
 
