@@ -22,7 +22,11 @@ require 'cgi'
 require 'erb'
 
 module JSLintMate
-  VERSION = File.read(File.join(ENV['TM_BUNDLE_PATH'], 'VERSION')).strip
+  def self.version
+    @version ||= begin
+      File.read(File.join(JSLintMate.bundle_path, 'VERSION')).strip
+    end
+  end
 
   def self.lib_path(*args)
     # Usage:
@@ -31,7 +35,7 @@ module JSLintMate
     #   lib_path('x.js')  # => /path/to/JSLintMate.tmbundle/Support/lib/x.js
 
     dirs = ['lib'] << args
-    File.join(ENV['TM_BUNDLE_SUPPORT'], *dirs)
+    File.join(bundle_path, 'Support', *dirs)
   end
 
   def self.html
@@ -46,10 +50,18 @@ module JSLintMate
     File.read lib_path('jslintmate.js')
   end
 
+  def self.bundle_path
+    unless @bundle_path
+      @bundle_path = ENV['TM_BUNDLE_PATH'].dup
+      @bundle_path.sub!('TextMate/Bundles', 'TextMate/Pristine Copy/Bundles')
+    end
+    @bundle_path
+  end
+
   def self.link_to_jslintmate
     %{
       <a href="https://github.com/rondevera/jslintmate" class="info"
-        title="More info on JSLintMate #{JSLintMate::VERSION}">info</a>
+        title="More info on JSLintMate #{version}">info</a>
     }.strip.split.join(' ')
   end
 end
