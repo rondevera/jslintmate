@@ -1,24 +1,23 @@
 JSLintMate
 ==========
 
+1.0.3 (2011-04-23)
+------------------
 * FIX: Fixed path issue when installing bundle via `git clone`.
 
 
 1.0.2 (2011-04-22)
 ------------------
-
 * FIX: Fixed path issue when customizing bundle commands, e.g., when adding
   `--linter-options-file`.
 
 
 1.0.1 (2011-04-20)
 ------------------
-
 * FIX: Fixed appearance when running JSLint/JSHint against a file that hasn't
   been saved yet.
 
 
 1.0 (2011-04-11)
 ----------------
-
 * Initial release.

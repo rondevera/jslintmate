@@ -38,6 +38,9 @@ Or via Git:
       # If the last command returns an error, switch to TextMate,
       # then select Bundles > Bundle Editor > Reload Bundles.
 
+    # Update to latest version:
+    git pull
+
 [download]: https://github.com/rondevera/jslintmate/archives/master
 
 
