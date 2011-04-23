@@ -108,7 +108,7 @@ Options from the config file will merge with (and selectively override)
 `--linter-options`.
 
 Note that you can have different options for JSLint and JSHint simply by
-modifying the "Run JSLintMate" and "Run JSLintMate with JSHint" bundles
+modifying the "Run JSLintMate" and "Run JSLintMate with JSHint" commands
 separately.
 
 For more info, read about [JSLint's options][jslint-options] and

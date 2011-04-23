@@ -38,6 +38,36 @@ module JSLintMate
     File.join(bundle_path, 'Support', *dirs)
   end
 
+  def self.bundle_path
+    unless @bundle_path
+      user_bundle_path      = ENV['TM_BUNDLE_PATH'].dup
+      pristine_bundle_path  = user_bundle_path.sub('TextMate/Bundles',
+                                'TextMate/Pristine Copy/Bundles')
+      long_bundle_name      = 'JavaScript JSLintMate.tmbundle'
+      short_bundle_name     = 'JSLintMate.tmbundle'
+      long_bundle_rxp       = %r{/#{Regexp.escape long_bundle_name}$}
+      short_bundle_rxp      = %r{/#{Regexp.escape short_bundle_name}$}
+
+      paths = [
+        pristine_bundle_path.
+          sub(long_bundle_rxp, "/#{short_bundle_name}"),
+          # => .../TextMate/Pristine Copy/Bundles/JSLintMate.tmbundle
+        pristine_bundle_path.
+          sub(short_bundle_rxp, "/#{long_bundle_name}"),
+          # => .../TextMate/Pristine Copy/Bundles/JavaScript JSLintMate.tmbundle
+        user_bundle_path.
+          sub(long_bundle_rxp, "/#{short_bundle_name}"),
+          # => .../TextMate/Bundles/JSLintMate.tmbundle
+        user_bundle_path.
+          sub(short_bundle_rxp, "/#{long_bundle_name}")
+          # => .../TextMate/Bundles/JavaScript JSLintMate.tmbundle
+      ]
+      @bundle_path = paths.detect { |path| File.directory?(path) }
+    end
+
+    @bundle_path
+  end
+
   def self.html
     File.read lib_path('jslintmate.html.erb')
   end
@@ -48,14 +78,6 @@ module JSLintMate
 
   def self.js
     File.read lib_path('jslintmate.js')
-  end
-
-  def self.bundle_path
-    unless @bundle_path
-      @bundle_path = ENV['TM_BUNDLE_PATH'].dup
-      @bundle_path.sub!('TextMate/Bundles', 'TextMate/Pristine Copy/Bundles')
-    end
-    @bundle_path
   end
 
   def self.link_to_jslintmate
