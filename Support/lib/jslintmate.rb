@@ -181,7 +181,8 @@ if ENV['TM_FILEPATH']
     # Douglas Crockford would be so proud.
     result = %{
       <header>
-        Lint-free! <span class="filepath">#{filepath}</span>
+        <span class="desc">Lint-free!</span>
+        <span class="filepath">#{filepath}</span>
         #{JSLintMate.link_to_jslintmate}
       </header>
       <p class="success">Lint-free!</p>
@@ -189,7 +190,7 @@ if ENV['TM_FILEPATH']
   else
     result = %{
       <header>
-        Problem#{'s' if problems_count > 1} found in:
+        <span class="desc">Problem#{'s' if problems_count > 1} found in:</span>
         <span class="filepath">#{filepath}</span>
         #{JSLintMate.link_to_jslintmate}
       </header>
@@ -199,7 +200,7 @@ if ENV['TM_FILEPATH']
 else # !ENV['TM_FILEPATH']
   result = %{
     <header class="alert">
-      Oops!
+      <span class="desc">Oops!</span>
       #{JSLintMate.link_to_jslintmate}
     </header>
     <p class="alert">

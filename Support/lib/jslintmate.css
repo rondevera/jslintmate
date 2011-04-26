@@ -41,6 +41,10 @@ header.alert {
   padding-top: 1em;
   padding-bottom: 0.3333em;
 }
+header .desc {
+  display: block;
+  pointer-events: none;
+}
 header .filepath {
   display: block;
   width: 95%;

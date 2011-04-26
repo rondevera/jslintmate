@@ -4,7 +4,7 @@
 (function(d){
   // Handle link to bundle info
   (function(){
-    var infoLink = (d.querySelectorAll('header a.info') || [])[0];
+    var infoLink = d.querySelector('header a.info');
     if(!infoLink){ return; }
 
     infoLink.addEventListener('click', function(ev){
