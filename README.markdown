@@ -97,6 +97,9 @@ teammates keep their standards synced. Three ways to do this:
 
               ruby path/to/jslintmate.rb --linter-options-file="$TM_PROJECT_DIRECTORY/config/jslint.yml"
 
+    If the config file is missing from any of your projects, JSLintMate uses
+    its built-in default options instead.
+
 * Specify **global JSLint/JSHint options** for use across projects:
 
     1.  Within TextMate, go to *Bundles > Bundle Editor > Edit Commands*.
