@@ -149,7 +149,8 @@ ul.problems a {
   text-decoration: none;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
 }
-ul.problems a:hover {
+ul.problems a:hover,
+ul.problems li.current a {
   background: -webkit-gradient(linear, left top, left bottom,
                                       from(#648bf3), to(#1d60f1));
   background: -webkit-linear-gradient(top, #648bf3,     #1d60f1);
@@ -168,7 +169,8 @@ ul.problems .location {
 ul.problems li.alert .location {
   color: rgba(255, 255, 255, 0.75);
 }
-ul.problems a:hover .location {
+ul.problems a:hover .location,
+ul.problems li.current a .location {
   color: rgba(255, 255, 255, 0.75);
 }
 ul.problems .desc {
@@ -196,7 +198,8 @@ ul.problems pre {
   font-size: 12px;
   text-overflow: ellipsis;
 }
-ul.problems a:hover pre {
+ul.problems a:hover pre,
+ul.problems li.current a pre {
   background: -webkit-gradient(linear, left top, left bottom,
     from(           rgba(0, 0, 0, 0.05)),
     color-stop(0.5, rgba(0, 0, 0, 0.1 )),
