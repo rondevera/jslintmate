@@ -31,7 +31,7 @@
   };
   Nav.highlightPrev = function(){
     var cur = Nav.getHighlighted(), prev,
-        items, i;
+        contentTop, items, i;
 
     if(cur){
       // CSS3 can't select a previous sibling, so do this the long way.
@@ -46,17 +46,19 @@
         }
       }
 
-      // If `cur` is out of viewport (top edge is above top of viewport),
+      // If `cur` is outside of viewport (top edge is above top of viewport),
       // scroll to put it at top of viewport
-      if(cur.offsetTop < d.body.scrollTop + Nav.headerHeight()){
-        d.body.scrollTop = cur.offsetTop - Nav.headerHeight();
+      contentTop = cur.offsetTop;
+      if(contentTop < d.body.scrollTop + Nav.headerHeight()){
+        d.body.scrollTop = contentTop - Nav.headerHeight();
       }
     }else{
       Nav.highlightFirst();
     }
   };
   Nav.highlightNext = function(){
-    var cur = Nav.getHighlighted(), next;
+    var cur = Nav.getHighlighted(), next,
+        bottomElem, contentBottom;
 
     if(cur){
       next = $qs('ul.problems li.' + Nav.CUR + ' + li:not(.alert)');
@@ -66,10 +68,17 @@
         cur = next;
       }
 
-      // If `cur` is out of viewport (bottom edge is below bottom of
+      // If `cur` is outside of viewport (bottom edge is below bottom of
       // viewport), scroll to put it at top of viewport
-      if(cur.offsetTop + cur.offsetHeight > w.innerHeight + d.body.scrollTop){
-        d.body.scrollTop = cur.offsetTop + cur.offsetHeight - w.innerHeight;
+      bottomElem    = $qs('ul.problems li.' + Nav.CUR + ' + li.alert') || cur;
+      contentBottom = bottomElem.offsetTop + bottomElem.offsetHeight;
+        // If next element is an alert (not selectable), use its bottom edge
+        // in calculations; otherwise, use `cur`. This way, upon reaching
+        // the bottom of the window, the alert is shown along with the final
+        // selectable list item.
+
+      if(contentBottom > w.innerHeight + d.body.scrollTop){
+        d.body.scrollTop = contentBottom - w.innerHeight;
       }
     }else{
       Nav.highlightFirst();
