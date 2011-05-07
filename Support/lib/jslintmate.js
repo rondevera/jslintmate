@@ -113,8 +113,10 @@
       switch(ev.keyCode){
         case 13: // enter
           Nav.openHighlighted(); ev.preventDefault(); break;
+        case 40: // down arrow
         case 74: // 'j'
           Nav.highlightNext();   ev.preventDefault(); break;
+        case 38: // up arrow
         case 75: // 'k'
           Nav.highlightPrev();   ev.preventDefault(); break;
       }
