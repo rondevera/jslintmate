@@ -1,6 +1,11 @@
 JSLintMate
 ==========
 
+1.0.4 (2011-05-07)
+------------------
+* IMPROVEMENT: Upgraded to JSLint 2011-05-06 and JSHint 2011-04-16.
+
+
 1.0.3 (2011-04-23)
 ------------------
 * FIX: Fixed path issue when installing bundle via `git clone`.
