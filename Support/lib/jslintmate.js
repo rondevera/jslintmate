@@ -1,7 +1,7 @@
 /*jslint browser: true */
 /*global TextMate */
 
-(function(d){
+(function(w, d){
   var Nav = {CUR: 'current'};
 
   function $qs(selector) { return d.querySelector(selector);    }
@@ -27,6 +27,7 @@
   };
   Nav.highlightFirst = function(){
     $qs('ul.problems li').className = Nav.CUR;
+    d.body.scrollTop = 0; // Scroll to top
   };
   Nav.highlightPrev = function(){
     var cur = Nav.getHighlighted(), prev,
@@ -38,10 +39,17 @@
       i     = items.length;
       while(i--){
         if(items[i-1] && items[i].className === Nav.CUR){
-          items[i-1].className = Nav.CUR;
-          items[i].className   = '';
+          cur = items[i-1];
+          cur.className = Nav.CUR;
+          items[i].className = '';
           break;
         }
+      }
+
+      // If `cur` is out of viewport (top edge is above top of viewport),
+      // scroll to put it at top of viewport
+      if(cur.offsetTop < d.body.scrollTop + Nav.headerHeight()){
+        d.body.scrollTop = cur.offsetTop - Nav.headerHeight();
       }
     }else{
       Nav.highlightFirst();
@@ -55,10 +63,23 @@
       if(next){
         next.className = Nav.CUR;
         cur.className  = '';
+        cur = next;
+      }
+
+      // If `cur` is out of viewport (bottom edge is below bottom of
+      // viewport), scroll to put it at top of viewport
+      if(cur.offsetTop + cur.offsetHeight > w.innerHeight + d.body.scrollTop){
+        d.body.scrollTop = cur.offsetTop + cur.offsetHeight - w.innerHeight;
       }
     }else{
       Nav.highlightFirst();
     }
+  };
+  Nav.headerHeight = function(){
+    if(typeof Nav.headerHeight._value === 'undefined'){
+      Nav.headerHeight._value = d.querySelector('header').offsetHeight;
+    }
+    return Nav.headerHeight._value;
   };
 
 
@@ -91,4 +112,4 @@
     }, false);
   }
 
-}(document));
+}(window, document));
