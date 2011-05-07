@@ -86,7 +86,7 @@
   };
   Nav.headerHeight = function(){
     if(typeof Nav.headerHeight._value === 'undefined'){
-      Nav.headerHeight._value = d.querySelector('header').offsetHeight;
+      Nav.headerHeight._value = $qs('header').offsetHeight;
     }
     return Nav.headerHeight._value;
   };
@@ -95,9 +95,29 @@
 
   /*** Behaviors ***/
 
+  // Handle clicks on problem items
+  $qs('ul.problems').addEventListener('click', function(ev){
+    var link = ev.target, li, liCur;
+
+    // If not `<a>`, find it in ancestors
+    while(
+        link.tagName.toLowerCase() !== 'a' && // Search up tree,
+        link.tagName.toLowerCase() !== 'ul'   // but not too far
+      ){
+      link = link.parentNode;
+    }
+
+    li    = link.parentNode;
+    liCur = $qs('ul.problems li.' + Nav.CUR);
+    if(liCur){ liCur.className = ''; }
+    li.className = Nav.CUR;
+
+    // Allow event to continue normally, i.e., follow the link's `href`
+  }, false);
+
   // Handle link to bundle info
   (function(){
-    var infoLink = d.querySelector('header a.info');
+    var infoLink = $qs('header a.info');
     if(!infoLink){ return; }
 
     infoLink.addEventListener('click', function(ev){
@@ -108,7 +128,7 @@
   }());
 
   // Set up keyboard shortcuts
-  if(d.querySelector('ul.problems')){
+  if($qs('ul.problems')){
     d.addEventListener('keydown', function(ev){
       switch(ev.keyCode){
         case 13: // enter
