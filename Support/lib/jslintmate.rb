@@ -96,7 +96,7 @@ args = ARGV.inject({}) do |hsh, s|
   k.sub!(/^--/, '')
   hsh.merge(k => v)
 end
-linter_name    = args['linter'] == 'jshint' ? 'jshint' : 'jslint'
+linter_name    = args['linter'] == 'jshint' ? :jshint : :jslint
 linter_options = args['linter-options'] || 'undef=true'
 linter_options_filepath = args['linter-options-file']
 
@@ -205,7 +205,7 @@ else # !ENV['TM_FILEPATH']
     </header>
     <p class="alert">
       Please save this file before
-      #{linter_name == 'jshint' ? 'JSHint' : 'JSLint'} can hurt your feelings.
+      #{linter_name == :jshint ? 'JSHint' : 'JSLint'} can hurt your feelings.
     </p>
   }
 end
