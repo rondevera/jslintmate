@@ -28,6 +28,16 @@ module JSLintMate
     end
   end
 
+  def self.args(args_string)
+    # Converts `args_string` (of the format `--foo=x --bar=y`) to a hash.
+
+    args_string.inject({}) do |hsh, s|
+      k, v = s.split('=', 2)
+      k.sub!(/^--/, '')
+      hsh.merge(k => v)
+    end
+  end
+
   def self.lib_path(*args)
     # Usage:
     #
@@ -91,11 +101,7 @@ end
 
 
 # Parse Ruby arguments
-args = ARGV.inject({}) do |hsh, s|
-  k, v = s.split('=', 2)
-  k.sub!(/^--/, '')
-  hsh.merge(k => v)
-end
+args = JSLintMate.args(ARGV)
 linter_name    = args['linter'] == 'jshint' ? :jshint : :jslint
 linter_options = args['linter-options'] || 'undef=true'
 linter_options_filepath = args['linter-options-file']
