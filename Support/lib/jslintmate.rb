@@ -96,13 +96,18 @@ module JSLintMate
         title="More info on JSLintMate #{version}">info</a>
     }.strip.split.join(' ')
   end
-end
+
+end # module JSLintMate
 
 
 
 # Parse Ruby arguments
 args = JSLintMate.args(ARGV)
-linter_name    = args['linter'] == 'jshint' ? :jshint : :jslint
+if args['linter'] == 'jshint'
+  linter_key, linter_name = :jshint, 'JSHint'
+else
+  linter_key, linter_name = :jslint, 'JSLint'
+end
 linter_options = args['linter-options'] || 'undef=true'
 linter_options_filepath = args['linter-options-file']
 
@@ -133,7 +138,7 @@ if ENV['TM_FILEPATH']
   end
 
   # Prepare OS X's JSC
-  linter  = JSLintMate.lib_path("#{linter_name}.js")
+  linter  = JSLintMate.lib_path("#{linter_key}.js")
   jsc     = JSLintMate.lib_path('jsc.js')
   cmd     = '/System/Library/Frameworks/JavaScriptCore.framework/' <<
              %{Versions/A/Resources/jsc "#{linter}" "#{jsc}" -- } <<
@@ -211,7 +216,7 @@ else # !ENV['TM_FILEPATH']
     </header>
     <p class="alert">
       Please save this file before
-      #{linter_name == :jshint ? 'JSHint' : 'JSLint'} can hurt your feelings.
+      #{linter_name} can hurt your feelings.
     </p>
   }
 end
