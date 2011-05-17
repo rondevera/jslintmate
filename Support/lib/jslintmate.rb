@@ -28,7 +28,7 @@ module JSLintMate
     end
   end
 
-  def self.args(args_string)
+  def self.args_to_hash(args_string)
     # Converts `args_string` (of the format `--foo=x --bar=y`) to a hash.
 
     args_string.inject({}) do |hsh, s|
@@ -97,31 +97,52 @@ module JSLintMate
     }.strip.split.join(' ')
   end
 
+  class Linter
+    attr_accessor :key, :name, :options, :options_filepath
+
+    def initialize(attrs)
+      if attrs[:key] && attrs[:key].to_sym == :jshint
+        self.key  = :jshint
+        self.name = 'JSHint'
+      else
+        self.key  = :jslint
+        self.name = 'JSLint'
+      end
+
+      [:options, :options_filepath].each do |attr_key|
+        self.send(:"#{attr_key}=", attrs[attr_key])
+      end
+    end
+
+    def to_s; name; end
+
+    def path; JSLintMate.lib_path("#{key}.js"); end
+
+  end
+
 end # module JSLintMate
 
 
 
-# Parse Ruby arguments
-args = JSLintMate.args(ARGV)
-if args['linter'] == 'jshint'
-  linter_key, linter_name = :jshint, 'JSHint'
-else
-  linter_key, linter_name = :jslint, 'JSLint'
-end
-linter_options = args['linter-options'] || 'undef=true'
-linter_options_filepath = args['linter-options-file']
+# Prepare `linter` instance
+args   = JSLintMate.args_to_hash(ARGV)
+linter = JSLintMate::Linter.new(
+  :key              => args['linter'],
+  :options          => args['linter-options'] || 'undef=true',
+  :options_filepath => args['linter-options-file']
+)
 
 if ENV['TM_FILEPATH']
   filepath = ENV['TM_FILEPATH']
   problems_count = 0
 
   # Prepare linter options
-  if linter_options_filepath && File.exists?(linter_options_filepath)
+  if linter.options_filepath && File.exists?(linter.options_filepath)
     require 'yaml'
 
     # Convert any existing linter options to a hash
-    linter_options =  if linter_options
-                        linter_options.split(',').inject({}) do |hsh, kv|
+    linter.options =  if linter.options
+                        linter.options.split(',').inject({}) do |hsh, kv|
                           k, v = kv.split('='); hsh.merge(k => v)
                         end
                       else
@@ -129,43 +150,24 @@ if ENV['TM_FILEPATH']
                       end
 
     # Parse linter options file
-    linter_options.merge!(
-      YAML.load_file(linter_options_filepath).reject{ |k, v| v.is_a?(Array) })
+    linter.options.merge!(
+      YAML.load_file(linter.options_filepath).reject{ |k, v| v.is_a?(Array) })
 
     # Stringify linter options in `a=1,b=2` format
-    linter_options =
-      linter_options.inject([]) { |a, (k, v)| a << "#{k}=#{v}" }.join(',')
+    linter.options =
+      linter.options.inject([]) { |a, (k, v)| a << "#{k}=#{v}" }.join(',')
   end
 
   # Prepare OS X's JSC
-  linter  = JSLintMate.lib_path("#{linter_key}.js")
-  jsc     = JSLintMate.lib_path('jsc.js')
-  cmd     = '/System/Library/Frameworks/JavaScriptCore.framework/' <<
-             %{Versions/A/Resources/jsc "#{linter}" "#{jsc}" -- } <<
-             %{"$(cat "#{filepath}")"}
-  cmd     << %{ "#{linter_options}"} if linter_options
-  lint    = `#{cmd}` # Find problems
-
-  # If you prefer to use Rhino (Mozilla's open-source JS engine):
-  #
-  # A.  Install Rhino:
-  #     1.  curl ftp://ftp.mozilla.org/pub/mozilla.org/js/rhino1_7R2.zip > /tmp/rhino1_7R2.zip
-  #     2.  cd /tmp
-  #     3.  unzip rhino1_7R2.zip
-  #     4.  mkdir -p ~/Library/Java/Extensions
-  #     5.  mv /tmp/rhino1_7R2/js.jar ~/Library/Java/Extensions/
-  #
-  # B.  Install JSLint:
-  #     1.  mkdir ~/Library/JSLint
-  #     2.  curl http://jslint.com/rhino/fulljslint.js > ~/Library/JSLint/fulljslint-rhino.js
-  #
-  # C.  Modify this script to use Rhino. Disable the JSC lines above, and
-  #     use the following instead:
-  #
-  #         linter = '~/Library/JSLint/fulljslint-rhino.js'
-  #         lint   = `java org.mozilla.javascript.tools.shell.Main #{linter} "#{filepath}"`
-  #
-  # See also: http://www.phpied.com/installing-rhino-on-mac/
+  # Note: With some hacking, this can probably be made to work with Rhino
+  # (Mozilla's open-source JS engine). Reference:
+  # <http://www.phpied.com/installing-rhino-on-mac/>
+  jsc   = JSLintMate.lib_path('jsc.js')
+  cmd   = '/System/Library/Frameworks/JavaScriptCore.framework/' <<
+           %{Versions/A/Resources/jsc "#{linter.path}" "#{jsc}" -- } <<
+           %{"$(cat "#{filepath}")"}
+  cmd   << %{ "#{linter.options}"} if linter.options
+  lint  = `#{cmd}` # Find problems
 
   # Format problems
   lint.gsub!(/^(Lint at line )(\d+)(.+?:)(.+?)\n(?:(.+?)\n\n)?/m) do
@@ -216,7 +218,7 @@ else # !ENV['TM_FILEPATH']
     </header>
     <p class="alert">
       Please save this file before
-      #{linter_name} can hurt your feelings.
+      #{linter} can hurt your feelings.
     </p>
   }
 end
