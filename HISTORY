@@ -1,6 +1,11 @@
 JSLintMate
 ==========
 
+* FEATURE: Added support for the `--linter-file` option when customizing
+  bundle commands. Allows for using your own custom/edge build of
+  JSLint/JSHint.
+
+
 1.0.4 (2011-05-07)
 ------------------
 * IMPROVEMENT: Upgraded to JSLint 2011-05-06 and JSHint 2011-04-16.

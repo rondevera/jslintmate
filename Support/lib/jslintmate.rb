@@ -10,6 +10,7 @@
 # Options:
 #
 #   --linter                'jslint' (default) or 'jshint'
+#   --linter-file           '/path/to/jslint.js' or '/path/to/jshint.js'
 #   --linter-options        Format: 'option1=value1,option2=value'
 #   --linter-options-file   '/path/to/config/jslint.yml'
 #
@@ -109,7 +110,7 @@ module JSLintMate
   class Linter
     DEFAULT_OPTIONS = {:undef => true}
 
-    attr_accessor :key, :name, :options, :options_filepath
+    attr_accessor :key, :name, :path, :options, :options_filepath
 
     ### Class methods ###
 
@@ -140,6 +141,8 @@ module JSLintMate
         self.name = 'JSLint'
       end
 
+      self.path = attrs[:path] || JSLintMate.lib_path("#{key}.js")
+
       [:options, :options_filepath].each do |attr_key|
         self.send(:"#{attr_key}=", attrs[attr_key])
       end
@@ -149,8 +152,6 @@ module JSLintMate
     end
 
     def to_s; name; end
-
-    def path; JSLintMate.lib_path("#{key}.js"); end
 
     def options_string
       JSLintMate::Linter.options_hash_to_string(options)
@@ -177,9 +178,9 @@ end # module JSLintMate
 # Prepare `linter` instance
 args   = JSLintMate.args_to_hash(ARGV)
 linter = JSLintMate::Linter.new(
-  :key              => args['linter'],
-  :options          => args['linter-options'] ||
-                        JSLintMate::Linter.default_options,
+  :key      => args['linter'],
+  :path     => args['linter-file'],
+  :options  => args['linter-options'] || JSLintMate::Linter.default_options,
   :options_filepath => args['linter-options-file']
 )
 

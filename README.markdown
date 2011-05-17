@@ -133,6 +133,20 @@ For more info, read about [JSLint's options][jslint-options] and
 [jshint-options]:  http://jshint.com/#docs
 
 
+JSLint/JSHint builds
+--------------------
+
+If you're using a custom build of JSLint/JSHint, or want to use and maintain
+your own copy of their edge builds, you can modify the JSLintMate bundle
+to point to your copy:
+
+    # JSLint:
+    ruby path/to/jslintmate.rb --linter-file="$TM_PROJECT_DIRECTORY/lib/jslint.js"
+
+    # JSHint:
+    ruby path/to/jslintmate.rb --linter=jshint --linter-file="$TM_PROJECT_DIRECTORY/lib/jslint.js"
+
+
 About
 -----
 
