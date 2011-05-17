@@ -98,7 +98,18 @@ module JSLintMate
   end
 
   class Linter
+    DEFAULT_OPTIONS = {:undef => true}
+
     attr_accessor :key, :name, :options, :options_filepath
+
+    ### Class methods ###
+
+    def self.default_options
+      @default_options ||=
+        DEFAULT_OPTIONS.map { |k, v| "#{k}=#{v}" }.join(',')
+    end
+
+    ### Instance methods ###
 
     def initialize(attrs)
       if attrs[:key] && attrs[:key].to_sym == :jshint
@@ -118,6 +129,29 @@ module JSLintMate
 
     def path; JSLintMate.lib_path("#{key}.js"); end
 
+    def merge_options_from_file!
+      return unless options_filepath && File.exists?(options_filepath)
+
+      require 'yaml'
+
+      # Convert any existing linter options to a hash
+      self.options =  if options
+                        options.split(',').inject({}) do |hsh, kv|
+                          k, v = kv.split('='); hsh.merge(k => v)
+                        end
+                      else
+                        {}
+                      end
+
+      # Parse linter options file
+      options.merge!(
+        YAML.load_file(options_filepath).reject{ |k, v| v.is_a?(Array) })
+
+      # Stringify linter options in `a=1,b=2` format
+      self.options =
+        options.inject([]) { |a, (k, v)| a << "#{k}=#{v}" }.join(',')
+    end
+
   end
 
 end # module JSLintMate
@@ -128,7 +162,8 @@ end # module JSLintMate
 args   = JSLintMate.args_to_hash(ARGV)
 linter = JSLintMate::Linter.new(
   :key              => args['linter'],
-  :options          => args['linter-options'] || 'undef=true',
+  :options          => args['linter-options'] ||
+                        JSLintMate::Linter.default_options,
   :options_filepath => args['linter-options-file']
 )
 
@@ -137,26 +172,7 @@ if ENV['TM_FILEPATH']
   problems_count = 0
 
   # Prepare linter options
-  if linter.options_filepath && File.exists?(linter.options_filepath)
-    require 'yaml'
-
-    # Convert any existing linter options to a hash
-    linter.options =  if linter.options
-                        linter.options.split(',').inject({}) do |hsh, kv|
-                          k, v = kv.split('='); hsh.merge(k => v)
-                        end
-                      else
-                        {}
-                      end
-
-    # Parse linter options file
-    linter.options.merge!(
-      YAML.load_file(linter.options_filepath).reject{ |k, v| v.is_a?(Array) })
-
-    # Stringify linter options in `a=1,b=2` format
-    linter.options =
-      linter.options.inject([]) { |a, (k, v)| a << "#{k}=#{v}" }.join(',')
-  end
+  linter.merge_options_from_file!
 
   # Prepare OS X's JSC
   # Note: With some hacking, this can probably be made to work with Rhino
