@@ -9,8 +9,17 @@
 #
 # Options:
 #
-#   --linter          'jslint' (default) or 'jshint'
-#   --linter-options  Format: 'option1=value1,option2=value'
+#   --linter                'jslint' (default) or 'jshint'
+#   --linter-options        Format: 'option1=value1,option2=value'
+#   --linter-options-file   '/path/to/config/jslint.yml'
+#
+# Options precedence:
+#
+#   1.  Highest precedence: In-file options, e.g.,
+#       `/*jslint browser: true, ... */`
+#   2.  Options file (via `--linter-options-file`)
+#   3.  Custom bundle preferences (via `--linter-options`)
+#   4.  Default bundle preferences (via `JSLintMate::Linter.default_options`)
 #
 # To update jslint.js and jshint.js:
 #
@@ -104,9 +113,20 @@ module JSLintMate
 
     ### Class methods ###
 
+    def self.options_string_to_hash(options_string)
+      # Usage: 'a=1,b=2' # => {'a' => 1, 'b' => 2}
+      options_string.split(',').inject({}) do |hsh, kv|
+        k, v = kv.split('='); hsh.merge(k => v)
+      end
+    end
+
+    def self.options_hash_to_string(options_hash)
+      # Usage: {:a => 1, 'b' => 2} # => 'a=1,b=2'
+      options_hash.map { |k, v| "#{k}=#{v}" }.join(',')
+    end
+
     def self.default_options
-      @default_options ||=
-        DEFAULT_OPTIONS.map { |k, v| "#{k}=#{v}" }.join(',')
+      @default_options ||= options_hash_to_string(DEFAULT_OPTIONS)
     end
 
     ### Instance methods ###
@@ -129,27 +149,23 @@ module JSLintMate
 
     def path; JSLintMate.lib_path("#{key}.js"); end
 
-    def merge_options_from_file!
-      return unless options_filepath && File.exists?(options_filepath)
+    def reverse_merge_options_from_file!
+      return unless options_filepath && File.readable?(options_filepath)
 
       require 'yaml'
 
-      # Convert any existing linter options to a hash
-      self.options =  if options
-                        options.split(',').inject({}) do |hsh, kv|
-                          k, v = kv.split('='); hsh.merge(k => v)
-                        end
-                      else
-                        {}
-                      end
+      # Convert existing linter options (if any) to a hash
+      options =
+        options ? JSLintMate::Linter.options_string_to_hash(options) : {}
 
-      # Parse linter options file
-      options.merge!(
-        YAML.load_file(options_filepath).reject{ |k, v| v.is_a?(Array) })
+      # Parse linter options file; file options take precedence over existing
+      # options (i.e., default/custom bundle options)
+      file_options =
+        YAML.load_file(options_filepath).reject{ |k, v| v.is_a?(Array) }
+      options = options.merge(file_options)
 
       # Stringify linter options in `a=1,b=2` format
-      self.options =
-        options.inject([]) { |a, (k, v)| a << "#{k}=#{v}" }.join(',')
+      self.options = JSLintMate::Linter.options_hash_to_string(options)
     end
 
   end
@@ -172,7 +188,7 @@ if ENV['TM_FILEPATH']
   problems_count = 0
 
   # Prepare linter options
-  linter.merge_options_from_file!
+  linter.reverse_merge_options_from_file!
 
   # Prepare OS X's JSC
   # Note: With some hacking, this can probably be made to work with Rhino

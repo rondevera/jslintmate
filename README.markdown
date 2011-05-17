@@ -109,9 +109,17 @@ teammates keep their standards synced. Three ways to do this:
 
               ruby path/to/jslintmate.rb --linter-options=browser=true,onevar=false
 
-You can specify `--linter-options` and `--linter-options-file` together.
-Options from the config file will merge with (and selectively override)
-`--linter-options`.
+You can specify `--linter-options` and `--linter-options-file` together. The
+order of precedence is:
+
+1.  Highest precedence: Options in the JS file, e.g.,
+    `/*jslint browser: true */`
+2.  YAML config file (via `--linter-options-file`)
+3.  Custom bundle options (via `--linter-options`)
+4.  JSLintMate's default options
+
+All default options are included, then merged with and overridden by higher
+precedence options.
 
 Note that you can have different options for JSLint and JSHint simply by
 modifying the "Run JSLintMate" and "Run JSLintMate with JSHint" commands
