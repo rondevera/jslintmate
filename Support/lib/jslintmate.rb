@@ -143,29 +143,29 @@ module JSLintMate
       [:options, :options_filepath].each do |attr_key|
         self.send(:"#{attr_key}=", attrs[attr_key])
       end
+
+      self.options =
+        options ? JSLintMate::Linter.options_string_to_hash(options) : {}
     end
 
     def to_s; name; end
 
     def path; JSLintMate.lib_path("#{key}.js"); end
 
+    def options_string
+      JSLintMate::Linter.options_hash_to_string(options)
+    end
+
     def reverse_merge_options_from_file!
       return unless options_filepath && File.readable?(options_filepath)
 
       require 'yaml'
 
-      # Convert existing linter options (if any) to a hash
-      options =
-        options ? JSLintMate::Linter.options_string_to_hash(options) : {}
-
       # Parse linter options file; file options take precedence over existing
       # options (i.e., default/custom bundle options)
       file_options =
         YAML.load_file(options_filepath).reject{ |k, v| v.is_a?(Array) }
-      options = options.merge(file_options)
-
-      # Stringify linter options in `a=1,b=2` format
-      self.options = JSLintMate::Linter.options_hash_to_string(options)
+      self.options = options.merge(file_options)
     end
 
   end
@@ -198,7 +198,7 @@ if ENV['TM_FILEPATH']
   cmd   = '/System/Library/Frameworks/JavaScriptCore.framework/' <<
            %{Versions/A/Resources/jsc "#{linter.path}" "#{jsc}" -- } <<
            %{"$(cat "#{filepath}")"}
-  cmd   << %{ "#{linter.options}"} if linter.options
+  cmd   << %{ "#{linter.options_string}"} if linter.options
   lint  = `#{cmd}` # Find problems
 
   # Format problems
