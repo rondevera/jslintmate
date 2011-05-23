@@ -150,12 +150,12 @@ to point to your copy:
 About
 -----
 
-Found a bug or have a suggestion? [Please open an issue][issues] or ping
-[@ronalddevera on Twitter][twitter]. If you want to hack on some features,
-feel free to fork and send a pull request.
-
-Tested with OS X 10.6, WebKit 531+ (Safari 4+), and TextMate 1.5.10. Probably
-works with older software, but not guaranteed.
+- **Contributing:** Found a bug or have a suggestion? [Please open an
+  issue][issues] or ping [@ronalddevera on Twitter][twitter]. If you want to
+  hack on some features, feel free to fork and send a pull request.
+- **History:** [History/changelog for JSLintMate][history]
+- **Compatibility:** Tested with OS X 10.6, WebKit 531+ (Safari 4+), and
+  TextMate 1.5.10. Probably works with older software, but not guaranteed.
 
 This project is adapted from:
 
@@ -169,4 +169,5 @@ for good, not evil.
 
 [issues]:   https://github.com/rondevera/jslintmate/issues
 [twitter]:  https://twitter.com/ronalddevera
+[history]:  https://github.com/rondevera/jslintmate/blob/master/HISTORY
 [license]:  https://github.com/rondevera/jslintmate/blob/master/LICENSE
