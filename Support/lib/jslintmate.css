@@ -151,6 +151,16 @@ ul.problems a {
 }
 ul.problems a:hover {
   background: -webkit-gradient(linear, left top, left bottom,
+                                      from(#bcbcbc), to(#a2a2a2));
+  background: -webkit-linear-gradient(top, #bcbcbc,     #a2a2a2);
+  background:         linear-gradient(top, #bcbcbc,     #a2a2a2);
+  border-top-color: #a9a9a9;
+  border-bottom-color: #9c9c9c;
+    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  box-shadow:           inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+ul.problems li.current a {
+  background: -webkit-gradient(linear, left top, left bottom,
                                       from(#648bf3), to(#1d60f1));
   background: -webkit-linear-gradient(top, #648bf3,     #1d60f1);
   background:         linear-gradient(top, #648bf3,     #1d60f1);
@@ -168,7 +178,7 @@ ul.problems .location {
 ul.problems li.alert .location {
   color: rgba(255, 255, 255, 0.75);
 }
-ul.problems a:hover .location {
+ul.problems li.current a .location {
   color: rgba(255, 255, 255, 0.75);
 }
 ul.problems .desc {
@@ -196,7 +206,7 @@ ul.problems pre {
   font-size: 12px;
   text-overflow: ellipsis;
 }
-ul.problems a:hover pre {
+ul.problems li.current a pre {
   background: -webkit-gradient(linear, left top, left bottom,
     from(           rgba(0, 0, 0, 0.05)),
     color-stop(0.5, rgba(0, 0, 0, 0.1 )),
