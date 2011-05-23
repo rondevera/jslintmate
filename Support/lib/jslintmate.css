@@ -155,7 +155,7 @@ ul.problems a {
   text-decoration: none;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
 }
-ul.problems a:hover {
+ul.problems li:not(.current) a:hover {
   background: -webkit-gradient(linear, left top, left bottom,
                                       from(#bcbcbc), to(#a2a2a2));
   background: -webkit-linear-gradient(top, #bcbcbc,     #a2a2a2);
