@@ -67,11 +67,16 @@ header a.info {
   border-radius:           7px;
   opacity: 0;
   text-indent: -999em;
-    -webkit-transform:  translate3d(0, 0, 0);
-  transform:            translate3d(0, 0, 0);
-                          /* Enable hardware acceleration */
     -webkit-transition: background-color 0.1s linear, opacity 0.25s linear;
   transition:           background-color 0.1s linear, opacity 0.25s linear;
+}
+html[data-css-inset-box-shadow] header a.info {
+    -webkit-transform:  translate3d(0, 0, 0);
+  transform:            translate3d(0, 0, 0); /* Enable hardware accel */
+    /*  `header` gets glitchy if using hardware acceleration in older WebKits
+        where `box-shadow: inset [...]` isn't available, so only enable
+        hardware acceleration in newer WebKits. This isn't an exact
+        correlation, and a better test may exist. */
 }
 html:hover header a.info {
   opacity: 1;
@@ -138,9 +143,10 @@ ul.problems li.alert {
   box-shadow:           inset 0 5px 10em #000;
   color: #fff;
   text-shadow: 0 2px 5px #000;
+}
+html[data-css-inset-box-shadow] ul.problems li.alert {
     -webkit-transform:  translate3d(0, 0, 0);
-  transform:            translate3d(0, 0, 0);
-                          /* Enable hardware acceleration */
+  transform:            translate3d(0, 0, 0); /* Enable hardware accel */
 }
 ul.problems a {
   display: block;

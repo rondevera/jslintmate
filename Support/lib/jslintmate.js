@@ -2,10 +2,25 @@
 /*global TextMate */
 
 (function(w, d){
-  var Nav = {CUR: 'current'};
+  var Nav     = {CUR: 'current'},
+      Support = {css: {}, elem: d.createElement('test')};
+        // For use in feature detection
 
   function $qs(selector) { return d.querySelector(selector);    }
   function $qsa(selector){ return d.querySelectorAll(selector); }
+
+  Support.css.insetBoxShadow = !!(function(){
+    var elem = Support.elem,
+        prop = 'webkitBoxShadow';
+
+    elem.style[prop] = 'inset 0 0 0 red';
+    return typeof elem.style[prop] !== 'undefined' && elem.style[prop] !== '';
+      // If `box-shadow: inset ...` is supported, the style string is updated
+      // (though not necessarily to the given value). If `inset` is not
+      // supported, the value is reset to an empty string. If
+      // `-webkit-box-shadow` is not supported, the value is reset to
+      // `undefined`.
+  }());
 
 
 
@@ -91,6 +106,15 @@
     }
     return Nav.headerHeight._value;
   };
+
+
+
+  /*** Appearance ***/
+
+  // Add styling hook to `<html>`:
+  if(Support.css.insetBoxShadow){
+    d.documentElement.setAttribute('data-css-inset-box-shadow', 1);
+  }
 
 
 
