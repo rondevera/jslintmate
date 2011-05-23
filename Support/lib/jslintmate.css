@@ -182,9 +182,7 @@ ul.problems .location {
   font-size: 0.75em;
   text-transform: lowercase;
 }
-ul.problems li.alert .location {
-  color: rgba(255, 255, 255, 0.75);
-}
+ul.problems li.alert .location,
 ul.problems li.current a .location {
   color: rgba(255, 255, 255, 0.75);
 }

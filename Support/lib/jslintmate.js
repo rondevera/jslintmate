@@ -20,6 +20,7 @@
 
     if(!curLink){ return; }
 
+    // Trigger a click on the currently selected problem
     ev = d.createEvent('HTMLEvents');
     ev.initEvent('click', true,   // bubbling
                           true);  // cancelable
@@ -97,14 +98,17 @@
 
   // Handle clicks on problem items
   $qs('ul.problems').addEventListener('click', function(ev){
-    var link = ev.target, li, liCur;
+    var link = ev.target,
+        linkTagName = link.tagName.toLowerCase(),
+        li, liCur;
 
     // If not `<a>`, find it in ancestors
     while(
-        link.tagName.toLowerCase() !== 'a' && // Search up tree,
-        link.tagName.toLowerCase() !== 'ul'   // but not too far
+        linkTagName !== 'a' && // Search up tree,
+        linkTagName !== 'ul'   // but not too far
       ){
       link = link.parentNode;
+      linkTagName = link.tagName.toLowerCase();
     }
 
     li    = link.parentNode;

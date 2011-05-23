@@ -121,9 +121,9 @@ linter = JSLintMate::Linter.new(
   :options  => args['linter-options'] || JSLintMate::Linter.default_options,
   :options_filepath => args['linter-options-file']
 )
+filepath = ENV['TM_FILEPATH']
 
-if ENV['TM_FILEPATH']
-  filepath = ENV['TM_FILEPATH']
+if filepath
   problems_count = 0
 
   # Prepare linter options
@@ -174,14 +174,15 @@ if ENV['TM_FILEPATH']
   else
     result = %{
       <header>
-        <span class="desc">Problem#{'s' if problems_count > 1} found in:</span>
+        <span class="desc">Problem#{'s' if
+          problems_count > 1} found in:</span>
         <span class="filepath">#{filepath}</span>
         #{JSLintMate.link_to_jslintmate}
       </header>
       <ul class="problems">#{lint}</ul>
     }
   end
-else # !ENV['TM_FILEPATH']
+else # !filepath
   result = %{
     <header class="alert">
       <span class="desc">Oops!</span>
