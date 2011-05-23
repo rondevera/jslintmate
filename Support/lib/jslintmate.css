@@ -158,6 +158,7 @@ ul.problems a:hover {
   border-bottom-color: #9c9c9c;
     -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
   box-shadow:           inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.25);
 }
 ul.problems li.current a {
   background: -webkit-gradient(linear, left top, left bottom,
