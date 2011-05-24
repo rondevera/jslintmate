@@ -9,7 +9,7 @@
   function $qs(selector) { return d.querySelector(selector);    }
   function $qsa(selector){ return d.querySelectorAll(selector); }
 
-  Support.css.insetBoxShadow = !!(function(){
+  Support.css.insetBoxShadow = (function(){
     var elem = Support.elem,
         prop = 'webkitBoxShadow';
 
@@ -25,6 +25,48 @@
 
 
   /*** Nav ***/
+
+  Nav.headerHeight = function(){
+    if(typeof Nav.headerHeight._value === 'undefined'){
+      Nav.headerHeight._value = $qs('header').offsetHeight;
+    }
+    return Nav.headerHeight._value;
+  };
+
+  /*** Nav > Scrolling ***/
+
+  Nav.scrollTo = function(y){
+    // Usage:
+    // - `Nav.scrollTo(0)`    // => scroll to top
+    // - `Nav.scrollTo(100)`  // => scroll to 100px from top
+    d.body.scrollTop = y;
+  };
+  Nav.scrollToShowElement = function(elem){
+    elem = $qs('ul.problems li.' + Nav.CUR + ' + li.alert') || elem;
+      // If the next element is an alert (not selectable), use its bottom edge
+      // in calculations; otherwise, use `elem`. This way, upon reaching the
+      // bottom of the window, the alert is shown along with the final
+      // selectable list item.
+
+    var bodyScrollTop   = d.body.scrollTop,
+        elemTop         = elem.offsetTop,
+        elemBottom      = elem.offsetTop + elem.offsetHeight,
+        elemTopBound    = elemTop - Nav.headerHeight(),
+        elemBottomBound = elemBottom - w.innerHeight;
+
+    if(bodyScrollTop > elemTopBound){
+      // If `elem` is outside of viewport (top edge is above top of viewport),
+      // scroll to put it at top of viewport.
+      Nav.scrollTo(elemTopBound);
+
+    }else if(bodyScrollTop < elemBottomBound){
+      // If `elem` is outside of viewport (bottom edge is below bottom of
+      // viewport), scroll to put it at bottom of viewport.
+      Nav.scrollTo(elemBottomBound);
+    }
+  };
+
+  /*** Nav > Highlighting ***/
 
   Nav.getHighlighted = function(){
     return $qs('ul.problems li.' + Nav.CUR);
@@ -43,16 +85,16 @@
   };
   Nav.highlightFirst = function(){
     $qs('ul.problems li').className = Nav.CUR;
-    d.body.scrollTop = 0; // Scroll to top
+    Nav.scrollTo(0); // Scroll to top
   };
   Nav.highlightPrev = function(){
-    var cur = Nav.getHighlighted(), prev,
-        contentTop, items, i;
+    var cur = Nav.getHighlighted(), items, i;
 
     if(cur){
       // CSS3 can't select a previous sibling, so do this the long way.
       items = $qsa('ul.problems li:not(.alert)');
       i     = items.length;
+
       while(i--){
         if(items[i-1] && items[i].className === Nav.CUR){
           cur = items[i-1];
@@ -62,49 +104,27 @@
         }
       }
 
-      // If `cur` is outside of viewport (top edge is above top of viewport),
-      // scroll to put it at top of viewport
-      contentTop = cur.offsetTop;
-      if(contentTop < d.body.scrollTop + Nav.headerHeight()){
-        d.body.scrollTop = contentTop - Nav.headerHeight();
-      }
+      Nav.scrollToShowElement(cur);
     }else{
       Nav.highlightFirst();
     }
   };
   Nav.highlightNext = function(){
-    var cur = Nav.getHighlighted(), next,
-        bottomElem, contentBottom;
+    var cur = Nav.getHighlighted(), next;
 
     if(cur){
       next = $qs('ul.problems li.' + Nav.CUR + ' + li:not(.alert)');
+
       if(next){
         next.className = Nav.CUR;
         cur.className  = '';
         cur = next;
       }
 
-      // If `cur` is outside of viewport (bottom edge is below bottom of
-      // viewport), scroll to put it at top of viewport
-      bottomElem    = $qs('ul.problems li.' + Nav.CUR + ' + li.alert') || cur;
-      contentBottom = bottomElem.offsetTop + bottomElem.offsetHeight;
-        // If next element is an alert (not selectable), use its bottom edge
-        // in calculations; otherwise, use `cur`. This way, upon reaching
-        // the bottom of the window, the alert is shown along with the final
-        // selectable list item.
-
-      if(contentBottom > w.innerHeight + d.body.scrollTop){
-        d.body.scrollTop = contentBottom - w.innerHeight;
-      }
+      Nav.scrollToShowElement(cur);
     }else{
       Nav.highlightFirst();
     }
-  };
-  Nav.headerHeight = function(){
-    if(typeof Nav.headerHeight._value === 'undefined'){
-      Nav.headerHeight._value = $qs('header').offsetHeight;
-    }
-    return Nav.headerHeight._value;
   };
 
 
