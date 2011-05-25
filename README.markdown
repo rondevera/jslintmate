@@ -4,7 +4,7 @@ JSLintMate
 Quick, simple **JSLint (or JSHint) in TextMate**. Hurt your feelings in style.
 
 JSLintMate uses Ruby and [JSC][jsc] behind the scenes; both are part of OS X by
-default. No need to install anything else.
+default. No need to install anything else. Everything works offline.
 
 <img src="https://github.com/rondevera/jslintmate/raw/master/Support/images/jslintmate-screenshots.png"
   alt="JSLintMate screenshots" width="892" height="525" />
