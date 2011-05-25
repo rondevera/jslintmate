@@ -4,6 +4,10 @@ html, body {
   margin: 0;
   padding: 0;
 }
+html[data-css-inset-box-shadow] {}
+  /*  Hack: Yes, an empty declaration block. Its mere existence apparently
+      stops `position: fixed` elements from flickering while hardware
+      acceleration is active. */
 body {
   overflow: auto;
   overflow-x: hidden;
@@ -73,9 +77,9 @@ header a.info {
 html[data-css-inset-box-shadow] header a.info {
     -webkit-transform:  translateZ(0);
   transform:            translateZ(0); /* Enable hardware acceleration */
-    /*  `header` gets glitchy if using hardware acceleration in older WebKits
-        where `box-shadow: inset [...]` isn't available, so only enable
-        hardware acceleration in newer WebKits. This isn't an exact
+    /*  Hack: `header` gets glitchy if using hardware acceleration in older
+        WebKits where `box-shadow: inset [...]` isn't available, so only
+        enable hardware acceleration in newer WebKits. This isn't an exact
         correlation; a better test probably exists. */
 }
 html:hover header a.info {
