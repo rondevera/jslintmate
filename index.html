@@ -93,14 +93,15 @@ Or via Git:
 
   </div>
 
-  <script type="text/javascript">
-var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+<script>
+  var _gaq=_gaq||[];
+  _gaq.push(['_setAccount','UA-8250595-2'],['_trackPageview'],['_trackPageLoadTime']);
+  (function(d,t){
+    var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+    g.type='text/javascript';g.async=!0;g.src=('https:'===d.location.protocol?'https://ssl':'http://www')+'.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g,s);
+  })(document,'script');
 </script>
-<script type="text/javascript">
-try {
-var pageTracker = _gat._getTracker("UA-8250595-2");
-pageTracker._trackPageview();
-} catch(err) {}</script>
+
 </body>
 </html>
