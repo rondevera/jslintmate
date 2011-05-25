@@ -99,12 +99,14 @@
     div.download {
       position: relative;
       top: -2em;
+      float: right;
+      width: 150px;
+      margin: 0 0 0 3em;
     }
     div.download a {
       position: relative;
-      float: right;
-      width: 150px;
-      margin: 0 0 0 1em;
+      display: block;
+      width: 100%;
       padding: 0.5em;
         background: #222;
         background: -webkit-gradient(linear, left top, left bottom, from(#333), color-stop(0.5, #191919), color-stop(0.5, #090909), to(#090909));
@@ -115,9 +117,9 @@
         -moz-border-radius:    8px;
         -webkit-border-radius: 8px;
       border-radius:           8px;
-        -moz-box-shadow:    0 4px 8px rgba(0, 0, 0, 0.25);
-        -webkit-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
-      box-shadow:           0 4px 8px rgba(0, 0, 0, 0.25);
+        -moz-box-shadow:    0 4px 8px rgba(0, 0, 0, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.25);
+        -webkit-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.25);
+      box-shadow:           0 4px 8px rgba(0, 0, 0, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.25);
       color: #eee;
       font-size: 1.25em;
       text-align: center;
@@ -128,9 +130,9 @@
     }
     div.download a:hover,
     div.download a:focus {
-        -moz-box-shadow:    0 0 20px #5b8aef;
-        -webkit-box-shadow: 0 0 20px #5b8aef;
-      box-shadow:           0 0 20px #5b8aef;
+        -moz-box-shadow:    0 0 20px #5b8aef, inset 0 1px 1px rgba(255, 255, 255, 0.25);
+        -webkit-box-shadow: 0 0 20px #5b8aef, inset 0 1px 1px rgba(255, 255, 255, 0.25);
+      box-shadow:           0 0 20px #5b8aef, inset 0 1px 1px rgba(255, 255, 255, 0.25);
       text-shadow: 0 0 5px #5b8aef;
     }
     div.download a:active {
