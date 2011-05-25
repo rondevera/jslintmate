@@ -1,97 +1,207 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset='utf-8'>
+  <meta charset="utf-8" />
+  <title>JSLintMate</title>
+  <style>
 
-  <title>rondevera/jslintmate @ GitHub</title>
+    /*** Colors ***
+     * Blue:        #2b5abf   Links
+     * Light blue:  #5b8aef   Links (hover)
+     */
 
-  <style type="text/css">
+    /*** Global > Layout ***/
+
     body {
-      margin-top: 1.0em;
-      background-color: #fff;
-      font-family: Helvetica, Arial, FreeSans, san-serif;
-      color: #000000;
-    }
-    #container {
       margin: 0 auto;
-      width: 700px;
+      padding: 1em 0 3em;
+      background: #eee;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-weight: 300;
     }
-    h1 { font-size: 3.8em; color: #000000; margin-bottom: 3px; }
-    h1 .small { font-size: 0.4em; }
-    h1 a { text-decoration: none }
-    h2 { font-size: 1.5em; color: #000000; }
-    h3 { text-align: center; color: #000000; }
-    a { color: #000000; }
-    .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
-    .download { float: right; }
-    pre { background: #000; color: #fff; padding: 15px;}
-    hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
-    .footer { text-align:center; padding-top:30px; font-style: italic; }
+    #page {
+      width: 900px;
+      margin: 0 auto;
+    }
+
+    /*** Global > Typography ***/
+
+    a {
+      border-bottom: 1px solid #2b5abf;
+      color: #2b5abf;
+      text-decoration: none;
+        -moz-transition:    color 0.25s linear;
+        -webkit-transition: color 0.25s linear;
+      transition:           color 0.25s linear;
+    }
+    a:hover,
+    a:focus {
+      border-color: #5b8aef;
+      color: #5b8aef;
+    }
+    strong {
+      font-weight: bold;
+    }
+    p, li {
+      line-height: 1.5;
+    }
+
+    /*** Objects > Headers ***/
+
+    h1 {
+      font-size: 4em;
+      text-align: center;
+      text-shadow: 0 1px 1px #fff;
+    }
+    h1 a {
+      border: 0;
+      color: #000;
+    }
+    h1 a:hover,
+    h1 a:focus {
+      color: #333;
+    }
+    h2 {
+      margin: 2em 0 0;
+      font-size: 1.5em;
+      text-shadow: 0 1px 1px #fff;
+    }
+
+    /*** Objects > Lists ***/
+
+    ol {
+      margin: 1em 0 0;
+      padding: 0 0 0 1.5em;
+    }
+
+    /*** Body ***/
+
+    p.description {
+      color: #333;
+      font-size: 1.5em;
+      text-align: center;
+      text-shadow: 0 1px 1px #fff;
+    }
+    img.screenshots {
+      margin: 1em 0 0;
+    }
+    a.fork {
+      position: absolute;
+      right: 0;
+      top: 0;
+      display: block;
+      width: 149px;
+      height: 149px;
+      background: transparent url(img/fork-me.png) 0 0 no-repeat;
+      border: 0;
+      text-indent: -999em;
+    }
+    div.download {
+      position: relative;
+      top: -2em;
+    }
+    div.download a {
+      position: relative;
+      float: right;
+      width: 150px;
+      margin: 0 0 0 1em;
+      padding: 0.5em;
+        background: #222;
+        background: -webkit-gradient(linear, left top, left bottom, from(#333), color-stop(0.5, #191919), color-stop(0.5, #090909), to(#090909));
+        background:    -moz-linear-gradient(top, #333, 0.5 #191919, 0.5 #090909, #090909);
+        background: -webkit-linear-gradient(top, #333, 0.5 #191919, 0.5 #090909, #090909);
+      background:           linear-gradient(top, #333, 0.5 #191919, 0.5 #090909, #090909);
+      border: 1px solid #000;
+        -moz-border-radius:    8px;
+        -webkit-border-radius: 8px;
+      border-radius:           8px;
+        -moz-box-shadow:    0 4px 8px rgba(0, 0, 0, 0.25);
+        -webkit-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+      box-shadow:           0 4px 8px rgba(0, 0, 0, 0.25);
+      color: #eee;
+      font-size: 1.25em;
+      text-align: center;
+      text-shadow: 0 -1px 1px #000;
+        -moz-transition:       -moz-box-shadow 0.25s linear, text-shadow 0.25s linear;
+        -webkit-transition: -webkit-box-shadow 0.25s linear, text-shadow 0.25s linear;
+      transition:                   box-shadow 0.25s linear, text-shadow 0.25s linear;
+    }
+    div.download a:hover,
+    div.download a:focus {
+        -moz-box-shadow:    0 0 20px #5b8aef;
+        -webkit-box-shadow: 0 0 20px #5b8aef;
+      box-shadow:           0 0 20px #5b8aef;
+      text-shadow: 0 0 5px #5b8aef;
+    }
+    div.download a:active {
+      top: 1px;
+    }
+    div.download a strong {
+      display: block;
+      width: 150px;
+      padding: 0 0 150px;
+      background: transparent url(img/zip.png) bottom center no-repeat;
+    }
   </style>
 </head>
 
 <body>
-  <a href="http://github.com/rondevera/jslintmate"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
+<div id="page">
 
-  <div id="container">
+<h1>
+  <a href="https://github.com/rondevera/jslintmate"
+    title="See the code on GitHub">JSLintMate</a>
+</h1>
 
-    <div class="download">
-      <a href="http://github.com/rondevera/jslintmate/zipball/master">
-        <img border="0" width="90" src="http://github.com/images/modules/download/zip.png"></a>
-      <a href="http://github.com/rondevera/jslintmate/tarball/master">
-        <img border="0" width="90" src="http://github.com/images/modules/download/tar.png"></a>
-    </div>
+<p class="description">
+  Quick, simple JSLint (or JSHint) in TextMate. Hurt your feelings in
+  style.
+</p>
 
-    <h1><a href="http://github.com/rondevera/jslintmate">JSLintMate</a>
-      <span class="small">by <a href="http://github.com/rondevera">rondevera</a></span></h1>
+<img class="screenshots" width="892" height="525"
+  alt="JSLintMate screenshots" title="JSLintMate"
+  src="https://github.com/rondevera/jslintmate/raw/master/Support/images/jslintmate-screenshots.png" />
 
-    <div class="description">
-      Quick, simple JSLint (or JSHint) in TextMate. Hurt your feelings in style.
-    </div>
+<a class="fork"
+  href="https://github.com/rondevera/jslintmate">Fork me on GitHub</a>
 
-    <p>Quick, simple JSLint (or JSHint) in TextMate. Hurt your feelings in style.</p><h2>Dependencies</h2>
-<p>TextMate</p>
-<h2>Install</h2>
-<p>[Download JSLintMate.tmbundle][download] and double-click it.
-TextMate should install it for you automatically&mdash;that's all.
 
-Or via Git:
+<h2>Installation</h2>
+<div class="download">
+  <a href="https://github.com/rondevera/jslintmate/zipball/master"
+    >Download <strong>JSLintMate</strong></a>
+</div>
+<p>
+  <a href="https://github.com/rondevera/jslintmate/zipball/master">Download JSLintMate.tmbundle</a>
+  and double-click it. TextMate should install it for you
+  automatically&mdash;that's all.
+</p>
+<p>
+  Git geeks: You can also install via Git. Check the
+  <a href="https://github.com/rondevera/jslintmate/#readme">readme</a>
+  for details.
+</p>
 
-    mkdir -p ~/Library/Application\ Support/TextMate/Bundles
-    cd ~/Library/Application\ Support/TextMate/Bundles
-    git clone git://github.com/rondevera/jslintmate.git "JSLintMate.tmbundle"
-    osascript -e 'tell app "TextMate" to reload bundles'
-      # If the last command returns an error, switch to TextMate,
-      # then select Bundles > Bundle Editor > Reload Bundles.
+<h2>Usage</h2>
+<ol>
+  <li>Open a JS file in TextMate.</li>
+  <li>
+    Hit <strong>control-L</strong> to run it through JSLint
+    (or <strong>control-shift-L</strong> for JSHint).
+  </li>
+  <li>Fix and repeat.</li>
+</ol>
 
-    # Update to latest version:
-    git pull
-
-[download]: https://github.com/rondevera/jslintmate/archives/master</p>
-<h2>License</h2>
-<p>MIT License</p>
-<h2>Authors</h2>
-<p>Ron DeVera (hello@rondevera.com)<br/><br/>      </p>
 <h2>Contact</h2>
-<p>Ron DeVera (hello@rondevera.com)<br/>      </p>
+<p>
+  <a href="https://github.com/rondevera">rondevera @ github</a> /
+  <a href="https://twitter.com/ronalddevera">ronalddevera @ twitter</a> /
+  <a href="https://github.com/rondevera/jslintmate/issues"
+    >jslintmate @ github issues</a>
+</p>
+<p>Use JSLintMate for good, not evil.</p>
 
-
-    <h2>Download</h2>
-    <p>
-      You can download this project in either
-      <a href="http://github.com/rondevera/jslintmate/zipball/master">zip</a> or
-      <a href="http://github.com/rondevera/jslintmate/tarball/master">tar</a> formats.
-    </p>
-    <p>You can also clone the project with <a href="http://git-scm.com">Git</a>
-      by running:
-      <pre>$ git clone git://github.com/rondevera/jslintmate</pre>
-    </p>
-
-    <div class="footer">
-      get the source code on GitHub : <a href="http://github.com/rondevera/jslintmate">rondevera/jslintmate</a>
-    </div>
-
-  </div>
+</div> <!-- #page -->
 
 <script>
   var _gaq=_gaq||[];
