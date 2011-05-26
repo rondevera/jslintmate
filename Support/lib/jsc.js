@@ -20,38 +20,40 @@ Copyright (c) 2009 Apple Inc.
           white:    false */
 /*global  JSLINT, JSHINT */
 
-(function (a) {
-  var linter = (typeof JSHINT !== 'undefined' ? JSHINT : JSLINT),
+(function(args){
+  var filename  = args[0],
+      options   = args[1],
+      linter    = (typeof JSHINT !== 'undefined' ? JSHINT : JSLINT),
       linterOptions = {};
 
   // Check for JS code
-  if (!a[0]) {
+  if(!filename){
     print('Usage: jsc (jslint|jshint).js jsc.js -- "$(cat myFile.js)" ' +
           '[opt1=val1,opt2=val2]');
     quit(1);
   }
 
   // Parse linter options
-  if(a[1]){
-    a[1].split(',').forEach(function(opt){
+  if(options){
+    options.split(',').forEach(function(opt){
       var kv = opt.split('='), k = kv[0], v = kv[1];
       linterOptions[k] = (function(){
         switch(v){
-          case 'true':  return true;
-          case 'false': return false;
+          case 'true':  return true;  // Convert strings to
+          case 'false': return false; // native booleans
           default:      return v;
         }
       }());
     });
   }
 
-  if (!linter(a[0], linterOptions)) {
+  if(!linter(filename, linterOptions)){
     // Format errors
     (function(){
       var errorsCount = linter.errors.length, i, e;
-      for (i = 0; i < errorsCount; i += 1) {
+      for(i = 0; i < errorsCount; i += 1){
         e = linter.errors[i];
-        if (e) {
+        if(e){
           print('Lint at line ' + (e.line + 1) + ' character ' +
             (e.character + 1) + ': ' + e.reason);
           print((e.evidence || '').replace(/^\s*(\S*(\s+\S+)*)\s*$/, "$1"));
@@ -60,7 +62,7 @@ Copyright (c) 2009 Apple Inc.
       }
     }());
     quit(2);
-  } else {
+  }else{
     print('No problems found.');
     quit();
   }
