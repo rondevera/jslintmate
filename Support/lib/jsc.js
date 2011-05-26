@@ -37,13 +37,13 @@ Copyright (c) 2009 Apple Inc.
   if(options){
     options.split(',').forEach(function(opt){
       var kv = opt.split('='), k = kv[0], v = kv[1];
-      linterOptions[k] = (function(){
-        switch(v){
-          case 'true':  return true;  // Convert strings to
-          case 'false': return false; // native booleans
-          default:      return v;
-        }
-      }());
+
+      linterOptions[k] = (
+        // Ew, nested ternaries. Refactor if more complexity is needed.
+        v === 'true'  ? true :  // Convert strings to
+        v === 'false' ? false : // native booleans
+        v
+      );
     });
   }
 
@@ -51,7 +51,7 @@ Copyright (c) 2009 Apple Inc.
     // Format errors
     (function(){
       var errorsCount = linter.errors.length, i, e;
-      for(i = 0; i < errorsCount; i += 1){
+      for(i = 0; i < errorsCount; i++){
         e = linter.errors[i];
         if(e){
           print('Lint at line ' + (e.line + 1) + ' character ' +
