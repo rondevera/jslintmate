@@ -87,7 +87,7 @@ teammates keep their standards synced. Three ways to do this:
     A YAML file is great for sharing options with project
     collaborators&mdash;everyone uses the same options for all JS files, and
     different projects can have different options. The simple YAML config file
-    used by [jslint\_on\_rails][jslint_on_rails_config] is a good example.
+    used by [jslint\_on\_rails][jslint_on_rails config] is a good example.
     Setup:
 
     1.  Within TextMate, go to *Bundles > Bundle Editor > Edit Commands*.
@@ -125,12 +125,12 @@ Note that you can have different options for JSLint and JSHint simply by
 modifying the "Run JSLintMate" and "Run JSLintMate with JSHint" commands
 separately.
 
-For more info, read about [JSLint's options][jslint-options] and
-[JSHint's options][jshint-options].
+For more info, read about [JSLint's options][jslint options] and
+[JSHint's options][jshint options].
 
-[jslint_on_rails_config]: https://github.com/psionides/jslint_on_rails/blob/master/lib/jslint/config/jslint.yml
-[jslint-options]:  http://jslint.com/lint.html#options
-[jshint-options]:  http://jshint.com/#docs
+[jslint_on_rails config]: https://github.com/psionides/jslint_on_rails/blob/master/lib/jslint/config/jslint.yml
+[jslint options]:  http://jslint.com/lint.html#options
+[jshint options]:  http://jshint.com/#docs
 
 
 JSLint/JSHint builds
