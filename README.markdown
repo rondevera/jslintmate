@@ -153,6 +153,7 @@ About
 - **Contributing:** Found a bug or have a suggestion? [Please open an
   issue][issues] or ping [@ronalddevera on Twitter][twitter]. If you want to
   hack on some features, feel free to fork and send a pull request.
+  Development happens in the [development branch][dev branch].
 - **History:** [History/changelog for JSLintMate][history]
 - **Compatibility:** Tested with OS X 10.6, WebKit 531+ (Safari 4+), and
   TextMate 1.5.10. Probably works with older software, but not guaranteed.
@@ -167,7 +168,8 @@ JSLintMate is released under the [MIT License][license]. The bundle contains
 copies of JSLint and JSHint, which use their own license(s). Use JSLintMate
 for good, not evil.
 
-[issues]:   https://github.com/rondevera/jslintmate/issues
-[twitter]:  https://twitter.com/ronalddevera
-[history]:  https://github.com/rondevera/jslintmate/blob/master/HISTORY
-[license]:  https://github.com/rondevera/jslintmate/blob/master/LICENSE
+[issues]:     https://github.com/rondevera/jslintmate/issues
+[twitter]:    https://twitter.com/ronalddevera
+[dev branch]: https://github.com/rondevera/jslintmate/commits/development
+[history]:    https://github.com/rondevera/jslintmate/blob/master/HISTORY
+[license]:    https://github.com/rondevera/jslintmate/blob/master/LICENSE
