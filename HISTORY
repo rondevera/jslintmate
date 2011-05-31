@@ -6,6 +6,8 @@ JSLintMate
 * FEATURE: Added support for the `--linter-file` option when customizing
   bundle commands. Allows for using your own custom/edge build of
   JSLint/JSHint.
+* IMPROVEMENT: Improved rendering performance of the striped red "xx% scanned"
+  error when it appears at the bottom of the window.
 
 
 1.0.4 (2011-05-07)
