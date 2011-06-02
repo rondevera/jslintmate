@@ -41,7 +41,7 @@ Or via Git:
     # Update to latest version:
     git pull
 
-[download]: https://github.com/rondevera/jslintmate/archives/master
+[download]: https://github.com/downloads/rondevera/jslintmate/JSLintMate-1.1.tmbundle.zip
 
 
 Usage

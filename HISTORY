@@ -1,6 +1,8 @@
 JSLintMate
 ==========
 
+1.1 (2011-06-02)
+----------------
 * FEATURE: Added keyboard navigation. Use up/down arrows (or k/j) to select an
   error, then hit enter to show it in the JS file.
 * FEATURE: Added support for the `--linter-file` option when customizing
