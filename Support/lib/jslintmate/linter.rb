@@ -37,7 +37,8 @@ module JSLintMate
         self.name = 'JSLint'
       end
 
-      self.path = attrs[:path] || JSLintMate.lib_path("#{key}.js")
+      self.path = [attrs[:path], JSLintMate.lib_path("#{key}.js")].
+                    detect { |path| path && File.readable?(path) }
 
       [:options, :options_filepath].each do |attr_key|
         self.send(:"#{attr_key}=", attrs[attr_key])

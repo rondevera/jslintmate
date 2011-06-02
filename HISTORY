@@ -1,6 +1,10 @@
 JSLintMate
 ==========
 
+* FIX: Fixed falling back to built-in jslint.js/jshint.js if custom
+  `--linter-file` can't be read.
+
+
 1.1 (2011-06-02)
 ----------------
 * FEATURE: Added keyboard navigation. Use up/down arrows (or k/j) to select an
