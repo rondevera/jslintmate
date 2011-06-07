@@ -1,14 +1,18 @@
 #!/usr/bin/env ruby
 
 # Quick, simple JSLint in TextMate. Hurt your feelings in style.
-# (JSLint.com is a powerful JS code quality tool.)
-
+# (JSLint.com is a powerful JS code quality tool. JSHint.com is a
+# community-driven project based on JSLint, and doesn't hurt your feelings so
+# much.)
+#
 # Usage (in a TextMate bundle):
 #
 #   ruby '/path/to/jslintmate.rb' <options>
 #
 # Options:
 #
+#   --file                  '/path/to/my-file.js'; defaults to
+#                           `ENV['TM_FILEPATH']`
 #   --linter                'jslint' (default) or 'jshint'
 #   --linter-file           '/path/to/jslint.js' or '/path/to/jshint.js'
 #   --linter-options        Format: 'option1=value1,option2=value'
@@ -25,10 +29,10 @@
 # To update jslint.js and jshint.js:
 #
 #   cd /path/to/JSLintMate.tmbundle/Support/lib/
-#   curl -o jslint.js http://www.jslint.com/fulljslint.js
+#   curl -o jslint.js http://jslint.com/jslint.js
 #   curl -o jshint.js http://jshint.com/jshint.js
 
-$LOAD_PATH << File.join(ENV['TM_BUNDLE_SUPPORT'], 'lib')
+$LOAD_PATH << File.join(ENV['TM_BUNDLE_SUPPORT'] || 'Support', 'lib')
 require 'cgi'
 require 'erb'
 require 'jslintmate/linter'
@@ -62,7 +66,7 @@ module JSLintMate
 
   def self.bundle_path
     unless @bundle_path
-      user_bundle_path      = ENV['TM_BUNDLE_PATH'].dup
+      user_bundle_path      = (ENV['TM_BUNDLE_PATH'] || '.').dup
       pristine_bundle_path  = user_bundle_path.sub('TextMate/Bundles',
                                 'TextMate/Pristine Copy/Bundles')
       long_bundle_name      = 'JavaScript JSLintMate.tmbundle'
@@ -121,7 +125,7 @@ linter = JSLintMate::Linter.new(
   :options  => args['linter-options'] || JSLintMate::Linter.default_options,
   :options_filepath => args['linter-options-file']
 )
-filepath = ENV['TM_FILEPATH']
+filepath = args['file'] || ENV['TM_FILEPATH']
 
 if filepath
   problems_count = 0
