@@ -40,7 +40,7 @@ Copyright (c) 2009 Apple Inc.
 
       linterOptions[k] = (
         // Ew, nested ternaries. Refactor if more complexity is needed.
-        v === 'true'  ? true :  // Convert strings to
+        v === 'true'  ? true  : // Convert strings to
         v === 'false' ? false : // native booleans
         v
       );
@@ -50,13 +50,16 @@ Copyright (c) 2009 Apple Inc.
   if(!linter(filename, linterOptions)){
     // Format errors
     (function(){
-      var errorsCount = linter.errors.length, i, e;
+      var errorsCount = linter.errors.length,
+          regexp = /^\s*(\S*(\s+\S+)*)\s*$/,
+          i, e;
+
       for(i = 0; i < errorsCount; i++){
         e = linter.errors[i];
         if(e){
           print('Lint at line ' + (e.line + 1) + ' character ' +
             (e.character + 1) + ': ' + e.reason);
-          print((e.evidence || '').replace(/^\s*(\S*(\s+\S+)*)\s*$/, "$1"));
+          print(e.evidence ? e.evidence.replace(regexp, "$1") : '');
           print('');
         }
       }
