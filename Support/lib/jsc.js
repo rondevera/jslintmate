@@ -11,16 +11,17 @@ Copyright (c) 2002 Douglas Crockford (www.JSLint.com) JSC Edition
 Copyright (c) 2009 Apple Inc.
 */
 
-/*jslint  eqeqeq:   true,
-          immed:    false,
-          newcap:   true,
-          nomen:    false,
+/*jslint  newcap:   true,
+          nomen:    true,
           onevar:   true,
-          plusplus: false,
+          plusplus: true,
           rhino:    true,
+          sloppy:   true,
           undef:    true,
-          white:    false */
+          white:    true */
 /*global  JSLINT, JSHINT */
+
+
 
 (function(args){
   var filename  = args[0],

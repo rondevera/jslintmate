@@ -1,5 +1,16 @@
-/*jslint browser: true */
+// Enables behaviors for the JSLintMate UI.
+
+/*jslint  newcap:   true,
+          nomen:    true,
+          onevar:   true,
+          plusplus: true,
+          rhino:    true,
+          sloppy:   true,
+          undef:    true,
+          white:    true */
 /*global TextMate */
+
+
 
 (function(w, d){
   var Nav     = {CUR: 'current'},
