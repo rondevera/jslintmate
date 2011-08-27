@@ -1,5 +1,7 @@
 // Run this after jslint.js or jshint.js so that JSC can run it.
 //
+// More on JSC: https://trac.webkit.org/wiki/JSC
+//
 // Adapted from:
 // - http://blog.pulletsforever.com/2009/07/09/running_jslint_with_safaris_javascript_core/
 // - https://github.com/jshint/jshint/blob/master/env/rhino.js
@@ -57,7 +59,7 @@ Copyright (c) 2009 Apple Inc.
       for(i = 0; i < errorsCount; i++){
         e = linter.errors[i];
         if(e){
-          print('Lint at line ' + (e.line + 1) + ' character ' +
+          print('Lint at line ' + e.line + ' character ' +
             (e.character + 1) + ': ' + e.reason);
           print(e.evidence ? e.evidence.replace(regexp, "$1") : '');
           print('');

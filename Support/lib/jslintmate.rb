@@ -40,7 +40,8 @@ require 'jslintmate/linter'
 module JSLintMate
   def self.version
     @version ||= begin
-      File.read(File.join(JSLintMate.bundle_path, 'VERSION')).strip
+      version_filepath = File.join(JSLintMate.bundle_path, 'VERSION')
+      File.read(version_filepath).strip
     end
   end
 
@@ -148,7 +149,7 @@ if filepath
   lint.gsub!(/^(Lint at line )(\d+)(.+?:)(.+?)\n(?:(.+?)\n\n)?/m) do
     line, char, desc, code = $2, $3, $4, $5
 
-    line = (line.to_i - 1).to_s
+    line = line.to_s
     char = (char.scan(/\d+/)[0].to_i - 1).to_s
     line_uri = "txmt://open?url=file://#{filepath}" <<
                "&line=#{CGI.escapeHTML(line)}&column=#{CGI.escapeHTML(char)}"
@@ -165,7 +166,7 @@ if filepath
     end
   end
 
-  if lint =~ /No problems found/
+  if problems_count == 0
     # Douglas Crockford would be so proud.
     result = %{
       <header>
