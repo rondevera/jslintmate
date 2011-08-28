@@ -1,4 +1,6 @@
-// Run this after jslint.js or jshint.js so that JSC can run it.
+// Processes a JS file with a lint tool, then prints human-readable
+// descriptions of each error. Run this after `jslint.js` or `jshint.js` so
+// that JSC can run it.
 //
 // More on JSC: https://trac.webkit.org/wiki/JSC
 //
@@ -27,7 +29,8 @@ Copyright (c) 2009 Apple Inc.
   var filename  = args[0],
       options   = args[1],
       linter    = (typeof JSHINT !== 'undefined' ? JSHINT : JSLINT),
-      linterOptions = {};
+      linterOptions = {},
+      linterData;
 
   // Check for JS code
   if(!filename){
@@ -50,23 +53,49 @@ Copyright (c) 2009 Apple Inc.
     });
   }
 
-  if(!linter(filename, linterOptions)){
+  // Run linter and fetch data
+  linter(filename, linterOptions);
+  linterData = linter.data();
+  if(!linter.unused){
+    // The key (`unused` or `unuseds`) varies across JSHint and various
+    // versions of JSLint. Normalize as `unused`.
+    linter.unused = linter.unuseds; // Value may be `null`
+  }
+
+  if(linterData.errors || linterData.unused){
     // Format errors
     (function(){
-      var errorsCount = linter.errors.length,
-          regexp = /^\s*(\S*(\s+\S+)*)\s*$/,
-          i, e;
+      var errors = (linter.errors || []).concat(linterData.unused || []),
+          errorsCount = errors.length,
+          stripRegexp = /^\s*(\S*(\s+\S+)*)\s*$/,
+            // For use in stripping leading/trailing whitespace from a string
+          error, i;
 
+      // Sort errors by line number
+      errors = errors.sort(function(errorA, errorB){
+        if(!errorA || !errorB || !errorA.line || !errorB.line){ return 0; }
+        return errorA.line - errorB.line;
+      });
+
+      // Format errors as readable strings
       for(i = 0; i < errorsCount; i++){
-        e = linter.errors[i];
-        if(e){
-          print('Lint at line ' + e.line + ' character ' +
-            (e.character + 1) + ': ' + e.reason);
-          print(e.evidence ? e.evidence.replace(regexp, "$1") : '');
+        error = errors[i];
+        if(error){
+          if(error.name){
+            print('Unused variable at line ' + error.line + ': ' +
+              error.name);
+          }else{
+            print('Lint at line ' + error.line + ' character ' +
+              error.character + ': ' + error.reason);
+            print(error.evidence ?
+              error.evidence.replace(stripRegexp, "$1") : '');
+          }
+
           print('');
         }
       }
     }());
+
     quit(2);
   }else{
     print('No problems found.');

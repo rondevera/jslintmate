@@ -145,25 +145,40 @@ if filepath
   cmd   << %{ "#{linter.options_string}"} if linter.options
   lint  = `#{cmd}` # Find problems
 
-  # Format problems
-  lint.gsub!(/^(Lint at line )(\d+)(.+?:)(.+?)\n(?:(.+?)\n\n)?/m) do
+  # Format errors, if any
+  lint.gsub!(/^(Lint at line )(\d+)(.+?:)(.+?)\n(?:(.+?))?$/) do
     line, char, desc, code = $2, $3, $4, $5
 
     line = line.to_s
-    char = (char.scan(/\d+/)[0].to_i - 1).to_s
+    char = char.scan(/\d+/)[0].to_s
     line_uri = "txmt://open?url=file://#{filepath}" <<
                "&line=#{CGI.escapeHTML(line)}&column=#{CGI.escapeHTML(char)}"
+    loc  = %{<span class="location">#{CGI.escapeHTML("Line #{line}")}</span>}
     desc = %{<span class="desc">#{CGI.escapeHTML(desc).strip}</span>} if desc
-    loc  = %{<span class="location">#{
-              CGI.escapeHTML("Line #{line}, character #{char}")}</span>}
     code = %{<pre>#{CGI.escapeHTML(code).strip}</pre>} if code
 
     if code
       problems_count += 1
       %{<li><a href="#{line_uri}">#{loc} #{desc} #{code}</a></li>}
     else
+      # Use special formatting for stopping alerts, e.g., too many errors
       %{<li class="alert">#{loc} #{desc}</li>}
     end
+  end
+
+  # Format unused variables, if any
+  lint.gsub!(/^Unused variable at line (\d+): (.+?)$/) do
+    line, code = $1, $2
+
+    line = line.to_s
+    line_uri = "txmt://open?url=file://#{filepath}" <<
+               "&line=#{CGI.escapeHTML(line)}&column=0"
+    loc  = %{<span class="location">#{CGI.escapeHTML("Line #{line}")}</span>}
+    desc = %{<span class="desc">Unused variable.</span>}
+    code = %{<pre>#{CGI.escapeHTML(code).strip}</pre>} if code
+
+    problems_count += 1
+    %{<li><a href="#{line_uri}">#{loc} #{desc} #{code}</a></li>}
   end
 
   if problems_count == 0

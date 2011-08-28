@@ -8,7 +8,7 @@
           sloppy:   true,
           undef:    true,
           white:    true */
-/*global TextMate */
+/*global  TextMate */
 
 
 
