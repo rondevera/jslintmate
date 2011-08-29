@@ -52,8 +52,25 @@ module JSLintMate
 
     def to_s; name; end
 
+    def get_lint_for_filepath(filepath)
+      # Returns human-readable errors found in the file at `filepath`. Errors
+      # are formatted according to `Support/lib/jsc.js`. Uses OS X's built-in
+      # JSC engine.
+      #
+      # Note: With some hacking, this can probably be made to work with Rhino
+      # (Mozilla's open-source JS engine). Reference:
+      # <http://www.phpied.com/installing-rhino-on-mac/>
+
+      jsc = JSLintMate.lib_path('jsc.js')
+      cmd = '/System/Library/Frameworks/JavaScriptCore.framework/' <<
+               %{Versions/A/Resources/jsc "#{self.path}" "#{jsc}" -- } <<
+               %{"$(cat "#{filepath}")"}
+      cmd << %{ "#{self.options_string}"}
+      `#{cmd}`
+    end
+
     def options_string
-      JSLintMate::Linter.options_hash_to_string(options)
+      options ? JSLintMate::Linter.options_hash_to_string(options) : ''
     end
 
     def reverse_merge_options_from_file!

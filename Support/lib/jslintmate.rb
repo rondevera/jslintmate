@@ -144,16 +144,8 @@ if filepath
   # Prepare linter options
   linter.reverse_merge_options_from_file!
 
-  # Prepare OS X's JSC
-  # Note: With some hacking, this can probably be made to work with Rhino
-  # (Mozilla's open-source JS engine). Reference:
-  # <http://www.phpied.com/installing-rhino-on-mac/>
-  jsc   = JSLintMate.lib_path('jsc.js')
-  cmd   = '/System/Library/Frameworks/JavaScriptCore.framework/' <<
-           %{Versions/A/Resources/jsc "#{linter.path}" "#{jsc}" -- } <<
-           %{"$(cat "#{filepath}")"}
-  cmd   << %{ "#{linter.options_string}"} if linter.options
-  lint  = `#{cmd}` # Find problems
+  # Get lint data
+  lint = linter.get_lint_for_filepath(filepath)
 
   # Format errors, if any
   lint.gsub!(/^(Lint at line )(\d+)(.+?:)(.+?)\n(?:(.+?))?$/) do
