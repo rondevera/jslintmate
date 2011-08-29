@@ -1,4 +1,6 @@
 module JSLintMate
+
+  # Represents a lint tool, JSLint or JSHint.
   class Linter
     DEFAULT_OPTIONS = {:undef => true}
 

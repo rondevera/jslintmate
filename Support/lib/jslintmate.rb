@@ -35,6 +35,7 @@
 $LOAD_PATH << File.join(ENV['TM_BUNDLE_SUPPORT'] || 'Support', 'lib')
 require 'cgi'
 require 'erb'
+require 'jslintmate/lint_error'
 require 'jslintmate/linter'
 
 module JSLintMate
@@ -95,23 +96,32 @@ module JSLintMate
     @bundle_path
   end
 
-  def self.html
-    File.read lib_path('jslintmate.html.erb')
-  end
-
-  def self.css
-    File.read lib_path('jslintmate.css')
-  end
-
-  def self.js
-    File.read lib_path('jslintmate.js')
-  end
+  def self.html ; File.read lib_path('jslintmate.html.erb') ; end
+  def self.css  ; File.read lib_path('jslintmate.css')      ; end
+  def self.js   ; File.read lib_path('jslintmate.js')       ; end
 
   def self.link_to_jslintmate
     %{
       <a href="https://github.com/rondevera/jslintmate" class="info"
         title="More info on JSLintMate #{version}">info</a>
     }.strip.split.join(' ')
+  end
+
+  def self.error_to_html(error_data)
+    # `error_data` is a hash whose keys should match
+    # `JSLintMate::LintError#initialize`.
+    #
+    # Returns an HTML `<li>` wrapper that represents the given error data.
+
+    lint_error = JSLintMate::LintError.new(error_data)
+    lint_error_html = lint_error.to_html
+
+    if lint_error.code == ''
+      # Use special formatting for stoppage alerts
+      %{<li class="alert">#{lint_error_html}</li>}
+    else
+      %{<li>#{lint_error_html}</li>}
+    end
   end
 
 end # module JSLintMate
@@ -147,38 +157,33 @@ if filepath
 
   # Format errors, if any
   lint.gsub!(/^(Lint at line )(\d+)(.+?:)(.+?)\n(?:(.+?))?$/) do
-    line, char, desc, code = $2, $3, $4, $5
+    line, column, desc, code = $2, $3, $4, $5
 
-    line = line.to_s
-    char = char.scan(/\d+/)[0].to_s
-    line_uri = "txmt://open?url=file://#{filepath}" <<
-               "&line=#{CGI.escapeHTML(line)}&column=#{CGI.escapeHTML(char)}"
-    loc  = %{<span class="location">#{CGI.escapeHTML("Line #{line}")}</span>}
-    desc = %{<span class="desc">#{CGI.escapeHTML(desc).strip}</span>} if desc
-    code = %{<pre>#{CGI.escapeHTML(code).strip}</pre>} if code
+    # Increment problem counter unless this error is actually an alert that
+    # has no code snippet
+    problems_count += 1 if code
 
-    if code
-      problems_count += 1
-      %{<li><a href="#{line_uri}">#{loc} #{desc} #{code}</a></li>}
-    else
-      # Use special formatting for stopping alerts, e.g., too many errors
-      %{<li class="alert">#{loc} #{desc}</li>}
-    end
+    JSLintMate.error_to_html(
+      :filepath => filepath,
+      :line     => line,
+      :column   => column,
+      :desc     => desc,
+      :code     => code
+    )
   end
 
   # Format unused variables, if any
   lint.gsub!(/^Unused variable at line (\d+): (.+?)$/) do
     line, code = $1, $2
 
-    line = line.to_s
-    line_uri = "txmt://open?url=file://#{filepath}" <<
-               "&line=#{CGI.escapeHTML(line)}&column=0"
-    loc  = %{<span class="location">#{CGI.escapeHTML("Line #{line}")}</span>}
-    desc = %{<span class="desc">Unused variable.</span>}
-    code = %{<pre>#{CGI.escapeHTML(code).strip}</pre>} if code
-
     problems_count += 1
-    %{<li><a href="#{line_uri}">#{loc} #{desc} #{code}</a></li>}
+
+    JSLintMate.error_to_html(
+      :filepath => filepath,
+      :line     => line,
+      :code     => code,
+      :desc     => 'Unused variable.'
+    )
   end
 
   if problems_count == 0
