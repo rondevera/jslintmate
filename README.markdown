@@ -150,6 +150,8 @@ to point to your copy:
 About
 -----
 
+- **Sharing:** Link to the [official JSLintMate page][website] or use the
+  [short URL][shorturl] for this repo!
 - **Contributing:** Found a bug or have a suggestion? [Please open an
   issue][issues] or ping [@ronalddevera on Twitter][twitter]. If you want to
   hack on some features, feel free to fork and send a pull request.
@@ -168,6 +170,8 @@ JSLintMate is released under the [MIT License][license]. The bundle contains
 copies of JSLint and JSHint, which use their own license(s). Use JSLintMate
 for good, not evil.
 
+[website]:    http://rondevera.github.com/jslintmate/
+[shorturl]:   http://git.io/jslintmate
 [issues]:     https://github.com/rondevera/jslintmate/issues
 [twitter]:    https://twitter.com/ronalddevera
 [dev branch]: https://github.com/rondevera/jslintmate/commits/development
