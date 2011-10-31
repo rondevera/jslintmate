@@ -74,6 +74,14 @@ Copyright (c) 2009 Apple Inc.
       // Sort errors by line number
       errors = errors.sort(function(errorA, errorB){
         if(!errorA || !errorB || !errorA.line || !errorB.line){ return 0; }
+
+        // If alert (e.g., "Too many errors"), force to be listed last.
+        // `!errorA.name` implies that the error is not "Unused variable", and
+        // `!errorA.evidence` implies that the error has no code context
+        // ("evidence").
+        if(!errorA.name && !errorA.evidence){ return  1; }
+        if(!errorB.name && !errorB.evidence){ return -1; }
+
         return errorA.line - errorB.line;
       });
 
