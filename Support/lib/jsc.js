@@ -31,13 +31,9 @@ Copyright (c) 2009 Apple Inc.
 
   var filename  = args[0],
       linter    = (typeof JSHINT !== 'undefined' ? JSHINT : JSLINT),
-      options   = args.slice(1), // All but first
+      options   = args.slice(1), // Array; all but first
       linterOptions = {},
-      linterOptionsFromBundle,
-      linterOptionsFromConfigFile,
-      linterOptionsFromDefaults,
-      linterData,
-      i, optionKey, optionValue;
+      linterData;
 
   function optionsStringToHash (string) {
     // Given a string '{a:1,b:[2,3],c:{d:4,e:5}}`, returns an object/hash.
@@ -66,6 +62,34 @@ Copyright (c) 2009 Apple Inc.
     }
   }
 
+  function parseOptions (optionsArray) {
+    // Given an array `optionsArray`, returns a hash where each array item
+    // is split into a key and value. Linter options are also converted into
+    // hashes.
+
+    var options = {}, i, option, key, value;
+
+    for (i = optionsArray.length; i--;) {
+      // Split option (e.g., 'a=b=c') into key and value (e.g., 'a' and 'b=c')
+      option = optionsArray[i];         // option = 'a=b=c'
+      key    = option.split('=');       // key    = ['a', 'b', 'c']
+      value  = key.slice(1).join('=');  // value  = 'b=c'
+      key    = key[0];                  // key    = 'a'
+
+      // Convert known linter options to hashes
+      switch (key) {
+        case '--linter-options-from-bundle':
+        case '--linter-options-from-config-file':
+        case '--linter-options-from-defaults':
+          value = optionsStringToHash(value); break;
+      }
+
+      // Copy to hash
+      options[key] = value;
+    }
+
+    return options;
+  }
 
 
   // Check for JS code
@@ -78,33 +102,15 @@ Copyright (c) 2009 Apple Inc.
   }
 
   // Parse arguments
-  for(i = options.length; i--;){
-    // Split option (e.g., 'a=b=c') into key and value (e.g., 'a', 'b=c')
-    optionKey   = options[i].split('='); // Value might be an array
-    optionValue = optionKey.slice(1).join();
-    optionKey   = optionKey[0];
+  options = parseOptions(options); // Convert options from array to hash
 
-    // Store option strings from arguments
-    switch(optionKey){
-      case '--linter-options-from-bundle':
-        linterOptionsFromBundle = optionValue; break;
-      case '--linter-options-from-config-file':
-        linterOptionsFromConfigFile = optionValue; break;
-      case '--linter-options-from-defaults':
-        linterOptionsFromDefaults = optionValue; break;
-    }
-  }
-
-  // Convert option strings to hashes
-  linterOptionsFromBundle = optionsStringToHash(linterOptionsFromBundle);
-  linterOptionsFromConfigFile =
-    optionsStringToHash(linterOptionsFromConfigFile);
-  linterOptionsFromDefaults = optionsStringToHash(linterOptionsFromDefaults);
-
-  // Merge options                                            // Precedence:
-  copyProperties(linterOptions, linterOptionsFromDefaults);   // <- lowest
-  copyProperties(linterOptions, linterOptionsFromBundle);
-  copyProperties(linterOptions, linterOptionsFromConfigFile); // <- highest
+  // Merge options                                  // Precedence:
+  copyProperties(linterOptions,
+    options['--linter-options-from-defaults']);     // <- lowest
+  copyProperties(linterOptions,
+    options['--linter-options-from-bundle']);
+  copyProperties(linterOptions,
+    options['--linter-options-from-config-file']);  // <- highest
     // The linter options in the target file override these
     // (i.e., have top precedence).
 
