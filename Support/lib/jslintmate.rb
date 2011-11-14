@@ -15,7 +15,7 @@
 #                           `ENV['TM_FILEPATH']`
 #   --linter                'jslint' (default) or 'jshint'
 #   --linter-file           '/path/to/jslint.js' or '/path/to/jshint.js'
-#   --linter-options        Format: 'option1=value1,option2=value'
+#   --linter-options        Format: 'option1:value1,option2:value'
 #   --linter-options-file   '/path/to/config/jslint.yml'
 #
 # Options precedence:
@@ -131,18 +131,15 @@ end # module JSLintMate
 # Prepare `linter` instance
 args   = JSLintMate.args_to_hash(ARGV)
 linter = JSLintMate::Linter.new(
-  :key      => args['linter'],
-  :path     => args['linter-file'],
-  :options  => args['linter-options'] || JSLintMate::Linter.default_options,
-  :options_filepath => args['linter-options-file']
+  :key  => args['linter'],
+  :path => args['linter-file'],
+  :options_from_bundle => args['linter-options'],
+  :config_file_path    => args['linter-options-file']
 )
 filepath = args['file'] || ENV['TM_FILEPATH']
 
 if filepath
   problems_count = 0
-
-  # Prepare linter options
-  linter.reverse_merge_options_from_file!
 
   # Get lint data
   lint = linter.get_lint_for_filepath(filepath)
@@ -151,7 +148,7 @@ if filepath
   lint.gsub!(/^(Lint at line )(\d+)(.+?:)(.+?)\n(?:(.+?))?$/) do
     line, column, desc, code = $2, $3, $4, $5
 
-    # Increment problem counter unless this error is actually an alert that
+    # Increment problem counter unless this error is actually an alert, which
     # has no code snippet
     problems_count += 1 if code
 

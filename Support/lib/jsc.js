@@ -13,45 +13,100 @@ Copyright (c) 2002 Douglas Crockford (www.JSLint.com) JSC Edition
 Copyright (c) 2009 Apple Inc.
 */
 
-/*jslint  newcap:   true,
+/*jslint  browser:  false,
+          evil:     true,
+          newcap:   true,
           nomen:    true,
           onevar:   true,
           plusplus: true,
           rhino:    true,
           sloppy:   true,
-          undef:    true,
           white:    true */
 /*global  JSLINT, JSHINT */
 
 
 
 (function(args){
+  // TODO: This has turned into one big function. Refactor.
+
   var filename  = args[0],
-      options   = args[1],
       linter    = (typeof JSHINT !== 'undefined' ? JSHINT : JSLINT),
+      options   = args.slice(1), // All but first
       linterOptions = {},
-      linterData;
+      linterOptionsFromBundle,
+      linterOptionsFromConfigFile,
+      linterOptionsFromDefaults,
+      linterData,
+      i, optionKey, optionValue;
+
+  function optionsStringToHash (string) {
+    // Given a string '{a:1,b:[2,3],c:{d:4,e:5}}`, returns an object/hash.
+
+    try {
+      return string ? eval('(' + string + ')') : {};
+        // Using `eval` because the input might not be valid JSON. Trusts that
+        // any collaborators aren't messing with each other.
+    } catch (e) {
+      return {};
+    }
+  }
+
+  function copyProperties (orig, overrides) {
+    // Overwrites properties in `orig` (hash) with properties from `overrides`
+    // in place. Shallow only.
+
+    var key;
+
+    if (!overrides) { return; }
+    for (key in overrides) {
+      if (typeof overrides[key] !== 'undefined' &&
+          overrides.hasOwnProperty(key)) {
+        orig[key] = overrides[key];
+      }
+    }
+  }
+
+
 
   // Check for JS code
   if(!filename){
-    print('Usage: jsc (jslint|jshint).js jsc.js -- "$(cat myFile.js)" ' +
-          '[opt1=val1,opt2=val2]');
+    print('Usage: jsc (jslint|jshint).js jsc.js -- "$(cat myFile.js)"' +
+          ' [--linter-options-from-bundle=\'a:1,b:[2,3]\']' +
+          ' [--linter-options-from-config-file=\'c:4,d:{e:5,f:6}\']' +
+          ' [--linter-options-from-defaults=\'g:7\']');
     quit(1);
   }
 
-  // Parse linter options
-  if(options){
-    options.split(',').forEach(function(opt){
-      var kv = opt.split('='), k = kv[0], v = kv[1];
+  // Parse arguments
+  for(i = options.length; i--;){
+    // Split option (e.g., 'a=b=c') into key and value (e.g., 'a', 'b=c')
+    optionKey   = options[i].split('='); // Value might be an array
+    optionValue = optionKey.slice(1).join();
+    optionKey   = optionKey[0];
 
-      linterOptions[k] = (
-        // Ew, nested ternaries. Refactor if more complexity is needed.
-        v === 'true'  ? true  : // Convert strings to
-        v === 'false' ? false : // native booleans
-        v
-      );
-    });
+    // Store option strings from arguments
+    switch(optionKey){
+      case '--linter-options-from-bundle':
+        linterOptionsFromBundle = optionValue; break;
+      case '--linter-options-from-config-file':
+        linterOptionsFromConfigFile = optionValue; break;
+      case '--linter-options-from-defaults':
+        linterOptionsFromDefaults = optionValue; break;
+    }
   }
+
+  // Convert option strings to hashes
+  linterOptionsFromBundle = optionsStringToHash(linterOptionsFromBundle);
+  linterOptionsFromConfigFile =
+    optionsStringToHash(linterOptionsFromConfigFile);
+  linterOptionsFromDefaults = optionsStringToHash(linterOptionsFromDefaults);
+
+  // Merge options                                            // Precedence:
+  copyProperties(linterOptions, linterOptionsFromDefaults);   // <- lowest
+  copyProperties(linterOptions, linterOptionsFromBundle);
+  copyProperties(linterOptions, linterOptionsFromConfigFile); // <- highest
+    // The linter options in the target file override these
+    // (i.e., have top precedence).
 
   // Run linter and fetch data
   linter(filename, linterOptions);

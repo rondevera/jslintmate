@@ -1,12 +1,12 @@
 // Enables behaviors for the JSLintMate UI.
 
-/*jslint  newcap:   true,
+/*jslint  browser:  true,
+          newcap:   true,
           nomen:    true,
           onevar:   true,
           plusplus: true,
           rhino:    true,
           sloppy:   true,
-          undef:    true,
           white:    true */
 /*global  TextMate */
 
