@@ -152,27 +152,33 @@
   /*** Behaviors ***/
 
   // Handle clicks on problem items
-  $qs('ul.problems').addEventListener('click', function(ev){
-    var link = ev.target,
-        linkTagName = link.tagName.toLowerCase(),
-        li, liCur;
+  (function(){
+    var problemsList = $qs('ul.problems');
 
-    // If not `<a>`, find it in ancestors
-    while(
-        linkTagName !== 'a' && // Search up tree,
-        linkTagName !== 'ul'   // but not too far
-      ){
-      link = link.parentNode;
-      linkTagName = link.tagName.toLowerCase();
-    }
+    if (!problemsList) { return; }
 
-    li    = link.parentNode;
-    liCur = $qs('ul.problems li.' + Nav.CUR);
-    if(liCur){ liCur.className = ''; }
-    li.className = Nav.CUR;
+    problemsList.addEventListener('click', function(ev){
+      var link = ev.target,
+          linkTagName = link.tagName.toLowerCase(),
+          li, liCur;
 
-    // Allow event to continue normally, i.e., follow the link's `href`
-  }, false);
+      // If not `<a>`, find it in ancestors
+      while(
+          linkTagName !== 'a' && // Search up tree,
+          linkTagName !== 'ul'   // but not too far
+        ){
+        link = link.parentNode;
+        linkTagName = link.tagName.toLowerCase();
+      }
+
+      li    = link.parentNode;
+      liCur = $qs('ul.problems li.' + Nav.CUR);
+      if(liCur){ liCur.className = ''; }
+      li.className = Nav.CUR;
+
+      // Allow event to continue normally, i.e., follow the link's `href`
+    }, false);
+  }());
 
   // Handle link to bundle info
   (function(){

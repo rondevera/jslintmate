@@ -26,7 +26,7 @@ Copyright (c) 2009 Apple Inc.
 
 
 
-(function(args){
+(function(args) {
   var filename  = args[0],
       linter    = (typeof JSHINT !== 'undefined' ? JSHINT : JSLINT),
       options   = args.slice(1), // Array; all but first
@@ -37,7 +37,7 @@ Copyright (c) 2009 Apple Inc.
 
   /*** Options ***/
 
-  function optionsStringToHash (string) {
+  function optionsStringToHash(string) {
     // Given a string '{a:1,b:[2,3],c:{d:4,e:5}}`, returns an object/hash.
 
     try {
@@ -49,7 +49,7 @@ Copyright (c) 2009 Apple Inc.
     }
   }
 
-  function copyProperties (orig, overrides) {
+  function copyProperties(orig, overrides) {
     // Overwrites properties in `orig` (hash) with properties from `overrides`
     // in place. Shallow only.
 
@@ -64,7 +64,7 @@ Copyright (c) 2009 Apple Inc.
     }
   }
 
-  function parseOptions (optionsArray) {
+  function parseOptions(optionsArray) {
     // Given an array `optionsArray`, returns a hash where each array item
     // is split into a key and value. Known linter options are also converted
     // into hashes, and merged according to precedence rules.
@@ -73,7 +73,7 @@ Copyright (c) 2009 Apple Inc.
         linterOptions = {}, // Merged options to pass to linter
         i, option, key, value;
 
-    for (i = optionsArray.length; i--;) {
+    i = optionsArray.length; while(i--) {
       // Split option (e.g., 'a=b=c') into key and value (e.g., 'a' and 'b=c')
       option = optionsArray[i];         // option = 'a=b=c'
       key    = option.split('=');       // key    = ['a', 'b', 'c']
@@ -109,13 +109,13 @@ Copyright (c) 2009 Apple Inc.
 
   /*** Lint ***/
 
-  function findLint (linter, linterOptions, filename) {
+  function findLint(linter, linterOptions, filename) {
     var linterData;
 
     linter(filename, linterOptions);
     linterData = linter.data();
 
-    if(!linterData.unused){
+    if (!linterData.unused) {
       // The key (`unused` or `unuseds`) varies across JSHint and various
       // versions of JSLint. Normalize as `unused`.
       linterData.unused = linterData.unuseds; // Value may be `null`
