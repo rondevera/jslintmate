@@ -27,13 +27,15 @@ Copyright (c) 2009 Apple Inc.
 
 
 (function(args){
-  // TODO: This has turned into one big function. Refactor.
-
   var filename  = args[0],
       linter    = (typeof JSHINT !== 'undefined' ? JSHINT : JSLINT),
       options   = args.slice(1), // Array; all but first
       linterOptions = {},
       linterData;
+
+
+
+  /*** Options ***/
 
   function optionsStringToHash (string) {
     // Given a string '{a:1,b:[2,3],c:{d:4,e:5}}`, returns an object/hash.
@@ -64,10 +66,12 @@ Copyright (c) 2009 Apple Inc.
 
   function parseOptions (optionsArray) {
     // Given an array `optionsArray`, returns a hash where each array item
-    // is split into a key and value. Linter options are also converted into
-    // hashes.
+    // is split into a key and value. Known linter options are also converted
+    // into hashes, and merged according to precedence rules.
 
-    var options = {}, i, option, key, value;
+    var options = {},       // Initial conversion of `optionsArray` to hash
+        linterOptions = {}, // Merged options to pass to linter
+        i, option, key, value;
 
     for (i = optionsArray.length; i--;) {
       // Split option (e.g., 'a=b=c') into key and value (e.g., 'a' and 'b=c')
@@ -88,8 +92,38 @@ Copyright (c) 2009 Apple Inc.
       options[key] = value;
     }
 
-    return options;
+    // Merge options                                  // Precedence:
+    copyProperties(linterOptions,
+      options['--linter-options-from-defaults']);     // <- lowest
+    copyProperties(linterOptions,
+      options['--linter-options-from-bundle']);
+    copyProperties(linterOptions,
+      options['--linter-options-from-config-file']);  // <- highest
+      // The linter options in the target file override these
+      // (i.e., have top precedence).
+
+    return linterOptions;
   }
+
+
+
+  /*** Lint ***/
+
+  function findLint (linter, linterOptions, filename) {
+    var linterData;
+
+    linter(filename, linterOptions);
+    linterData = linter.data();
+
+    if(!linterData.unused){
+      // The key (`unused` or `unuseds`) varies across JSHint and various
+      // versions of JSLint. Normalize as `unused`.
+      linterData.unused = linterData.unuseds; // Value may be `null`
+    }
+
+    return linterData;
+  }
+
 
 
   // Check for JS code
@@ -101,31 +135,17 @@ Copyright (c) 2009 Apple Inc.
     quit(1);
   }
 
-  // Parse arguments
-  options = parseOptions(options); // Convert options from array to hash
-
-  // Merge options                                  // Precedence:
-  copyProperties(linterOptions,
-    options['--linter-options-from-defaults']);     // <- lowest
-  copyProperties(linterOptions,
-    options['--linter-options-from-bundle']);
-  copyProperties(linterOptions,
-    options['--linter-options-from-config-file']);  // <- highest
-    // The linter options in the target file override these
-    // (i.e., have top precedence).
+  // Convert arguments (options array) to linter options (hash)
+  linterOptions = parseOptions(options);
 
   // Run linter and fetch data
-  linter(filename, linterOptions);
-  linterData = linter.data();
-  if(!linter.unused){
-    // The key (`unused` or `unuseds`) varies across JSHint and various
-    // versions of JSLint. Normalize as `unused`.
-    linter.unused = linter.unuseds; // Value may be `null`
-  }
+  linterData = findLint(linter, linterOptions, filename);
 
   if(linterData.errors || linterData.unused){
     // Format errors
     (function(){
+      // TODO: Move to a separate named function
+
       var errors = (linter.errors || []).concat(linterData.unused || []),
           errorsCount = errors.length,
           stripRegexp = /^\s*(\S*(\s+\S+)*)\s*$/,
