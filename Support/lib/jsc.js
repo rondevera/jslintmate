@@ -22,6 +22,8 @@ Copyright (c) 2009 Apple Inc.
           rhino:    true,
           sloppy:   true,
           white:    true */
+/*jshint  plusplus: false,
+          white:    false */
 /*global  JSLINT, JSHINT */
 
 

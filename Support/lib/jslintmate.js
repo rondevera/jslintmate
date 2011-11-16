@@ -8,6 +8,9 @@
           rhino:    true,
           sloppy:   true,
           white:    true */
+/*jshint  nomen:    false,
+          plusplus: false,
+          white:    false */
 /*global  TextMate */
 
 
