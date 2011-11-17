@@ -33,7 +33,7 @@ Or via Git:
 
     mkdir -p ~/Library/Application\ Support/TextMate/Bundles
     cd ~/Library/Application\ Support/TextMate/Bundles
-    git clone git://github.com/rondevera/jslintmate.git "JSLintMate.tmbundle"
+    git clone git://github.com/rondevera/jslintmate.git "JavaScript JSLintMate.tmbundle"
     osascript -e 'tell app "TextMate" to reload bundles'
       # If the last command returns an error, switch to TextMate,
       # then select Bundles > Bundle Editor > Reload Bundles.
