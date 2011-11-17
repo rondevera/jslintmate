@@ -39,6 +39,8 @@ require 'jslintmate/lint_error'
 require 'jslintmate/linter'
 
 module JSLintMate
+  WEBSITE_URL = 'http://rondevera.github.com/jslintmate'
+
   def self.version
     @version ||= begin
       version_filepath = File.join(JSLintMate.bundle_path, 'VERSION')
@@ -100,9 +102,9 @@ module JSLintMate
   def self.css  ; File.read lib_path('jslintmate.css')      ; end
   def self.js   ; File.read lib_path('jslintmate.js')       ; end
 
-  def self.link_to_jslintmate
+  def self.link_to_website
     %{
-      <a href="https://github.com/rondevera/jslintmate" class="info"
+      <a href="#{WEBSITE_URL}" class="info"
         title="More info on JSLintMate #{version}">info</a>
     }.strip.split.join(' ')
   end
@@ -181,7 +183,7 @@ if filepath
       <header>
         <span class="desc">Lint-free!</span>
         <span class="filepath">#{filepath}</span>
-        #{JSLintMate.link_to_jslintmate}
+        #{JSLintMate.link_to_website}
       </header>
       <p class="success">Lint-free!</p>
     }
@@ -191,7 +193,7 @@ if filepath
         <span class="desc">Problem#{'s' if
           problems_count > 1} found in:</span>
         <span class="filepath">#{filepath}</span>
-        #{JSLintMate.link_to_jslintmate}
+        #{JSLintMate.link_to_website}
       </header>
       <ul class="problems">#{lint}</ul>
     }
@@ -200,7 +202,7 @@ else # !filepath
   result = %{
     <header class="alert">
       <span class="desc">Oops!</span>
-      #{JSLintMate.link_to_jslintmate}
+      #{JSLintMate.link_to_website}
     </header>
     <p class="alert">
       Please save this file before
