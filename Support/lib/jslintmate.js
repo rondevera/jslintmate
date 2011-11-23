@@ -15,16 +15,17 @@
 
 
 
-(function(w, d){
-  var Nav     = {CUR: 'current'},
-      Support = {css: {}, elem: d.createElement('test')};
-        // For use in feature detection
+window.jslm = (function(w, d){
+  var jslm    = w.jslm || {},
+      nav     = jslm.nav = {CUR: 'current'},
+      support = jslm.support = {css: {}, elem: d.createElement('test')};
+                  // For use in feature detection
 
   function $qs(selector) { return d.querySelector(selector);    }
   function $qsa(selector){ return d.querySelectorAll(selector); }
 
-  Support.css.insetBoxShadow = (function(){
-    var elem = Support.elem,
+  support.css.insetBoxShadow = (function(){
+    var elem = support.elem,
         prop = 'webkitBoxShadow';
 
     elem.style[prop] = 'inset 0 0 0 red';
@@ -38,25 +39,25 @@
 
 
 
-  /*** Nav ***/
+  /*** Navigation ***/
 
-  Nav.headerHeight = function(){
-    if(typeof Nav.headerHeight._value === 'undefined'){
-      Nav.headerHeight._value = $qs('header').offsetHeight;
+  nav.headerHeight = function(){
+    if(typeof nav.headerHeight._value === 'undefined'){
+      nav.headerHeight._value = $qs('header').offsetHeight;
     }
-    return Nav.headerHeight._value;
+    return nav.headerHeight._value;
   };
 
-  /*** Nav > Scrolling ***/
+  /*** Navigation > Scrolling ***/
 
-  Nav.scrollTo = function(y){
+  nav.scrollTo = function(y){
     // Usage:
-    // - `Nav.scrollTo(0)`    // => scroll to top
-    // - `Nav.scrollTo(100)`  // => scroll to 100px from top
+    // - `nav.scrollTo(0)`    // => scroll to top
+    // - `nav.scrollTo(100)`  // => scroll to 100px from top
     d.body.scrollTop = y;
   };
-  Nav.scrollToShowElement = function(elem){
-    elem = $qs('ul.problems li.' + Nav.CUR + ' + li.alert') || elem;
+  nav.scrollToShowElement = function(elem){
+    elem = $qs('ul.problems li.' + nav.CUR + ' + li.alert') || elem;
       // If the next element is an alert (not selectable), use its bottom edge
       // in calculations; otherwise, use `elem`. This way, upon reaching the
       // bottom of the window, the alert is shown along with the final
@@ -65,27 +66,27 @@
     var bodyScrollTop   = d.body.scrollTop,
         elemTop         = elem.offsetTop,
         elemBottom      = elem.offsetTop + elem.offsetHeight,
-        elemTopBound    = elemTop - Nav.headerHeight(),
+        elemTopBound    = elemTop - nav.headerHeight(),
         elemBottomBound = elemBottom - w.innerHeight;
 
     if(bodyScrollTop > elemTopBound){
       // If `elem` is outside of viewport (top edge is above top of viewport),
       // scroll to put it at top of viewport.
-      Nav.scrollTo(elemTopBound);
+      nav.scrollTo(elemTopBound);
 
     }else if(bodyScrollTop < elemBottomBound){
       // If `elem` is outside of viewport (bottom edge is below bottom of
       // viewport), scroll to put it at bottom of viewport.
-      Nav.scrollTo(elemBottomBound);
+      nav.scrollTo(elemBottomBound);
     }
   };
 
-  /*** Nav > Highlighting ***/
+  /*** Navigation > Highlighting ***/
 
-  Nav.getHighlighted = function(){
-    return $qs('ul.problems li.' + Nav.CUR);
+  nav.getHighlighted = function(){
+    return $qs('ul.problems li.' + nav.CUR);
   };
-  Nav.openHighlighted = function(){
+  nav.openHighlighted = function(){
     var curLink = $qs('ul.problems li.current a'),
         ev;
 
@@ -97,12 +98,12 @@
                           true);  // cancelable
     curLink.dispatchEvent(ev);
   };
-  Nav.highlightFirst = function(){
-    $qs('ul.problems li').className = Nav.CUR;
-    Nav.scrollTo(0); // Scroll to top
+  nav.highlightFirst = function(){
+    $qs('ul.problems li').className = nav.CUR;
+    nav.scrollTo(0); // Scroll to top
   };
-  Nav.highlightPrev = function(){
-    var cur = Nav.getHighlighted(), items, i;
+  nav.highlightPrev = function(){
+    var cur = nav.getHighlighted(), items, i;
 
     if(cur){
       // CSS3 can't select a previous sibling, so do this the long way.
@@ -110,34 +111,34 @@
       i     = items.length;
 
       while(i--){
-        if(items[i-1] && items[i].className === Nav.CUR){
+        if(items[i-1] && items[i].className === nav.CUR){
           cur = items[i-1];
-          cur.className = Nav.CUR;
+          cur.className = nav.CUR;
           items[i].className = '';
           break;
         }
       }
 
-      Nav.scrollToShowElement(cur);
+      nav.scrollToShowElement(cur);
     }else{
-      Nav.highlightFirst();
+      nav.highlightFirst();
     }
   };
-  Nav.highlightNext = function(){
-    var cur = Nav.getHighlighted(), next;
+  nav.highlightNext = function(){
+    var cur = nav.getHighlighted(), next;
 
     if(cur){
-      next = $qs('ul.problems li.' + Nav.CUR + ' + li:not(.alert)');
+      next = $qs('ul.problems li.' + nav.CUR + ' + li:not(.alert)');
 
       if(next){
-        next.className = Nav.CUR;
+        next.className = nav.CUR;
         cur.className  = '';
         cur = next;
       }
 
-      Nav.scrollToShowElement(cur);
+      nav.scrollToShowElement(cur);
     }else{
-      Nav.highlightFirst();
+      nav.highlightFirst();
     }
   };
 
@@ -146,7 +147,7 @@
   /*** Appearance ***/
 
   // Add styling hook to `<html>`:
-  if(Support.css.insetBoxShadow){
+  if(support.css.insetBoxShadow){
     d.documentElement.setAttribute('data-css-inset-box-shadow', 1);
   }
 
@@ -175,9 +176,9 @@
       }
 
       li    = link.parentNode;
-      liCur = $qs('ul.problems li.' + Nav.CUR);
+      liCur = $qs('ul.problems li.' + nav.CUR);
       if(liCur){ liCur.className = ''; }
-      li.className = Nav.CUR;
+      li.className = nav.CUR;
 
       // Allow event to continue normally, i.e., follow the link's `href`
     }, false);
@@ -200,15 +201,18 @@
     d.addEventListener('keydown', function(ev){
       switch(ev.keyCode){
         case 13: // enter
-          Nav.openHighlighted(); ev.preventDefault(); break;
+          nav.openHighlighted(); ev.preventDefault(); break;
         case 40: // down arrow
         case 74: // 'j'
-          Nav.highlightNext();   ev.preventDefault(); break;
+          nav.highlightNext();   ev.preventDefault(); break;
         case 38: // up arrow
         case 75: // 'k'
-          Nav.highlightPrev();   ev.preventDefault(); break;
+          nav.highlightPrev();   ev.preventDefault(); break;
       }
     }, false);
   }
 
+
+
+  return jslm;
 }(window, document));
