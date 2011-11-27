@@ -100,7 +100,10 @@ module JSLintMate
 
   def self.html ; File.read lib_path('jslintmate.html.erb') ; end
   def self.css  ; File.read lib_path('jslintmate.css')      ; end
-  def self.js   ; File.read lib_path('jslintmate.js')       ; end
+  def self.js
+    File.read(lib_path('jslintmate.js')) <<
+    File.read(lib_path('jslintmate/version.js'))
+  end
 
   def self.link_to_website
     %{

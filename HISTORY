@@ -1,7 +1,8 @@
 JSLintMate
 ==========
 
-* IMPROVEMENT: Added support for detecting unused variables.
+* FEATURE: Added support for detecting unused variables.
+* FEATURE: Added notification when a new version of JSLintMate is available.
 * IMPROVEMENT: Upgraded to JSLint 2011-11-03 and JSHint 2011-09-29.
 * FIX: Fixed support for `predef` option.
 * FIX: Fixed falling back to built-in jslint.js/jshint.js if custom

@@ -185,15 +185,20 @@ window.jslm = (function(w, d){
   }());
 
   // Handle link to bundle info
-  (function(){
-    var infoLink = $qs('header a.info');
-    if(!infoLink){ return; }
+  (function() {
+    var header = $qs('header');
+    if (!header) { return; }
 
-    infoLink.addEventListener('click', function(ev){
-      var url = ev.target.href;
-      TextMate.system('open ' + url, null); // Open in browser
-      ev.preventDefault();
-    });
+    header.addEventListener('click', function(ev) { // delegate
+      var target = ev.target;
+
+      if (target.tagName.toLowerCase() === 'a' &&
+          (target.className === 'info' || target.className === 'update')
+        ) {
+        TextMate.system('open ' + target.href, null); // Open in browser
+        ev.preventDefault();
+      }
+    }, false);
   }());
 
   // Set up keyboard shortcuts
@@ -211,6 +216,11 @@ window.jslm = (function(w, d){
       }
     }, false);
   }
+
+  // Check for updates
+  setTimeout(function() {
+    if (jslm.version) { jslm.version.getNewest(); }
+  }, 10e3);
 
 
 

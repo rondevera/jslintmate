@@ -19,6 +19,17 @@ body {
   font-family: "Lucida Grande", "Helvetica Neue", Helvetica, sans-serif;
 }
 
+/*** Global > Animations ***/
+
+  @-webkit-keyframes update-pulse {
+    0%   { -webkit-box-shadow: 0 0 10px rgba(91, 133, 240, 0.25); }
+    100% { -webkit-box-shadow: 0 0 10px rgba(91, 133, 240, 1); }
+  }
+@keyframes update-pulse {
+  0%   { box-shadow: 0 0 10px rgba(91, 133, 240, 0.25); }
+  100% { box-shadow: 0 0 10px rgba(91, 133, 240, 1); }
+}
+
 /*** Header ***/
 
 header {
@@ -73,6 +84,34 @@ header a.info {
   text-indent: -999em;
     -webkit-transition: background-color 0.1s linear, opacity 0.25s linear;
   transition:           background-color 0.1s linear, opacity 0.25s linear;
+}
+header a.update {
+  position: absolute;
+  right: 35px;
+  top: 5px;
+  display: block;
+  padding: 0.5em 1em;
+    -webkit-animation: update-pulse 2s linear infinite alternate;
+  animation:           update-pulse 2s linear infinite alternate;
+  background: -webkit-gradient(linear, left top, left bottom,
+    from(#333), color-stop(0.5, #191919), color-stop(0.5, #090909), to(#090909));
+  background: -webkit-linear-gradient(top, #333, 0.5 #191919, 0.5 #090909, #090909);
+  background:         linear-gradient(top, #333, 0.5 #191919, 0.5 #090909, #090909);
+  border: 1px solid #191919;
+    -webkit-border-radius: 2em;
+  border-radius:           2em;
+  color: #fff;
+  font-size: 0.5em;
+  text-decoration: none;
+  text-shadow: 0 -1px 0 #000;
+}
+header a.update:hover,
+header a.update:focus {
+  background: -webkit-gradient(linear, left top, left bottom,
+                                      from(#648bf3), to(#1d60f1));
+  background: -webkit-linear-gradient(top, #648bf3,     #1d60f1);
+  background:         linear-gradient(top, #648bf3,     #1d60f1);
+  border-color: #1d60f1;
 }
 html[data-css-inset-box-shadow] header a.info {
     -webkit-transform:  translateZ(0);
