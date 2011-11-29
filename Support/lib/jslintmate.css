@@ -21,13 +21,14 @@ body {
 
 /*** Global > Animations ***/
 
-  @-webkit-keyframes update-pulse {
-    0%   { -webkit-box-shadow: 0 0 10px rgba(91, 133, 240, 0.25); }
-    100% { -webkit-box-shadow: 0 0 10px rgba(91, 133, 240, 1); }
+  @-webkit-keyframes update-button {
+    0%   { -webkit-box-shadow: 0 0 10px rgba(91, 133, 240, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.1); }
+    100% { -webkit-box-shadow: 0 0 10px rgba(91, 133, 240, 1),    inset 0 1px 0 rgba(255, 255, 255, 0.1); }
   }
-@keyframes update-pulse {
-  0%   { box-shadow: 0 0 10px rgba(91, 133, 240, 0.25); }
-  100% { box-shadow: 0 0 10px rgba(91, 133, 240, 1); }
+@keyframes update-button {
+  /*                 Pulsating glow:                    Top inner highlight:                   */
+  0%   { box-shadow: 0 0 10px rgba(91, 133, 240, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.1); }
+  100% { box-shadow: 0 0 10px rgba(91, 133, 240, 1),    inset 0 1px 0 rgba(255, 255, 255, 0.1); }
 }
 
 /*** Header ***/
@@ -91,8 +92,8 @@ header a.update {
   top: 5px;
   display: block;
   padding: 0.5em 1em;
-    -webkit-animation: update-pulse 2s linear infinite alternate;
-  animation:           update-pulse 2s linear infinite alternate;
+    -webkit-animation: update-button 2s linear infinite alternate;
+  animation:           update-button 2s linear infinite alternate;
   background: -webkit-gradient(linear, left top, left bottom,
     from(#333), color-stop(0.5, #191919), color-stop(0.5, #090909), to(#090909));
   background: -webkit-linear-gradient(top, #333, 0.5 #191919, 0.5 #090909, #090909);
