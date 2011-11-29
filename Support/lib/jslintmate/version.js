@@ -29,6 +29,9 @@ window.jslm = (function(w, d){
   };
 
   version.setNewest = function(newVersion) {
+    // `newVersion` is a string, e.g., `1.1.1`, that should match the string
+    // in the `VERSION` file.
+
     version.newest = newVersion;
 
     if (version.updateIsAvailable()) {
@@ -37,7 +40,7 @@ window.jslm = (function(w, d){
   };
 
   version.showUpdate = function() {
-    // Renders update control in UI.
+    // Renders an update control in UI.
 
     var websiteLink = d.querySelector('header a.info'),
         updateLink  = d.createElement('a');
