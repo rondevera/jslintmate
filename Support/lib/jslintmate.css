@@ -114,6 +114,13 @@ header a.update:focus {
   background:         linear-gradient(top, #648bf3,     #1d60f1);
   border-color: #1d60f1;
 }
+header a.update:active {
+    -webkit-animation: none;
+  animation:           none;
+  border-color: #0d50e1;
+    -webkit-box-shadow: inset 0 2px 4px #0d50e1;
+  box-shadow:           inset 0 2px 4px #0d50e1;
+}
 html[data-css-inset-box-shadow] header a.info {
     -webkit-transform:  translateZ(0);
   transform:            translateZ(0); /* Enable hardware acceleration */
