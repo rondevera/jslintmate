@@ -3,8 +3,8 @@ JSLintMate
 
 Quick, simple **JSLint (or JSHint) in TextMate**. Hurt your feelings in style.
 
-JSLintMate uses Ruby and [JSC][jsc] behind the scenes; both are part of OS X by
-default. No need to install anything else. Everything works offline.
+JSLintMate uses Ruby and [JSC][jsc] behind the scenes; both are part of OS X
+by default. No need to install anything else. Everything works offline.
 
 <img src="https://github.com/rondevera/jslintmate/raw/master/Support/images/jslintmate-screenshots.png"
   alt="JSLintMate screenshots" width="892" height="525" />
@@ -31,14 +31,16 @@ TextMate should install it for you automatically&mdash;that's all.
 
 Or via Git:
 
-    mkdir -p ~/Library/Application\ Support/TextMate/Bundles
-    cd ~/Library/Application\ Support/TextMate/Bundles
+    # To install for the first time:
+    mkdir -p ~/Library/Application\ Support/TextMate/Pristine\ Copy/Bundles
+    cd ~/Library/Application\ Support/TextMate/Pristine\ Copy/Bundles
     git clone git://github.com/rondevera/jslintmate.git "JavaScript JSLintMate.tmbundle"
     osascript -e 'tell app "TextMate" to reload bundles'
-      # If the last command returns an error, switch to TextMate,
-      # then select Bundles > Bundle Editor > Reload Bundles.
+      # Alternatively, switch to TextMate and select
+      # Bundles > Bundle Editor > Reload Bundles.
 
-    # Update to latest version:
+    # To update to the latest version:
+    cd ~/Library/Application\ Support/TextMate/Pristine\ Copy/Bundles
     git pull
 
 [download]: https://github.com/downloads/rondevera/jslintmate/JSLintMate-1.1.tmbundle.zip
@@ -95,7 +97,8 @@ teammates keep their standards synced. Three ways to do this:
     3.  Add the config file path as `--linter-options-file`. For example
         (customize the file path as needed; no line breaks):
 
-              ruby path/to/jslintmate.rb --linter-options-file="$TM_PROJECT_DIRECTORY/config/jslint.yml"
+              ruby "$TM_BUNDLE_SUPPORT/lib/jslintmate.rb" \
+                --linter-options-file="$TM_PROJECT_DIRECTORY/config/jslint.yml"
 
     If the config file is missing from any of your projects, JSLintMate uses
     its built-in default options instead.
@@ -104,10 +107,10 @@ teammates keep their standards synced. Three ways to do this:
 
     1.  Within TextMate, go to *Bundles > Bundle Editor > Edit Commands*.
     2.  Expand *JavaScript JSLintMate* and highlight *Run JSLintMate*.
-    3.  Add your list of options as `--linter-options`. For example (no line
-        breaks):
+    3.  Add your list of options as `--linter-options`. For example:
 
-              ruby path/to/jslintmate.rb --linter-options=browser=true,onevar=false
+              ruby "$TM_BUNDLE_SUPPORT/lib/jslintmate.rb" \
+                --linter-options=browser:true,onevar:false
 
 You can specify `--linter-options` and `--linter-options-file` together. The
 order of precedence is:
@@ -141,10 +144,13 @@ your own copy of their edge builds, you can modify the JSLintMate bundle
 to point to your copy:
 
     # JSLint:
-    ruby path/to/jslintmate.rb --linter-file="$TM_PROJECT_DIRECTORY/lib/jslint.js"
+    ruby path/to/jslintmate.rb \
+      --linter-file="$TM_PROJECT_DIRECTORY/lib/jslint.js"
 
     # JSHint:
-    ruby path/to/jslintmate.rb --linter=jshint --linter-file="$TM_PROJECT_DIRECTORY/lib/jslint.js"
+    ruby path/to/jslintmate.rb \
+      --linter=jshint \
+      --linter-file="$TM_PROJECT_DIRECTORY/lib/jslint.js"
 
 
 About
