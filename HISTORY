@@ -7,6 +7,8 @@ JSLintMate
 * FIX: Fixed support for `predef` option.
 * FIX: Fixed falling back to built-in jslint.js/jshint.js if custom
   `--linter-file` can't be read.
+* FIX: Fixed reading a config file from a non-absolute path, e.g.,
+  `~/.jslintrc`.
 
 
 1.1 (2011-06-02)

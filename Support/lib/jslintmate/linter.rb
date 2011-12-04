@@ -70,12 +70,20 @@ module JSLintMate
       end
 
       # Read options from config file
-      if config_file_path && File.readable?(config_file_path)
-        self.options_from_config_file = YAML.load_file(config_file_path)
+      if config_file_path
+        # Convert path to absolute, e.g., `~/.jslintrc` to
+        # `/Users/<username>/.jslintrc`
+        self.config_file_path = File.expand_path(config_file_path)
 
-        # Store options as a string, never as a hash
-        self.options_from_config_file =
-          Linter.options_hash_to_string(options_from_config_file)
+        if File.readable?(config_file_path)
+          self.options_from_config_file = YAML.load_file(config_file_path)
+
+          # Store options as a string, never as a hash
+          self.options_from_config_file =
+            Linter.options_hash_to_string(options_from_config_file)
+        else
+          # TODO: Show warning if file is unreadable
+        end
       end
     end
 
