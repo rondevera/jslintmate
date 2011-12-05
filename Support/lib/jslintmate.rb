@@ -98,10 +98,10 @@ module JSLintMate
     @bundle_path
   end
 
-  def self.html ; File.read lib_path('jslintmate.html.erb') ; end
-  def self.css  ; File.read lib_path('jslintmate.css')      ; end
+  def self.html ; File.read lib_path('jslintmate/main.html.erb') ; end
+  def self.css  ; File.read lib_path('jslintmate/main.css')      ; end
   def self.js
-    File.read(lib_path('jslintmate.js')) <<
+    File.read(lib_path('jslintmate/main.js')) <<
     File.read(lib_path('jslintmate/version.js'))
   end
 
