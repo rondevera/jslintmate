@@ -143,78 +143,10 @@ linter = JSLintMate::Linter.new(
 )
 filepath = args['file'] || ENV['TM_FILEPATH']
 
-if filepath
-  problems_count = 0
-
-  # Get lint data
-  lint = linter.get_lint_for_filepath(filepath)
-
-  # Format errors, if any
-  lint.gsub!(/^(Lint at line )(\d+)(.+?:)(.+?)\n(?:(.+?))?$/) do
-    line, column, desc, code = $2, $3, $4, $5
-
-    # Increment problem counter unless this error is actually an alert, which
-    # has no code snippet
-    problems_count += 1 if code
-
-    JSLintMate.error_to_html(
-      :filepath => filepath,
-      :line     => line,
-      :column   => column,
-      :desc     => desc,
-      :code     => code
-    )
-  end
-
-  # Format unused variables, if any
-  lint.gsub!(/^Unused variable at line (\d+): (.+?)$/) do
-    line, code = $1, $2
-
-    problems_count += 1
-
-    JSLintMate.error_to_html(
-      :filepath => filepath,
-      :line     => line,
-      :code     => code,
-      :desc     => 'Unused variable.'
-    )
-  end
-
-  if problems_count == 0
-    # Douglas Crockford would be so proud.
-    result = %{
-      <header>
-        <span class="desc">Lint-free!</span>
-        <span class="filepath">#{filepath}</span>
-        #{JSLintMate.link_to_website}
-      </header>
-      <p class="success">Lint-free!</p>
-    }
-  else
-    result = %{
-      <header>
-        <span class="desc">Problem#{'s' if
-          problems_count > 1} found in:</span>
-        <span class="filepath">#{filepath}</span>
-        #{JSLintMate.link_to_website}
-      </header>
-      <ul class="problems">#{lint}</ul>
-    }
-  end
-else # !filepath
-  result = %{
-    <header class="alert">
-      <span class="desc">Oops!</span>
-      #{JSLintMate.link_to_website}
-    </header>
-    <p class="alert">
-      Please save this file before
-      #{linter} can hurt your feelings.
-    </p>
-  }
-end
-
+# Get results
+result = linter.get_html_output(filepath)
 result.strip!
 
+# Show results
 template = ERB.new(JSLintMate.html)
 print template.result(binding)
