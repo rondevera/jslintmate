@@ -194,7 +194,43 @@ module JSLintMate
         }
       end
 
-      output
+      output.strip!
+    end
+
+    def get_short_output(filepath)
+      return '' unless filepath
+
+      problems_count = 0
+
+      # Get lint data
+      lint = get_lint_for_filepath(filepath)
+
+      # Format errors, if any
+      lint.scan(/^(Lint at line )(\d+)(.+?:)(.+?)\n(?:(.+?))?$/) do |match|
+        line, column, desc, code = $2, $3, $4, $5
+
+        # Increment problem counter unless this error is actually an alert,
+        # which has no code snippet
+        problems_count += 1 if code
+      end
+
+      # Format unused variables, if any
+      lint.scan(/^Unused variable at line (\d+): (.+?)$/) do |match|
+        problems_count += 1
+      end
+
+      if problems_count == 0
+        output = 'Lint-free!'
+      else
+        if problems_count == 1
+          output = "#{self} found 1 problem"
+        else
+          output = "#{self} found #{problems_count} problems"
+        end
+        output << '. Run JSLintMate for details.'
+      end
+
+      output.strip
     end
 
   end

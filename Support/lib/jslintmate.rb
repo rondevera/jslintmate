@@ -142,11 +142,16 @@ linter = JSLintMate::Linter.new(
   :config_file_path    => args['linter-options-file']
 )
 filepath = args['file'] || ENV['TM_FILEPATH']
-
-# Get results
-result = linter.get_html_output(filepath)
-result.strip!
+format   = args['format']
 
 # Show results
-template = ERB.new(JSLintMate.html)
-print template.result(binding)
+if format == 'short'
+  # Print short string for tooltip
+  result = linter.get_short_output(filepath)
+  print result if result
+else
+  # Print HTML for popup
+  result = linter.get_html_output(filepath)
+  template = ERB.new(JSLintMate.html)
+  print template.result(binding)
+end
