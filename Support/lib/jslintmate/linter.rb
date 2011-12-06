@@ -9,6 +9,8 @@ module JSLintMate
       'undef' => false  # `true` if variables and functions need not be
                         # declared before use.
     }
+    LINT_REGEXP       = /^(Lint at line )(\d+)(.+?:)(.+?)\n(?:(.+?))?$/
+    UNUSED_VAR_REGEXP = /^Unused variable at line (\d+): (.+?)$/
 
     attr_accessor(
       :key,     # :jslint or :jshint
@@ -130,7 +132,7 @@ module JSLintMate
         lint = get_lint_for_filepath(filepath)
 
         # Format errors, if any
-        lint.gsub!(/^(Lint at line )(\d+)(.+?:)(.+?)\n(?:(.+?))?$/) do
+        lint.gsub!(Linter::LINT_REGEXP) do
           line, column, desc, code = $2, $3, $4, $5
 
           # Increment problem counter unless this error is actually an alert,
@@ -147,7 +149,7 @@ module JSLintMate
         end
 
         # Format unused variables, if any
-        lint.gsub!(/^Unused variable at line (\d+): (.+?)$/) do
+        lint.gsub!(Linter::UNUSED_VAR_REGEXP) do
           line, code = $1, $2
 
           problems_count += 1
@@ -207,7 +209,7 @@ module JSLintMate
       lint = get_lint_for_filepath(filepath)
 
       # Format errors, if any
-      lint.scan(/^(Lint at line )(\d+)(.+?:)(.+?)\n(?:(.+?))?$/) do |match|
+      lint.scan(Linter::LINT_REGEXP) do |match|
         line, column, desc, code = $2, $3, $4, $5
 
         # Increment problem counter unless this error is actually an alert,
@@ -216,7 +218,7 @@ module JSLintMate
       end
 
       # Format unused variables, if any
-      lint.scan(/^Unused variable at line (\d+): (.+?)$/) do |match|
+      lint.scan(Linter::UNUSED_VAR_REGEXP) do |match|
         problems_count += 1
       end
 
@@ -224,12 +226,8 @@ module JSLintMate
         # For simplicity and less UI noise, display nothing.
         # output = 'Lint-free!'
       else
-        if problems_count == 1
-          output = "#{self} found 1 problem"
-        else
-          output = "#{self} found #{problems_count} problems"
-        end
-        output << '. Run JSLintMate for details.'
+        output = "#{self} found #{problems_count} problem#{'s' if
+                  problems_count > 1}. Run JSLintMate for details."
       end
 
       output.strip
