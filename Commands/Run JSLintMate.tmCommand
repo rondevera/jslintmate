@@ -5,7 +5,12 @@
 	<key>beforeRunningCommand</key>
 	<string>nop</string>
 	<key>command</key>
-	<string>ruby "$TM_BUNDLE_SUPPORT/lib/jslintmate.rb"</string>
+	<string>ruby "$TM_BUNDLE_SUPPORT/lib/jslintmate.rb"
+
+# Enable to share a project-specific config file:
+# ruby "$TM_BUNDLE_SUPPORT/lib/jslintmate.rb" \
+#   --linter-options-file="$TM_PROJECT_DIRECTORY/config/jslint.yml"
+</string>
 	<key>input</key>
 	<string>document</string>
 	<key>keyEquivalent</key>
