@@ -201,6 +201,7 @@ module JSLintMate
       return '' unless filepath
 
       problems_count = 0
+      output = ''
 
       # Get lint data
       lint = get_lint_for_filepath(filepath)
@@ -220,7 +221,8 @@ module JSLintMate
       end
 
       if problems_count == 0
-        output = 'Lint-free!'
+        # For simplicity and less UI noise, display nothing.
+        # output = 'Lint-free!'
       else
         if problems_count == 1
           output = "#{self} found 1 problem"
