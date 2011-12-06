@@ -28,11 +28,12 @@ module JSLintMate
       # snippet, the resulting HTML is an `<a>` that can click through to the
       # actual line in the erroneous file.
 
-      loc_html = %{<span class="location">#{
-              CGI.escapeHTML("Line #{line}")}</span>}
-              # `loc` omits `column` because `line` is far more commonly used
-              # for locating code, and because `column` isn't always available
-              # (e.g., for reported unused variables).
+      loc_html = %{
+        <span class="location">#{CGI.escapeHTML("Line #{line}")}</span>
+      }.strip!
+        # `loc` omits `column` because `line` is far more commonly used
+        # for locating code, and because `column` isn't always available
+        # (e.g., for reported unused variables).
       desc_html = %{<span class="desc">#{CGI.escapeHTML(desc).strip}</span>}
 
       if code == ''
