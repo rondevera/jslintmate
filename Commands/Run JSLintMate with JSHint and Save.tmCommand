@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>saveActiveFile</string>
+	<key>command</key>
+	<string>ruby "$TM_BUNDLE_SUPPORT/lib/jslintmate.rb" \
+  --format=short \
+  --linter=jshint
+
+# Enable to share a project-specific config file:
+# ruby "$TM_BUNDLE_SUPPORT/lib/jslintmate.rb" \
+#   --format=short \
+#   --linter=jshint \
+#   --linter-options-file="$TM_PROJECT_DIRECTORY/config/jshint.yml"
+</string>
+	<key>input</key>
+	<string>document</string>
+	<key>name</key>
+	<string>Run JSLintMate with JSHint and Save</string>
+	<key>output</key>
+	<string>showAsTooltip</string>
+	<key>scope</key>
+	<string>source.js</string>
+	<key>uuid</key>
+	<string>008620CB-B599-4289-A79D-1A61787E6D89</string>
+</dict>
+</plist>
