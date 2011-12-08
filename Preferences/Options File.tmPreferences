@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>name</key>
+	<string>Options Files</string>
+	<key>scope</key>
+	<string>source.js - source.js.embedded.html</string>
+	<key>settings</key>
+	<dict>
+		<key>shellVariables</key>
+		<array>
+			<dict>
+				<key>name</key>
+				<string>TM_JSLINTMATE_JSLINT_OPTIONS_FILE</string>
+				<key>value</key>
+				<string>~/.jslintrc</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>TM_JSLINTMATE_JSHINT_OPTIONS_FILE</string>
+				<key>value</key>
+				<string>~/.jshintrc</string>
+			</dict>
+		</array>
+	</dict>
+	<key>uuid</key>
+	<string>2165A6D4-37D8-4E88-AF69-814085329782</string>
+</dict>
+</plist>

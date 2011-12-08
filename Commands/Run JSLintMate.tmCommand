@@ -5,11 +5,10 @@
 	<key>beforeRunningCommand</key>
 	<string>nop</string>
 	<key>command</key>
-	<string>ruby "$TM_BUNDLE_SUPPORT/lib/jslintmate.rb"
+	<string># See "Options Files" to change your options file.
 
-# Enable to share a project-specific config file:
-# ruby "$TM_BUNDLE_SUPPORT/lib/jslintmate.rb" \
-#   --linter-options-file="$TM_PROJECT_DIRECTORY/config/jslint.yml"
+ruby "$TM_BUNDLE_SUPPORT/lib/jslintmate.rb" \
+  --linter-options-file=$TM_JSLINTMATE_JSLINT_OPTIONS_FILE
 </string>
 	<key>input</key>
 	<string>document</string>
