@@ -100,6 +100,9 @@ teammates keep their standards synced. Three ways to do this:
     This example is specifically for JSLint. To use it with JSHint, just
     change `/*jslint` to `/*jshint`.
 
+    The exact option names change occasionally. For the latest, check the
+    [JSLint docs][jslint options] and the [JSHint docs][jshint options].
+
 * Specify a **YAML config file**:
 
     A YAML file is great for sharing options with project
@@ -157,7 +160,7 @@ JSLint/JSHint builds
 
 If you're using a custom build of JSLint/JSHint, or want to use and maintain
 your own copy of their edge builds, you can modify the JSLintMate bundle
-to point to your copy:
+to point to your copy. For example:
 
     # JSLint:
     ruby path/to/jslintmate.rb \
