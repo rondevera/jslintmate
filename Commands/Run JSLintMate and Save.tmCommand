@@ -22,7 +22,7 @@
 	<key>output</key>
 	<string>showAsTooltip</string>
 	<key>scope</key>
-	<string>source.js</string>
+	<string>source.js - source.js.embedded.html</string>
 	<key>uuid</key>
 	<string>E8B5292F-9533-45C2-8AD8-95509679DC5D</string>
 </dict>

@@ -22,7 +22,7 @@
 	<key>output</key>
 	<string>showAsHTML</string>
 	<key>scope</key>
-	<string>source.js</string>
+	<string>source.js - source.js.embedded.html</string>
 	<key>uuid</key>
 	<string>B552D46A-45F9-4170-AA2B-4FABCF7D0683</string>
 </dict>
