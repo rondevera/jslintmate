@@ -54,8 +54,24 @@ Usage
     JSHint), and a list of errors appears.
 3.  Click an error to jump to that line in the file. Fix and repeat.
 
-This bundle doesn't run JSLint/JSHint on save because doing so can incur
-noticeable overhead.
+### Saving files ###
+
+When you save a JS file with **command-S**, JSLintMate automatically runs it
+through JSLint, and reports any problems with a quick little tooltip. If it
+finds problems, hit **control-L** to see the full list.
+
+If you'd prefer to run JSHint on save:
+
+1.  Go to *Bundles > Bundle Editor > Edit Commands*.
+2.  Expand *JavaScript JSLintMate* and highlight *Run JSLintMate and Save*.
+3.  Click the *Key Equivalent* field and clear it.
+4.  Back in the command list, highlight *Run JSLintMate with JSHint and Save*.
+5.  Click the *Key Equivalent* field, hit *command-S*, then close the window.
+
+Then, to see JSHint's full problem list, hit *control-shift-L*.
+
+If you don't want JSLintMate to do anything on save, just follow steps 1-3
+above.
 
 
 Options
