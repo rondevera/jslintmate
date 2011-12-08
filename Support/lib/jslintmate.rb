@@ -33,7 +33,6 @@
 #   curl -o jshint.js http://jshint.com/jshint.js
 
 $LOAD_PATH << File.join(ENV['TM_BUNDLE_SUPPORT'] || 'Support', 'lib')
-require 'cgi'
 require 'erb'
 require 'jslintmate/lint_error'
 require 'jslintmate/linter'

@@ -1,3 +1,5 @@
+require 'cgi'
+
 module JSLintMate
 
   # Handles JS errors reported by a linter.
