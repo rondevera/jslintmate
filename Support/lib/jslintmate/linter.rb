@@ -38,7 +38,7 @@ module JSLintMate
       #   {:a => 1, 'b' => [2, 3], 'c' => {'d' => 4, 'e' => 5}}
       #     => '{"a":1,"b":[2, 3],"c":{"d":4,"e":5}}'
 
-      options_hash.inspect.gsub!('=>',':')
+      options_hash.inspect.gsub!('=>', ':')
     end
 
     def self.default_options
