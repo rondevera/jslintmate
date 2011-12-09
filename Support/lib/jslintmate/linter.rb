@@ -59,8 +59,9 @@ module JSLintMate
         self.name = 'JSLint'
       end
 
-      self.path = [attrs[:path], JSLintMate.lib_path("#{key}.js")].
-                    detect { |path| path && File.readable?(path) }
+      default_path = JSLintMate.lib_path("#{key}.js")
+      self.path    = [attrs[:path], default_path].
+                      detect { |path| path && File.readable?(path) }
 
       self.options_from_bundle      = attrs[:options_from_bundle] || ''
       self.options_from_config_file = ''
