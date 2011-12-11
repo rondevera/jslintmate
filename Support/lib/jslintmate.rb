@@ -52,9 +52,13 @@ module JSLintMate
     # preferences, and the bundle's defaults.
 
     args = JSLintMate.args_to_hash(args_string)
+    use_jshint = args['linter'] == 'jshint'
 
     # Merge with defaults
-    args['linter-options-file'] ||= args['linter'] == 'jshint' ?
+    args['linter-file'] ||= use_jshint ?
+      ENV['TM_JSLINTMATE_JSHINT_FILE'].dup :
+      ENV['TM_JSLINTMATE_JSLINT_FILE'].dup
+    args['linter-options-file'] ||= use_jshint ?
       ENV['TM_JSLINTMATE_JSHINT_OPTIONS_FILE'].dup :
       ENV['TM_JSLINTMATE_JSLINT_OPTIONS_FILE'].dup
 

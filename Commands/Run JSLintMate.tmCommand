@@ -14,8 +14,7 @@
 #
 # More info: http://rondevera.github.com/jslintmate/
 
-ruby "$TM_BUNDLE_SUPPORT/lib/jslintmate.rb" \
-  --linter-file=$TM_JSLINTMATE_JSLINT_FILE
+ruby "$TM_BUNDLE_SUPPORT/lib/jslintmate.rb"
 </string>
 	<key>input</key>
 	<string>document</string>

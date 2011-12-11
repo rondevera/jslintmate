@@ -16,8 +16,7 @@
 
 ruby "$TM_BUNDLE_SUPPORT/lib/jslintmate.rb" \
   --format=short \
-  --linter=jshint \
-  --linter-file=$TM_JSLINTMATE_JSHINT_FILE
+  --linter=jshint
 </string>
 	<key>input</key>
 	<string>document</string>
