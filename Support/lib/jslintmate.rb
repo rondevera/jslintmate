@@ -47,6 +47,25 @@ module JSLintMate
     end
   end
 
+  def self.args(args_string)
+    # Returns a hash of arguments based on `args_string`, the bundle's
+    # preferences, and the bundle's defaults.
+
+    args = JSLintMate.args_to_hash(args_string)
+
+    # Merge with defaults
+    args['linter-options-file'] ||= args['linter'] == 'jshint' ?
+      ENV['TM_JSLINTMATE_JSHINT_OPTIONS_FILE'].dup :
+      ENV['TM_JSLINTMATE_JSLINT_OPTIONS_FILE'].dup
+
+    # Expand file paths
+    args['linter-file'] = JSLintMate.expand_path(args['linter-file'])
+    args['linter-options-file'] =
+      JSLintMate.expand_path(args['linter-options-file'])
+
+    args
+  end
+
   def self.args_to_hash(args_string)
     # Converts `args_string` (of the format `--foo=x --bar=y`) to a hash.
 
@@ -128,12 +147,27 @@ module JSLintMate
     end
   end
 
+  def self.expand_path(path)
+    # Converts a relative path (e.g., `~/.jslintrc`,
+    # `$TM_PROJECT_DIRECTORY/config/jslint.yml`) to an absolute path (e.g.,
+    # `/Users/<username>/.jslintrc`,
+    # `/Users/<username>/Projects/<project>/config/jslint.yml`).
+
+    %w[
+      TM_BUNDLE_PATH
+      TM_BUNDLE_SUPPORT
+      TM_DIRECTORY
+      TM_PROJECT_DIRECTORY
+    ].each { |var| path.gsub!('$' + var, ENV[var]) }
+    File.expand_path(path)
+  end
+
 end # module JSLintMate
 
 
 
 # Prepare `linter` instance
-args   = JSLintMate.args_to_hash(ARGV)
+args   = JSLintMate.args(ARGV)
 linter = JSLintMate::Linter.new(
   :key  => args['linter'],
   :path => args['linter-file'],

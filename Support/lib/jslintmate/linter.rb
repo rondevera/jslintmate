@@ -74,10 +74,6 @@ module JSLintMate
 
       # Read options from config file
       if config_file_path
-        # Convert path to absolute, e.g., `~/.jslintrc` to
-        # `/Users/<username>/.jslintrc`
-        self.config_file_path = File.expand_path(config_file_path)
-
         if File.readable?(config_file_path)
           self.options_from_config_file = YAML.load_file(config_file_path)
 
