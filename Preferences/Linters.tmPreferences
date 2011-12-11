@@ -12,6 +12,12 @@
 		<array>
 			<dict>
 				<key>name</key>
+				<string>TM_JSLINTMATE_DEFAULT_LINTER</string>
+				<key>value</key>
+				<string>jslint</string>
+			</dict>
+			<dict>
+				<key>name</key>
 				<string>TM_JSLINTMATE_JSLINT_FILE</string>
 				<key>value</key>
 				<string>$TM_BUNDLE_SUPPORT/lib/jslint.js</string>

@@ -5,17 +5,14 @@
 	<key>beforeRunningCommand</key>
 	<string>saveActiveFile</string>
 	<key>command</key>
-	<string># See "Options Files" to change where you
-# keep your options, e.g., `~/.jslintrc`,
-# `$TM_PROJECT_DIRECTORY/config/jslint.yml`.
-#
-# See "Linters" to use a custom JSLint build, e.g.,
-# `$TM_PROJECT_DIRECTORY/lib/jslint.js`.
+	<string># See "Linters" to switch between JSLint and JSHint
+# on save.
 #
 # More info: http://rondevera.github.com/jslintmate/
 
 ruby "$TM_BUNDLE_SUPPORT/lib/jslintmate.rb" \
-  --format=short
+  --format=short \
+  --linter=$TM_JSLINTMATE_DEFAULT_LINTER
 </string>
 	<key>input</key>
 	<string>document</string>

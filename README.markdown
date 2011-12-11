@@ -62,16 +62,17 @@ finds problems, hit **control-L** to see the full list.
 
 If you'd prefer to run JSHint on save:
 
-1.  Go to *Bundles > Bundle Editor > Edit Commands*.
-2.  Expand *JavaScript JSLintMate* and highlight *Run JSLintMate and Save*.
-3.  Click the *Key Equivalent* field and clear it.
-4.  Back in the command list, highlight *Run JSLintMate with JSHint and Save*.
-5.  Click the *Key Equivalent* field, hit *command-S*, then close the window.
+1.  Go to *Bundles > Bundle Editor > Show Bundle Editor*.
+2.  Expand *JavaScript JSLintMate* and highlight *Linters*.
+3.  Change the value for `TM_JSLINTMATE_DEFAULT_LINTER` to `jshint`, then
+    close the window.
 
-Then, to see JSHint's full problem list, hit *control-shift-L*.
+JSHint should now run whenever you save a JS file. Then, to see JSHint's full
+problem list, hit *control-shift-L*.
 
-If you don't want JSLintMate to do anything on save, just follow steps 1-3
-above.
+If you don't want JSLintMate to do anything on save, just open the *Bundle
+Editor* window again, and disable the keyboard shortcut for the *Run
+JSLintMate and Save* command.
 
 
 Options
