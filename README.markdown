@@ -174,18 +174,20 @@ For more info, read about [JSLint's options][jslint options] and
 JSLint/JSHint builds
 --------------------
 
-If you're using a custom build of JSLint/JSHint, or want to use and maintain
-your own copy of their edge builds, you can modify the JSLintMate bundle
-to point to your copy. For example:
+JSLintMate is packaged with copies of JSLint and JSHint, but you can use your
+own copies instead. This is useful for testing an edge build or using your
+own modified version.
 
-    # JSLint:
-    ruby path/to/jslintmate.rb \
-      --linter-file="$TM_PROJECT_DIRECTORY/lib/jslint.js"
+If you store a copy of your linter in your project, point your bundle prefs at
+it:
 
-    # JSHint:
-    ruby path/to/jslintmate.rb \
-      --linter=jshint \
-      --linter-file="$TM_PROJECT_DIRECTORY/lib/jslint.js"
+1.  Within TextMate, select *Bundles > Bundle Editor > Show Bundle Editor*.
+2.  Expand *JavaScript JSLintMate* and highlight *Linters*.
+3.  Change the value for `TM_JSLINTMATE_JSLINT_FILE` to point to your linter.
+    This could be a path in your project (e.g.,
+    `$TM_PROJECT_DIRECTORY/lib/jslint.js`), a path in your home directory
+    (e.g., `~/lib/jslint.js`), or anything else. If needed, do the same for
+    JSHint, making sure to use a separate linter file.
 
 
 About
