@@ -49,30 +49,43 @@ Or via Git:
 Usage
 -----
 
-1.  Open a JS file in TextMate.
-2.  Hit **control-L** to run it through JSLint (or **control-shift-L** for
-    JSHint), and a list of errors appears.
-3.  Click an error to jump to that line in the file. Fix and repeat.
+JSLintMate has two modes:
 
-### Saving files ###
+* **Quick mode** shows a tooltip with the number of problems (if any) whenever
+  you hit **command-S**.
 
-When you save a JS file with **command-S**, JSLintMate automatically runs it
-through JSLint, and reports any problems with a quick little tooltip. If it
-finds problems, hit **control-L** to see the full list.
+* **Full mode** shows a full list of problems whenever you hit **control-L**
+  (JSLint) or **control-shift-L** (JSHint).
+
+
+### Quick mode ###
+
+While you're writing JS code, hit **command-S** to save changes. JSLintMate
+automatically runs it through JSLint, and if it finds any problems, shows the
+number of problems in a tooltip.
 
 If you'd prefer to run JSHint on save:
 
-1.  Go to *Bundles > Bundle Editor > Show Bundle Editor*.
+1.  Select *Bundles > Bundle Editor > Show Bundle Editor*.
 2.  Expand *JavaScript JSLintMate* and highlight *Linters*.
 3.  Change the value for `TM_JSLINTMATE_DEFAULT_LINTER` to `jshint`, then
-    close the window.
+    close the window to save changes.
 
-JSHint should now run whenever you save a JS file. Then, to see JSHint's full
-problem list, hit *control-shift-L*.
+If you don't want JSLintMate to do anything on save, open the *Bundle Editor*
+window again, and remove the keyboard shortcut for the *Run JSLintMate and
+Save* command.
 
-If you don't want JSLintMate to do anything on save, just open the *Bundle
-Editor* window again, and disable the keyboard shortcut for the *Run
-JSLintMate and Save* command.
+To skip the tooltip and see the full list of problems, use **full mode**.
+
+
+### Full mode ###
+
+To see the full list of problems in a JS file, hit **control-L** to run it
+through JSLint, or **control-shift-L** to use JSHint. Click a problem to jump
+to that line in the file. Fix and repeat.
+
+You can also navigate the list of problems with your keyboard: *up/down/j/k*
+to move up/down, and *enter* to select.
 
 
 Options
@@ -80,7 +93,7 @@ Options
 
 If JSLint or JSHint are too strict or lenient for your taste, you can set
 options for each. These options serve as a barebones code style guide, and let
-teammates keep their standards synced. Three ways to do this:
+teammates follow the same standards. Three ways to do this:
 
 * Set options at the **top of each JS file**:
 
