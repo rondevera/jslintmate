@@ -1,10 +1,11 @@
 JSLintMate
 ==========
 
-Quick, simple **JSLint (or JSHint) in TextMate**. Hurt your feelings in style.
+Quick, simple **JSLint and JSHint in TextMate**. Hurt your feelings in style.
 
-JSLintMate uses Ruby and [JSC][jsc] behind the scenes; both are part of OS X
-by default. No need to install anything else. Everything works offline.
+JSLintMate uses [Ruby][ruby] and [JSC][jsc] behind the scenes; both are part
+of OS X by default. No need to install anything else. Everything works
+offline.
 
 <img src="https://github.com/rondevera/jslintmate/raw/master/Support/images/jslintmate-screenshots.png"
   alt="JSLintMate screenshots" width="892" height="525" />
@@ -14,9 +15,11 @@ error uses only CSS.)
 
 *What are these things?* [JSLint][jslint] is a powerful JS code quality tool
 from expert Douglas Crockford. [JSHint][jshint] is a community-driven project
-based on JSLint, and doesn't hurt your feelings so much. They're not the same
-as [JavaScript Lint][javascriptlint], but awesome nonetheless.
+based on JSLint, and is more tolerant of common JS patterns. (They're not the
+same as [JavaScript Lint][javascriptlint].) JSLintMate uses these to spot
+problems while you code, and to help your team follow the same standards.
 
+[ruby]:           http://www.ruby-lang.org/
 [jsc]:            http://trac.webkit.org/wiki/JSC
 [jslint]:         http://jslint.com
 [jshint]:         http://jshint.com
