@@ -98,55 +98,70 @@ teammates keep their standards synced. Three ways to do this:
                     white:    false */
           /*global  window, jQuery, $, MyApp */
 
-    This example is specifically for JSLint. To use it with JSHint, just
-    change `/*jslint` to `/*jshint`.
+    This example is specifically for JSLint. To use it with JSHint, change
+    `/*jslint` to `/*jshint` and tweak options as needed.
 
-    The exact option names change occasionally. For the latest, check the
-    [JSLint docs][jslint options] and the [JSHint docs][jshint options].
+    The exact option names and values change occasionally. For the latest,
+    check the [JSLint docs][jslint options] and the
+    [JSHint docs][jshint options].
 
-* Specify a **YAML config file**:
+* Keep a **personal options file**:
 
-    A YAML file is great for sharing options with project
-    collaborators&mdash;everyone uses the same options for all JS files, and
-    different projects can have different options. The simple YAML config file
-    used by [jslint\_on\_rails][jslint_on_rails config] is a good example.
-    Setup:
+    You can use an options file to use your favorite JSLint/JSHint options
+    across projects. By default, JSLintMate looks in your home directory for a
+    `~/.jslintrc` or `~/.jshintrc` file.
 
-    1.  Within TextMate, go to *Bundles > Bundle Editor > Edit Commands*.
-    2.  Expand *JavaScript JSLintMate* and highlight *Run JSLintMate*.
-    3.  Add the config file path as `--linter-options-file`. For example
-        (customize the file path as needed; no line breaks):
+    Your options file(s) should be in YAML format. The simple YAML file used
+    by [jslint\_on\_rails][jslint_on_rails config] is a good example, but
+    check the latest [JSLint docs][jslint options] and
+    [JSHint docs][jshint options] for the exact option names and values.
 
-              ruby "$TM_BUNDLE_SUPPORT/lib/jslintmate.rb" \
-                --linter-options-file="$TM_PROJECT_DIRECTORY/config/jslint.yml"
+    If you want to keep your options file somewhere else:
 
-    If the config file is missing from any of your projects, JSLintMate uses
-    its built-in default options instead.
+    1.  Within TextMate, select *Bundles > Bundle Editor >
+        Show Bundle Editor*.
+    2.  Expand *JavaScript JSLintMate* and highlight *Options Files*.
+    3.  Change the values for `TM_JSLINTMATE_JSLINT_OPTIONS_FILE` and
+        `TM_JSLINTMATE_JSHINT_OPTIONS_FILE` to the file paths you prefer.
 
-* Specify **global JSLint/JSHint options** for use across projects:
+* Keep an **options file in your project**:
 
-    1.  Within TextMate, go to *Bundles > Bundle Editor > Edit Commands*.
-    2.  Expand *JavaScript JSLintMate* and highlight *Run JSLintMate*.
-    3.  Add your list of options as `--linter-options`. For example:
+    You can also store your options file in your project. This is great for
+    sharing options with collaborators&mdash;everyone uses the same options
+    for all JS files, and different projects can have different options.
+
+    To set this up:
+
+    1.  Within TextMate, select *Bundles > Bundle Editor >
+        Show Bundle Editor*.
+    2.  Expand *JavaScript JSLintMate* and highlight *Options Files*.
+    3.  Change the value for `TM_JSLINTMATE_JSLINT_OPTIONS_FILE` to
+        a path in your project, e.g.,
+        `$TM_PROJECT_DIRECTORY/config/jslint.yml`. Do the same for JSHint,
+        making sure to use a separate options file.
+
+* **Deprecated:** Specify global JSLint/JSHint options for use across
+  projects:
+
+    Here's the old way to maintain personal, cross-project options. **This
+    feature will be removed in an upcoming version. Please use the "Options
+    Files" preferences instead.** Bundle commands no longer need to be
+    modified directly.
+
+    1.  Within TextMate, select *Bundles > Bundle Editor > Edit Commands >
+        JavaScript JSLintMate > Run JSLintMate*.
+    2.  Add your list of options as `--linter-options`. For example:
 
               ruby "$TM_BUNDLE_SUPPORT/lib/jslintmate.rb" \
                 --linter-options=browser:true,onevar:false
 
-You can specify `--linter-options` and `--linter-options-file` together. The
-order of precedence is:
+If you specify options in your JS files *and* in options files, they'll be
+merged at runtime:
 
 1.  Highest precedence: Options in the JS file, e.g.,
     `/*jslint browser: true */`
-2.  YAML config file (via `--linter-options-file`)
-3.  Custom bundle options (via `--linter-options`)
-4.  JSLintMate's default options
-
-All default options are included, then merged with and overridden by higher
-precedence options.
-
-Note that you can have different options for JSLint and JSHint simply by
-modifying the "Run JSLintMate" and "Run JSLintMate with JSHint" commands
-separately.
+2.  Options file
+3.  JSLintMate's default options
 
 For more info, read about [JSLint's options][jslint options] and
 [JSHint's options][jshint options].
