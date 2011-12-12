@@ -16,14 +16,27 @@ error uses only CSS.)
 *What are these things?* [JSLint][jslint] is a powerful JS code quality tool
 from expert Douglas Crockford. [JSHint][jshint] is a community-driven project
 based on JSLint, and is more tolerant of common JS patterns. (They're not the
-same as [JavaScript Lint][javascriptlint].) JSLintMate uses these to spot
-problems while you code, and to help your team follow the same standards.
+same as [JavaScript Lint][javascriptlint].)
 
 [ruby]:           http://www.ruby-lang.org/
 [jsc]:            http://trac.webkit.org/wiki/JSC
 [jslint]:         http://jslint.com
 [jshint]:         http://jshint.com
 [javascriptlint]: http://www.javascriptlint.com/
+
+
+Key features
+------------
+
+* Quick JSLint/JSHint on **command-S**.
+* Full problem details on **control-L** (JSLint) or **control-shift-L**
+  (JSHint).
+* Support for **options files** that can be kept in your home directory or in
+  project repositories. These can be read not just by JSLintMate, but also by
+  lint tools in other editors, continuous integration systems, automated
+  testing systems, and other tools. Great for helping your team stick to the
+  same coding standards.
+* Support for using your own **custom or edge build** of JSLint or JSHint.
 
 
 Setup
@@ -96,7 +109,7 @@ Options
 
 If JSLint or JSHint are too strict or lenient for your taste, you can set
 options for each. These options serve as a barebones code style guide, and let
-teammates follow the same standards. Three ways to do this:
+teammates stick to the same standards. Three ways to do this:
 
 * Set options at the **top of each JS file**:
 
@@ -156,13 +169,17 @@ teammates follow the same standards. Three ways to do this:
         `$TM_PROJECT_DIRECTORY/config/jslint.yml`. Do the same for JSHint,
         making sure to use a separate options file.
 
+    Options files are meant to be understood by a wide variety of tools, not
+    just JSLintMate. This includes lint tools in other editors, continuous
+    integration systems, and other automated testing systems.
+
 * **Deprecated:** Specify global JSLint/JSHint options for use across
   projects:
 
     Here's the old way to maintain personal, cross-project options. **This
-    feature will be removed in an upcoming version. Please use the "Options
-    Files" preferences instead.** Bundle commands no longer need to be
-    modified directly.
+    feature will be removed in an upcoming version. Please use a
+    `~/.jslintrc` or `~/.jshintrc` file via the "Options Files" preferences
+    instead.** Bundle commands no longer need to be modified directly.
 
     1.  Within TextMate, select *Bundles > Bundle Editor > Edit Commands >
         JavaScript JSLintMate > Run JSLintMate*.
