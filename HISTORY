@@ -3,6 +3,9 @@ JSLintMate
 
 * FEATURE: Added a tooltip that appears whenever you save a JS file that has
   problems.
+* FEATURE: Added bundle preferences -- a much simpler and more robust way to
+  customize JSLintMate behavior. Use these instead of modifying the bundle
+  commands themselves.
 * FEATURE: Added support for detecting unused variables.
 * FEATURE: Added notification when a new version of JSLintMate is available.
 * IMPROVEMENT: Upgraded to JSLint 2011-11-03 and JSHint 2011-09-29.
