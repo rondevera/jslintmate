@@ -162,7 +162,7 @@ module JSLintMate
       TM_BUNDLE_SUPPORT
       TM_DIRECTORY
       TM_PROJECT_DIRECTORY
-    ].each { |var| path.gsub!('$' + var, ENV[var]) }
+    ].each { |var| path.gsub!('$' + var, ENV[var]) if ENV[var] }
     File.expand_path(path)
   end
 
