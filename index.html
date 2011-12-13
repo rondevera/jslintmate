@@ -1,6 +1,7 @@
 ---
 version:      1.1
 download-url: https://github.com/downloads/rondevera/jslintmate/JSLintMate-1.1.tmbundle.zip
+history-url:  https://github.com/rondevera/jslintmate/blob/master/HISTORY
 readme-url:   https://github.com/rondevera/jslintmate/#readme
 repo-url:     https://github.com/rondevera/jslintmate
 ---
@@ -106,15 +107,14 @@ repo-url:     https://github.com/rondevera/jslintmate
     div.download {
       position: relative;
       top: -2em;
-      right: 22px;
       float: right;
-      width: 150px;
+      width: 170px;
       margin: 0 0 0 3em;
+      text-align: center;
     }
-    div.download a {
+    div.download a.download {
       position: relative;
       display: block;
-      width: 100%;
       padding: 0.5em;
         background: #222;
         background: -webkit-gradient(linear, left top, left bottom, from(#333), color-stop(50%, #191919), color-stop(50%, #090909), to(#090909));
@@ -136,21 +136,27 @@ repo-url:     https://github.com/rondevera/jslintmate
         -webkit-transition: -webkit-box-shadow 0.25s linear, text-shadow 0.25s linear;
       transition:                   box-shadow 0.25s linear, text-shadow 0.25s linear;
     }
-    div.download a:hover,
-    div.download a:focus {
+    div.download a.download:hover,
+    div.download a.download:focus {
         -moz-box-shadow:    0 0 20px #5b8aef, inset 0 1px 1px rgba(255, 255, 255, 0.25);
         -webkit-box-shadow: 0 0 20px #5b8aef, inset 0 1px 1px rgba(255, 255, 255, 0.25);
       box-shadow:           0 0 20px #5b8aef, inset 0 1px 1px rgba(255, 255, 255, 0.25);
       text-shadow: 0 0 5px #5b8aef;
     }
-    div.download a:active {
+    div.download a.download:active {
       top: 1px;
     }
-    div.download a strong {
+    div.download a.download strong {
       display: block;
       width: 150px;
       padding: 0 0 150px;
       background: transparent url(img/zip.png) bottom center no-repeat;
+    }
+    div.download a.history {
+      display: inline-block;
+      margin: 0.5em auto 0;
+      font-size: 0.75em;
+      text-align: center;
     }
   </style>
 </head>
@@ -175,9 +181,10 @@ repo-url:     https://github.com/rondevera/jslintmate
 
 <h2>Installation</h2>
 <div class="download">
-  <a href="{{page.download-url}}"
+  <a class="download" href="{{page.download-url}}"
     title="Download a .zip of JSLintMate.tmbundle"
     >Download <strong>JSLintMate {{page.version}}</strong></a>
+  <a class="history" href="{{page.history-url}}">History / changelog</a>
 </div>
 <p>
   <strong><a href="{{page.download-url}}">Download JSLintMate.tmbundle</a></strong>
