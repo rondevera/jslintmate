@@ -163,6 +163,41 @@ repo-url:     https://github.com/rondevera/jslintmate
     div.download p a {
       margin: 0 0.25em;
     }
+    div.modes {
+      overflow: hidden;
+      padding: 20px;
+      background: #f6f6f6;
+        -moz-border-radius:    8px;
+        -webkit-border-radius: 8px;
+      border-radius:           8px;
+    }
+    div.mode {
+      float: left;
+      width: 380px;
+      padding: 0 10px;
+    }
+    div.mode.quick {
+      padding-left: 0;
+      border-right: 1px solid #eee;
+    }
+    div.mode.full {
+      margin-left: 10px;
+      padding-right: 0;
+    }
+    div.mode h3 {
+      margin-top: 0;
+    }
+    div.mode.quick img {
+        -moz-border-radius:    4px;
+        -webkit-border-radius: 4px;
+      border-radius:           4px;
+        -moz-box-shadow:    -1px -1px 0 rgba(0, 0, 0, 0.25), 1px 1px 0 #fff;
+        -webkit-box-shadow: -1px -1px 0 rgba(0, 0, 0, 0.25), 1px 1px 0 #fff;
+      box-shadow:           -1px -1px 0 rgba(0, 0, 0, 0.25), 1px 1px 0 #fff;
+    }
+    div.mode.full strong {
+      white-space: nowrap;
+    }
   </style>
 </head>
 
@@ -217,14 +252,29 @@ repo-url:     https://github.com/rondevera/jslintmate
 
 
 <h2>Usage</h2>
-<ol>
-  <li>Open a JS file in TextMate.</li>
-  <li>
-    Hit <strong>control-L</strong> to run it through JSLint
-    or <strong>control-shift-L</strong> for JSHint.
-  </li>
-  <li>Fix and repeat.</li>
-</ol>
+<p>JSLintMate has two modes:</p>
+<div class="modes">
+  <div class="mode quick">
+    <h3>Quick mode</h3>
+    <p>
+      <strong>Command-S</strong> automatically checks your JS, and reports any
+      problems with a tooltip.
+    </p>
+    <img src="img/jslintmate-tooltip.png" width="374" height="93"
+      alt="Screenshot of a JSLintMate tooltip" />
+  </div>
+  <div class="mode full">
+    <h3>Full mode</h3>
+    <p>
+      Hit <strong>control-L</strong> to check your code with JSLint, or
+      <strong>control-shift-L</strong> to use JSHint.
+    </p>
+    <p>
+      A list of problems appears, if any. Click to jump to that line, or
+      navigate with the arrow keys + enter.
+    </p>
+  </div>
+</div>
 
 <h3>Options</h3>
 <p>
