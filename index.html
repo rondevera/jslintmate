@@ -155,11 +155,13 @@ repo-url:     https://github.com/rondevera/jslintmate
       padding: 0 0 150px;
       background: transparent url(img/zip.png) bottom center no-repeat;
     }
-    div.download a.history {
-      display: inline-block;
+    div.download p {
       margin: 0.5em auto 0;
       font-size: 0.75em;
       text-align: center;
+    }
+    div.download p a {
+      margin: 0 0.25em;
     }
   </style>
 </head>
@@ -183,10 +185,15 @@ repo-url:     https://github.com/rondevera/jslintmate
 
 <h2>What&rsquo;s this?</h2>
 <div class="download">
-  <a class="download" href="{{page.download-url}}"
-    title="Download a .zip of JSLintMate.tmbundle"
-    >Download <strong>JSLintMate {{page.version}}</strong></a>
-  <a class="history" href="{{page.history-url}}">History / changelog</a>
+  <div>
+    <a class="download" href="{{page.download-url}}"
+      title="Download a .zip of JSLintMate.tmbundle"
+      >Download <strong>JSLintMate {{page.version}}</strong></a>
+  </div>
+  <p>
+    <a href="{{page.readme-url}}">Docs</a> /
+    <a href="{{page.history-url}}">History</a>
+  </p>
 </div>
 <p>
   JSLintMate is a quick and easy way to check your code with
