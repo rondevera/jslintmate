@@ -178,8 +178,7 @@ repo-url:     https://github.com/rondevera/jslintmate
 <a class="fork" href="{{page.repo-url}}">Fork me on GitHub</a>
 
 
-
-<h2>Installation</h2>
+<h2>What&rsquo;s this?</h2>
 <div class="download">
   <a class="download" href="{{page.download-url}}"
     title="Download a .zip of JSLintMate.tmbundle"
@@ -187,14 +186,25 @@ repo-url:     https://github.com/rondevera/jslintmate
   <a class="history" href="{{page.history-url}}">History / changelog</a>
 </div>
 <p>
-  <strong><a href="{{page.download-url}}">Download JSLintMate.tmbundle</a></strong>
-  and double-click it. TextMate should install it for you
-  automatically&mdash;that&rsquo;s all. Everything works offline.
+  JSLintMate makes it quick and easy to run your code through
+  <a href="http://jslint.com">JSLint</a> (Doug Crockford&rsquo;s powerful JS
+  code quality tool) or <a href="http://jshint.com">JSHint</a> (a
+  community-driven version of JSLint that&rsquo;s more tolerant of common JS
+  patterns).
 </p>
 <p>
-  Git lovers: You can also install via Git. Check the
-  <a href="{{page.readme-url}}">readme</a> for details.
+  No need to copy-paste your code into a browser&mdash;JSLintMate runs right
+  within TextMate, and works offline.
 </p>
+
+
+<h2>Setup</h2>
+<p>
+  <strong><a href="{{page.download-url}}">Download JSLintMate.tmbundle</a></strong>
+  and double-click it. TextMate installs it automatically&mdash;that&rsquo;s
+  all.
+</p>
+
 
 <h2>Usage</h2>
 <ol>
@@ -206,26 +216,21 @@ repo-url:     https://github.com/rondevera/jslintmate
   <li>Fix and repeat.</li>
 </ol>
 
-<h2>Wait, why do I need this?</h2>
+<h3>Options</h3>
 <p>
-  JSLintMate makes it quick and easy to run your code through either
-  <a href="http://jslint.com/">JSLint</a> (Douglas Crockford's powerful
-  JS code quality tool) or
-  <a href="http://jshint.com/">JSHint</a> (a community-driven project,
-  based on JSLint, that&rsquo;s more tolerant of common JS patterns). No need
-  to copy-paste JS into your browser&mdash;JSLintMate runs right within
-  TextMate.
+  Have some favorite JSLint/JSHint options, like finding unused variables and
+  ignoring whitespace? Drop them into an <strong>options file</strong>, either in your
+  repository or on your own computer. This is great for:
 </p>
-<p>
-  If you&rsquo;re new to this, or have plenty else to do, the simple, shiny UI
-  just lets you get things done.
-</p>
-<p>
-  Experts: You can put JSLint/JSHint options in a <strong>config
-  file</strong>, either globally or per project. Add the config file to a
-  shared repository, and it&rsquo;s perfect for maintaining standards in team
-  development. More info is in the <a href="{{page.readme-url}}">readme</a>.
-</p>
+<ul>
+  <li>Sharing coding standards with teammates, even if they use lint tools
+    outside of TextMate.</li>
+  <li>Using the same options in automated testing and continuous integration
+    systems.</li>
+  <li>Keeping your own coding standards across projects.</li>
+</ul>
+<p>More info is in the <a href="{{page.readme-url}}">docs</a>.</p>
+
 
 <h2>Contact</h2>
 <p>
@@ -233,7 +238,7 @@ repo-url:     https://github.com/rondevera/jslintmate
   <a href="https://twitter.com/ronalddevera">ronalddevera @ twitter</a> /
   <a href="{{page.repo-url}}/issues">jslintmate @ github issues</a>
 </p>
-<p>Use JSLintMate for good, not evil.</p>
+<p>Patches are welcome. Use JSLintMate for good, not evil.</p>
 
 </div> <!-- #page -->
 
