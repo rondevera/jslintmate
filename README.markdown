@@ -7,8 +7,8 @@ JSLintMate uses [Ruby][ruby] and [JSC][jsc] behind the scenes; both are part
 of OS X by default. No need to install anything else. Everything works
 offline.
 
-<img src="https://github.com/rondevera/jslintmate/raw/master/Support/images/jslintmate-screenshots.png"
-  alt="JSLintMate screenshots" width="892" height="525" />
+<img src="http://rondevera.github.com/jslintmate/img/jslintmate-screenshots.png"
+  alt="JSLintMate screenshots" width="911" height="575" />
 
 (CSS geeks: Only three images are used throughout the UI. The red, striped
 error uses only CSS.)
