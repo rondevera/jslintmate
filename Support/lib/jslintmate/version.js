@@ -19,7 +19,7 @@ window.jslm = (function(w, d){
     // available. Feel free to instead fork this and host/update the version
     // JS on a server that you control.
 
-    var versionURL  = 'https://raw.github.com/rondevera/jslintmate/master/Support/lib/jslintmate/version-newest.js',
+    var versionURL  = 'https://rondevera.github.com/jslintmate/js/version-newest.js',
         firstScript = d.getElementsByTagName('script')[0],
         newScript   = d.createElement('script');
 

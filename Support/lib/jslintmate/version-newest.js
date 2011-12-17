@@ -1,1 +1,0 @@
-jslm.version.setNewest('1.2');
