@@ -1,6 +1,8 @@
 JSLintMate
 ==========
 
+1.2 (2011-12-17)
+----------------
 * FEATURE: Added a tooltip that appears whenever you save a JS file that has
   problems.
 * FEATURE: Added bundle preferences -- a much simpler and more robust way to
@@ -9,7 +11,7 @@ JSLintMate
 * FEATURE: Added support for detecting unused variables.
 * FEATURE: Added notification when a new version of JSLintMate is available.
 * IMPROVEMENT: Upgraded to JSLint 2011-11-03 and JSHint 2011-09-29.
-* FIX: Fixed support for `predef` option.
+* FIX: Fixed `predef` option support for listing known globals.
 * FIX: Fixed falling back to built-in jslint.js/jshint.js if custom
   `--linter-file` can't be read.
 * FIX: Fixed reading a config file from a non-absolute path, e.g.,
