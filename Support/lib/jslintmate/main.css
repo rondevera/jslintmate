@@ -190,8 +190,8 @@ ul.problems li.alert {
     -webkit-background-size: 100px 100px;
   background-size:           100px 100px;
   border: 0;
-    -webkit-box-shadow: inset 0 5px 50px #000;
-  box-shadow:           inset 0 5px 50px #000;
+    -webkit-box-shadow: inset 0 5px 75px rgba(0, 0, 0, 0.75);
+  box-shadow:           inset 0 5px 75px rgba(0, 0, 0, 0.75);
   color: #fff;
   text-shadow: 0 2px 5px #000;
 }
