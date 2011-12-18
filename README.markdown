@@ -201,7 +201,7 @@ For more info, read about [JSLint's options][jslint options] and
 
 [jslint_on_rails config]: https://github.com/psionides/jslint_on_rails/blob/master/lib/jslint/config/jslint.yml
 [jslint options]:  http://jslint.com/lint.html#options
-[jshint options]:  http://jshint.com/options/
+[jshint options]:  http://www.jshint.com/options/
 
 
 JSLint/JSHint builds
