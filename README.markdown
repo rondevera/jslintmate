@@ -59,7 +59,7 @@ Or via Git:
     cd ~/Library/Application\ Support/TextMate/Pristine\ Copy/Bundles
     git pull
 
-[download]: https://github.com/downloads/rondevera/jslintmate/JSLintMate-1.1.tmbundle.zip
+[download]: https://github.com/downloads/rondevera/jslintmate/JavaScript%20JSLintMate%201.2.tmbundle.zip
 
 
 Usage
