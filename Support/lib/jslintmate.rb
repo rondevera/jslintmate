@@ -89,7 +89,7 @@ module JSLintMate
   end
 
   def self.bundle_path
-    unless @bundle_path
+    @bundle_path ||= begin
       user_bundle_path      = (ENV['TM_BUNDLE_PATH'] || '.').dup
       pristine_bundle_path  = user_bundle_path.sub('TextMate/Bundles',
                                 'TextMate/Pristine Copy/Bundles')
@@ -112,10 +112,8 @@ module JSLintMate
           sub(short_bundle_rxp, "/#{long_bundle_name}")
           # => .../TextMate/Bundles/JavaScript JSLintMate.tmbundle
       ]
-      @bundle_path = paths.detect { |path| File.directory?(path) }
+      paths.detect { |path| File.directory?(path) }
     end
-
-    @bundle_path
   end
 
   def self.html ; File.read lib_path('jslintmate/main.html.erb') ; end
