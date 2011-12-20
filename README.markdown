@@ -117,7 +117,6 @@ teammates stick to the same standards. Three ways to do this:
     example:
 
           /*jslint  browser:  true,
-                    immed:    false,
                     newcap:   true,
                     nomen:    false,
                     plusplus: false,
