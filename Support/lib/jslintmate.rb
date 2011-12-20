@@ -1,5 +1,3 @@
-#!/usr/bin/env ruby
-
 # Quick, simple JSLint in TextMate. Hurt your feelings in style.
 # (JSLint.com is a powerful JS code quality tool. JSHint.com is a
 # community-driven project based on JSLint, and doesn't hurt your feelings so
