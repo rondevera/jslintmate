@@ -90,7 +90,7 @@ module JSLintMate
 
   def self.bundle_path
     @bundle_path ||= begin
-      user_bundle_path      = (ENV['TM_BUNDLE_PATH'] || '.').dup
+      user_bundle_path      = (File.join(ENV['TM_BUNDLE_SUPPORT'], '..') || '.').dup
       pristine_bundle_path  = user_bundle_path.sub('TextMate/Bundles',
                                 'TextMate/Pristine Copy/Bundles')
       long_bundle_name      = 'JavaScript JSLintMate.tmbundle'
@@ -154,7 +154,6 @@ module JSLintMate
     # `/Users/<username>/Projects/<project>/config/jslint.yml`).
 
     %w[
-      TM_BUNDLE_PATH
       TM_BUNDLE_SUPPORT
       TM_DIRECTORY
       TM_PROJECT_DIRECTORY
