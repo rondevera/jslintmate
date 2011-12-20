@@ -3,10 +3,10 @@
 /*jslint  browser:  true,
           newcap:   true,
           nomen:    true,
-          onevar:   true,
           plusplus: true,
           rhino:    true,
           sloppy:   true,
+          vars:     false,
           white:    true */
 /*jshint  nomen:    false,
           plusplus: false,

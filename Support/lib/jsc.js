@@ -17,10 +17,10 @@ Copyright (c) 2009 Apple Inc.
           evil:     true,
           newcap:   true,
           nomen:    true,
-          onevar:   true,
           plusplus: true,
           rhino:    true,
           sloppy:   true,
+          vars:     false,
           white:    true */
 /*jshint  plusplus: false,
           white:    false */

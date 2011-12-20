@@ -121,9 +121,9 @@ teammates stick to the same standards. Three ways to do this:
                     immed:    false,
                     newcap:   true,
                     nomen:    false,
-                    onevar:   true,
                     plusplus: false,
                     undef:    true,
+					vars:     false,
                     white:    false */
           /*global  window, jQuery, $, MyApp */
 
@@ -186,7 +186,7 @@ teammates stick to the same standards. Three ways to do this:
     2.  Add your list of options as `--linter-options`. For example:
 
               ruby "$TM_BUNDLE_SUPPORT/lib/jslintmate.rb" \
-                --linter-options=browser:true,onevar:false
+                --linter-options=browser:true,white:false
 
 If you specify options in your JS files *and* in options files, they'll be
 merged at runtime:
