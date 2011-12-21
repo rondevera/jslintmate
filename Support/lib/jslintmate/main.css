@@ -17,6 +17,7 @@ body {
   background:           linear-gradient(top, #ececec,     #d2d2d2);
   background-attachment: fixed;
   font-family: "Lucida Grande", "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 14px;
 }
 
 /*** Global > Animations ***/
