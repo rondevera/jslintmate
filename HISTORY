@@ -1,6 +1,10 @@
 JSLintMate
 ==========
 
+* IMPROVEMENT: In the problem list, made the hover state more subtle (to better
+  bring attention to the blue "current" state), and added an active state.
+
+
 1.2 (2011-12-17)
 ----------------
 * FEATURE: Added a tooltip that appears whenever you save a JS file that has
