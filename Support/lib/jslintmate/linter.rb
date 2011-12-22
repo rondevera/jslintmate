@@ -100,7 +100,7 @@ module JSLintMate
       jsc = JSLintMate.lib_path('jsc.js')
       cmd = '/System/Library/Frameworks/JavaScriptCore.framework/' <<
                %{Versions/A/Resources/jsc "#{self.path}" "#{jsc}" -- } <<
-               %{"$(cat "#{filepath}")"}
+               %{"$(iconv -f utf8 -t ISO8859-1 "#{filepath}")"}
 
       cmd << %{ --linter-options-from-defaults="#{
         Linter.default_options.gsub('"', '\\"')
