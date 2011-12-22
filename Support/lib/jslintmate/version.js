@@ -24,7 +24,7 @@ window.jslm = (function(w, d) {
         newScript   = d.createElement('script');
 
     newScript.async = 1;
-    newScript.src   = versionURL;
+    newScript.src   = versionURL + '?' + (+new Date());
     firstScript.parentNode.insertBefore(newScript, firstScript);
   };
 

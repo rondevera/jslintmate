@@ -7,6 +7,9 @@ JSLintMate
   behavior for keyboard navigation in menus, the Finder, etc.
 * IMPROVEMENT: Added *escape* as keyboard shortcut for unhighlighting the
   current item in the problem list.
+* FIX: Fixed version notification to not cache the last result. This allows a
+  freshly updated copy of the bundle to know that it matches the latest reported
+  version.
 
 
 1.2 (2011-12-17)
