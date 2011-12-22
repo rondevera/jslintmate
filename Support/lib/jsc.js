@@ -27,7 +27,6 @@ Copyright (c) 2009 Apple Inc.
 /*global  JSLINT, JSHINT */
 
 
-
 (function(args) {
   var filename  = args[0],
       linter    = (typeof JSHINT !== 'undefined' ? JSHINT : JSLINT),
@@ -107,6 +106,14 @@ Copyright (c) 2009 Apple Inc.
     return linterOptions;
   }
 
+  /*** fix special chars ***/
+  function to_ascii(str) {
+    return str.replace(/[\u0080-\uffff]/g, function(ch) {
+      var code = ch.charCodeAt(0).toString(16);
+      while (code.length < 4) code = "0" + code;
+      return "\\u" + code;
+    });
+  }
 
 
   /*** Lint ***/
@@ -126,8 +133,6 @@ Copyright (c) 2009 Apple Inc.
     return linterData;
   }
 
-
-
   // Check for JS code
   if(!filename){
     print('Usage: jsc (jslint|jshint).js jsc.js -- "$(cat myFile.js)"' +
@@ -141,7 +146,7 @@ Copyright (c) 2009 Apple Inc.
   linterOptions = parseOptions(options);
 
   // Run linter and fetch data
-  linterData = findLint(linter, linterOptions, filename);
+  linterData = findLint(linter, linterOptions, to_ascii(filename));
 
   if(linterData.errors || linterData.unused){
     // Format errors
