@@ -141,6 +141,10 @@ window.jslm = (function(w, d){
       nav.highlightFirst();
     }
   };
+  nav.highlightNone = function() {
+    var cur = nav.getHighlighted();
+    if (cur) { cur.className = ''; }
+  };
 
 
 
@@ -213,6 +217,8 @@ window.jslm = (function(w, d){
         case 38: // up arrow
         case 75: // 'k'
           nav.highlightPrev();   ev.preventDefault(); break;
+        case 27: // escape
+          nav.highlightNone();   ev.preventDefault(); break;
       }
     }, false);
   }

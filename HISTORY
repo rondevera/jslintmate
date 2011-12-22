@@ -3,6 +3,8 @@ JSLintMate
 
 * IMPROVEMENT: In the problem list, made the hover state more subtle (to better
   bring attention to the blue "current" state), and added an active state.
+* IMPROVEMENT: Added *escape* as keyboard shortcut for unhighlighting the
+  current item in the problem list.
 
 
 1.2 (2011-12-17)
