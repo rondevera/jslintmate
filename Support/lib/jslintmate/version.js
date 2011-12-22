@@ -7,7 +7,7 @@
 
 
 
-window.jslm = (function(w, d){
+window.jslm = (function(w, d) {
   var jslm    = w.jslm || {},
       version = jslm.version = {};
 

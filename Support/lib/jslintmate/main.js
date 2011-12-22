@@ -15,16 +15,16 @@
 
 
 
-window.jslm = (function(w, d){
+window.jslm = (function(w, d) {
   var jslm    = w.jslm || {},
       nav     = jslm.nav = {CUR: 'current'},
       support = jslm.support = {css: {}, elem: d.createElement('test')};
                   // For use in feature detection
 
-  function $qs(selector) { return d.querySelector(selector);    }
-  function $qsa(selector){ return d.querySelectorAll(selector); }
+  function $qs(selector)  { return d.querySelector(selector);    }
+  function $qsa(selector) { return d.querySelectorAll(selector); }
 
-  support.css.insetBoxShadow = (function(){
+  support.css.insetBoxShadow = (function() {
     var elem = support.elem,
         prop = 'webkitBoxShadow';
 
@@ -41,8 +41,8 @@ window.jslm = (function(w, d){
 
   /*** Navigation ***/
 
-  nav.headerHeight = function(){
-    if(typeof nav.headerHeight._value === 'undefined'){
+  nav.headerHeight = function() {
+    if (typeof nav.headerHeight._value === 'undefined') {
       nav.headerHeight._value = $qs('header').offsetHeight;
     }
     return nav.headerHeight._value;
@@ -50,13 +50,13 @@ window.jslm = (function(w, d){
 
   /*** Navigation > Scrolling ***/
 
-  nav.scrollTo = function(y){
+  nav.scrollTo = function(y) {
     // Usage:
     // - `nav.scrollTo(0)`    // => scroll to top
     // - `nav.scrollTo(100)`  // => scroll to 100px from top
     d.body.scrollTop = y;
   };
-  nav.scrollToShowElement = function(elem){
+  nav.scrollToShowElement = function(elem) {
     elem = $qs('ul.problems li.' + nav.CUR + ' + li.alert') || elem;
       // If the next element is an alert (not selectable), use its bottom edge
       // in calculations; otherwise, use `elem`. This way, upon reaching the
@@ -69,12 +69,12 @@ window.jslm = (function(w, d){
         elemTopBound    = elemTop - nav.headerHeight(),
         elemBottomBound = elemBottom - w.innerHeight;
 
-    if(bodyScrollTop > elemTopBound){
+    if (bodyScrollTop > elemTopBound) {
       // If `elem` is outside of viewport (top edge is above top of viewport),
       // scroll to put it at top of viewport.
       nav.scrollTo(elemTopBound);
 
-    }else if(bodyScrollTop < elemBottomBound){
+    } else if (bodyScrollTop < elemBottomBound) {
       // If `elem` is outside of viewport (bottom edge is below bottom of
       // viewport), scroll to put it at bottom of viewport.
       nav.scrollTo(elemBottomBound);
@@ -83,14 +83,14 @@ window.jslm = (function(w, d){
 
   /*** Navigation > Highlighting ***/
 
-  nav.getHighlighted = function(){
+  nav.getHighlighted = function() {
     return $qs('ul.problems li.' + nav.CUR);
   };
-  nav.openHighlighted = function(){
+  nav.openHighlighted = function() {
     var curLink = $qs('ul.problems li.current a'),
         ev;
 
-    if(!curLink){ return; }
+    if (!curLink) { return; }
 
     // Trigger a click on the currently selected problem
     ev = d.createEvent('HTMLEvents');
@@ -98,20 +98,20 @@ window.jslm = (function(w, d){
                           true);  // cancelable
     curLink.dispatchEvent(ev);
   };
-  nav.highlightFirst = function(){
+  nav.highlightFirst = function() {
     $qs('ul.problems li').className = nav.CUR;
     nav.scrollTo(0); // Scroll to top
   };
-  nav.highlightPrev = function(){
+  nav.highlightPrev = function() {
     var cur = nav.getHighlighted(), items, i;
 
-    if(cur){
+    if (cur) {
       // CSS3 can't select a previous sibling, so do this the long way.
       items = $qsa('ul.problems li:not(.alert)');
       i     = items.length;
 
-      while(i--){
-        if(items[i-1] && items[i].className === nav.CUR){
+      while (i--) {
+        if (items[i-1] && items[i].className === nav.CUR) {
           cur = items[i-1];
           cur.className = nav.CUR;
           items[i].className = '';
@@ -120,24 +120,24 @@ window.jslm = (function(w, d){
       }
 
       nav.scrollToShowElement(cur);
-    }else{
+    } else {
       nav.highlightFirst();
     }
   };
-  nav.highlightNext = function(){
+  nav.highlightNext = function() {
     var cur = nav.getHighlighted(), next;
 
-    if(cur){
+    if (cur) {
       next = $qs('ul.problems li.' + nav.CUR + ' + li:not(.alert)');
 
-      if(next){
+      if (next) {
         next.className = nav.CUR;
         cur.className  = '';
         cur = next;
       }
 
       nav.scrollToShowElement(cur);
-    }else{
+    } else {
       nav.highlightFirst();
     }
   };
@@ -151,7 +151,7 @@ window.jslm = (function(w, d){
   /*** Appearance ***/
 
   // Add styling hook to `<html>`:
-  if(support.css.insetBoxShadow){
+  if (support.css.insetBoxShadow) {
     d.documentElement.setAttribute('data-css-inset-box-shadow', 1);
   }
 
@@ -160,28 +160,28 @@ window.jslm = (function(w, d){
   /*** Behaviors ***/
 
   // Handle clicks on problem items
-  (function(){
+  (function() {
     var problemsList = $qs('ul.problems');
 
     if (!problemsList) { return; }
 
-    problemsList.addEventListener('click', function(ev){
+    problemsList.addEventListener('click', function(ev) {
       var link = ev.target,
           linkTagName = link.tagName.toLowerCase(),
           li, liCur;
 
       // If not `<a>`, find it in ancestors
-      while(
+      while (
           linkTagName !== 'a' && // Search up tree,
           linkTagName !== 'ul'   // but not too far
-        ){
+        ) {
         link = link.parentNode;
         linkTagName = link.tagName.toLowerCase();
       }
 
       li    = link.parentNode;
       liCur = $qs('ul.problems li.' + nav.CUR);
-      if(liCur){ liCur.className = ''; }
+      if (liCur) { liCur.className = ''; }
       li.className = nav.CUR;
 
       // Allow event to continue normally, i.e., follow the link's `href`
@@ -206,9 +206,9 @@ window.jslm = (function(w, d){
   }());
 
   // Set up keyboard shortcuts
-  if($qs('ul.problems')){
-    d.addEventListener('keydown', function(ev){
-      switch(ev.keyCode){
+  if ($qs('ul.problems')) {
+    d.addEventListener('keydown', function(ev) {
+      switch (ev.keyCode) {
         case 13: // enter
           nav.openHighlighted(); ev.preventDefault(); break;
         case 40: // down arrow

@@ -75,7 +75,7 @@ Copyright (c) 2009 Apple Inc.
         linterOptions = {}, // Merged options to pass to linter
         i, option, key, value;
 
-    i = optionsArray.length; while(i--) {
+    i = optionsArray.length; while (i--) {
       // Split option (e.g., 'a=b=c') into key and value (e.g., 'a' and 'b=c')
       option = optionsArray[i];         // option = 'a=b=c'
       key    = option.split('=');       // key    = ['a', 'b', 'c']
@@ -129,7 +129,7 @@ Copyright (c) 2009 Apple Inc.
 
 
   // Check for JS code
-  if(!filename){
+  if (!filename) {
     print('Usage: jsc (jslint|jshint).js jsc.js -- "$(cat myFile.js)"' +
           ' [--linter-options-from-bundle=\'a:1,b:[2,3]\']' +
           ' [--linter-options-from-config-file=\'c:4,d:{e:5,f:6}\']' +
@@ -143,9 +143,9 @@ Copyright (c) 2009 Apple Inc.
   // Run linter and fetch data
   linterData = findLint(linter, linterOptions, filename);
 
-  if(linterData.errors || linterData.unused){
+  if (linterData.errors || linterData.unused) {
     // Format errors
-    (function(){
+    (function() {
       // TODO: Move to a separate named function
 
       var errors = (linter.errors || []).concat(linterData.unused || []),
@@ -155,27 +155,27 @@ Copyright (c) 2009 Apple Inc.
           error, i;
 
       // Sort errors by line number
-      errors = errors.sort(function(errorA, errorB){
-        if(!errorA || !errorB || !errorA.line || !errorB.line){ return 0; }
+      errors = errors.sort(function(errorA, errorB) {
+        if (!errorA || !errorB || !errorA.line || !errorB.line) { return 0; }
 
         // If alert (e.g., "Too many errors"), force to be listed last.
         // `!errorA.name` implies that the error is not "Unused variable", and
         // `!errorA.evidence` implies that the error has no code context
         // ("evidence").
-        if(!errorA.name && !errorA.evidence){ return  1; }
-        if(!errorB.name && !errorB.evidence){ return -1; }
+        if (!errorA.name && !errorA.evidence) { return  1; }
+        if (!errorB.name && !errorB.evidence) { return -1; }
 
         return errorA.line - errorB.line;
       });
 
       // Format errors as readable strings
-      for(i = 0; i < errorsCount; i++){
+      for (i = 0; i < errorsCount; i++) {
         error = errors[i];
-        if(error){
-          if(error.name){
+        if (error) {
+          if (error.name) {
             print('Unused variable at line ' + error.line + ': ' +
               error.name);
-          }else{
+          } else {
             print('Lint at line ' + error.line + ' character ' +
               error.character + ': ' + error.reason);
             print(error.evidence ?
@@ -188,7 +188,7 @@ Copyright (c) 2009 Apple Inc.
     }());
 
     quit(2);
-  }else{
+  } else {
     print('No problems found.');
     quit();
   }
