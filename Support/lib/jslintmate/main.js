@@ -102,6 +102,13 @@ window.jslm = (function(w, d) {
     $qs('ul.problems li').className = nav.CUR;
     nav.scrollTo(0); // Scroll to top
   };
+  nav.highlightLast = function() {
+    var items = $qsa('ul.problems li:not(.alert)'),
+        cur   = items[items.length - 1];
+
+    cur.className = nav.CUR;
+    nav.scrollToShowElement(cur);
+  };
   nav.highlightPrev = function() {
     var cur = nav.getHighlighted(), items, i;
 
@@ -121,7 +128,7 @@ window.jslm = (function(w, d) {
 
       nav.scrollToShowElement(cur);
     } else {
-      nav.highlightFirst();
+      nav.highlightLast();
     }
   };
   nav.highlightNext = function() {
