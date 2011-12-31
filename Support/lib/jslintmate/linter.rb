@@ -88,6 +88,18 @@ module JSLintMate
 
     def to_s; name; end
 
+    def build_command_options(opts)
+      # Usage:
+      #
+      #     build_command_options('--a' => 1, '--b' => 2)
+      #     => '--a="1" --b="2"'
+
+      opts.inject('') { |str, (k, v)|
+        str << %{ #{k}="#{v.gsub('"', '\\"')}"} if v && v != ''
+        str
+      }.strip!
+    end
+
     def get_lint_for_filepath(filepath)
       # Returns human-readable errors found in the file at `filepath`. Errors
       # are formatted according to `Support/lib/jsc.js`. Uses OS X's built-in
@@ -99,24 +111,13 @@ module JSLintMate
 
       jsc = JSLintMate.lib_path('jsc.js')
       cmd = '/System/Library/Frameworks/JavaScriptCore.framework/' <<
-               %{Versions/A/Resources/jsc "#{self.path}" "#{jsc}" -- } <<
-               %{"$(cat "#{filepath}")"}
-
-      cmd << %{ --linter-options-from-defaults="#{
-        Linter.default_options.gsub('"', '\\"')
-      }"}
-
-      if options_from_bundle && options_from_bundle != ''
-        cmd << %{ --linter-options-from-bundle="#{
-          options_from_bundle.gsub('"', '\\"')
-        }"}
-      end
-
-      if options_from_config_file && options_from_config_file != ''
-        cmd << %{ --linter-options-from-config-file="#{
-          options_from_config_file.gsub('"', '\\"')
-        }"}
-      end
+              %{Versions/A/Resources/jsc "#{self.path}" "#{jsc}" -- } <<
+              %{"$(cat "#{filepath}")"} << ' ' <<
+              build_command_options(
+                '--linter-options-from-defaults'    => Linter.default_options,
+                '--linter-options-from-bundle'      => options_from_bundle,
+                '--linter-options-from-config-file' => options_from_config_file
+              )
 
       `#{cmd}`
     end
