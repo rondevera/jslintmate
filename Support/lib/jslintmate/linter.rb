@@ -72,21 +72,25 @@ module JSLintMate
         self.options_from_bundle = '{' << options_from_bundle << '}'
       end
 
-      # Read options from config file
-      if config_file_path
-        if File.readable?(config_file_path)
-          self.options_from_config_file = YAML.load_file(config_file_path)
-
-          # Store options as a string, never as a hash
-          self.options_from_config_file =
-            Linter.options_hash_to_string(options_from_config_file)
-        else
-          # TODO: Show warning if file is unreadable
-        end
-      end
+      # Read and parse options file
+      read_options_from_config_file
     end
 
     def to_s; name; end
+
+    def read_options_from_config_file
+      return unless self.config_file_path
+
+      if File.readable?(config_file_path)
+        self.options_from_config_file = YAML.load_file(config_file_path)
+
+        # Store options as a string, never as a hash
+        self.options_from_config_file =
+          Linter.options_hash_to_string(options_from_config_file)
+      else
+        # TODO: Show warning if file is unreadable
+      end
+    end
 
     def build_command_options(opts)
       # Usage:
