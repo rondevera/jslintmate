@@ -96,11 +96,11 @@ module JSLintMate
 
     def read_options_from_yaml_file
       # Verify YAML syntax with `YAML.load_file`
-      self.options_from_config_file = YAML.load_file(config_file_path)
+      options_string = YAML.load_file(config_file_path)
 
       # Store options as a string, never as a hash
-      self.options_from_config_file =
-        Linter.options_hash_to_string(options_from_config_file)
+      options_string = Linter.options_hash_to_string(options_from_config_file)
+      self.options_from_config_file = options_string
     end
 
     def read_options_from_json_file
@@ -108,7 +108,14 @@ module JSLintMate
       cmd = %{#{JSC_PATH} -e 'print(JSON.stringify(eval(arguments[0])))' -- } <<
             %{"($(cat #{config_file_path}))"}
         # => `./jsc -e 'print(...)' -- "path/to/options.json"`
-      self.options_from_config_file = `#{cmd}`
+      options_string = `#{cmd}`
+      cmd_status = $?
+
+      if cmd_status.success?
+        self.options_from_config_file = options_string
+      else
+        raise ArgumentError, 'JSON options file could not be parsed'
+      end
     end
 
     def build_command_options(opts)
