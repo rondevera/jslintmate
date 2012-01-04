@@ -5,17 +5,62 @@ module JSLintMate
     module OptionsFiles
 
       def read_options_from_config_file
+        # Sets `self.options_from_config_file` to a string representation of the
+        # options in `self.config_file_path`.
+
         return unless self.config_file_path
 
         if File.readable?(config_file_path)
-          begin
-            read_options_from_yaml_file
-          rescue ArgumentError => error
-            read_options_from_json_file
+          # Determine order for testing file formats
+          parsing_strategies = {
+            :json => Proc.new { read_options_from_json_file },
+            :yaml => Proc.new { read_options_from_yaml_file }
+          }
+          formats = (possible_config_file_format == :json ?
+            [:json, :yaml] : [:yaml, :json]
+          )
+
+          formats.each do |format|
+            begin
+              break if parsing_strategies[format].call
+            rescue ArgumentError => error
+              # If an error occurs while looping, ignore it and try the next
+              # format, if any.
+            end
+          end
+
+          if self.options_from_config_file.nil?
+            # TODO: Show error that the file cannot be parsed. Ignore if
+            #       file path is still set to the default.
           end
         else
-          # TODO: Show warning if file is unreadable
+          # TODO: Show warning that the file cannot be read
         end
+      end
+
+      def possible_config_file_format
+        # Guesses (but does *not* guarantee) the format of `config_file_path`,
+        # then returns `:yaml` or `:json`. Assumes that the file is readable.
+
+        # Check file extension
+        case File.extname(config_file_path)
+        when '.js', 'json'    then return :json
+        when '.yml', '.yaml'  then return :yaml
+        end
+
+        file_contents = File.read(config_file_path).strip
+
+        # Check first file character
+        case file_contents[0, 1]          # Include `,1` for Ruby 1.8.x compat
+        when '/', '{' then return :json   # Single-/multi-line comment or object
+        when '#'      then return :yaml   # Comment
+        end
+
+        # Check last file character
+        return :json if file_contents[-1, 1] == '}'
+
+        # Wild guess
+        return :json
       end
 
       def read_options_from_yaml_file
