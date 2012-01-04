@@ -9,6 +9,8 @@ module JSLintMate
       'undef' => false  # `true` if variables and functions need not be
                         # declared before use.
     }
+    JSC_PATH          = '/System/Library/Frameworks/' <<
+                        'JavaScriptCore.framework/Versions/A/Resources/jsc'
     LINT_REGEXP       = /^(Lint at line )(\d+)(.+?:)(.+?)\n(?:(.+?))?$/
     UNUSED_VAR_REGEXP = /^Unused variable at line (\d+): (.+?)$/
 
@@ -82,14 +84,31 @@ module JSLintMate
       return unless self.config_file_path
 
       if File.readable?(config_file_path)
-        self.options_from_config_file = YAML.load_file(config_file_path)
-
-        # Store options as a string, never as a hash
-        self.options_from_config_file =
-          Linter.options_hash_to_string(options_from_config_file)
+        begin
+          read_options_from_yaml_file
+        rescue ArgumentError => error
+          read_options_from_json_file
+        end
       else
         # TODO: Show warning if file is unreadable
       end
+    end
+
+    def read_options_from_yaml_file
+      # Verify YAML syntax with `YAML.load_file`
+      self.options_from_config_file = YAML.load_file(config_file_path)
+
+      # Store options as a string, never as a hash
+      self.options_from_config_file =
+        Linter.options_hash_to_string(options_from_config_file)
+    end
+
+    def read_options_from_json_file
+      # Convert JS file (containing valid JSON or JS) to a JSON string
+      cmd = %{#{JSC_PATH} -e 'print(JSON.stringify(eval(arguments[0])))' -- } <<
+            %{"($(cat #{config_file_path}))"}
+        # => `./jsc -e 'print(...)' -- "path/to/options.json"`
+      self.options_from_config_file = `#{cmd}`
     end
 
     def build_command_options(opts)
@@ -114,8 +133,7 @@ module JSLintMate
       # <http://www.phpied.com/installing-rhino-on-mac/>
 
       jsc = JSLintMate.lib_path('jsc.js')
-      cmd = '/System/Library/Frameworks/JavaScriptCore.framework/' <<
-              %{Versions/A/Resources/jsc "#{self.path}" "#{jsc}" -- } <<
+      cmd = %{#{JSC_PATH} "#{self.path}" "#{jsc}" -- } <<
               %{"$(cat "#{filepath}")"} << ' ' <<
               build_command_options(
                 '--linter-options-from-defaults'    => Linter.default_options,
