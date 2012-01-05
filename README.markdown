@@ -32,10 +32,10 @@ Key features
 * Full problem details on **control-L** (JSLint) or **control-shift-L**
   (JSHint), including keyboard navigation.
 * Support for **options files** that can be kept in your home directory or in
-  project repositories. These can be read not just by JSLintMate, but also by
-  lint tools in other editors, continuous integration systems, automated
-  testing systems, and other tools. Great for helping your team stick to the
-  same coding standards.
+  project repositories. They can be read not just by JSLintMate, but also by
+  teammates' lint tools in other editors, continuous integration systems,
+  automated testing systems, and more. Great for helping your team use the same
+  coding standards everywhere.
 * Support for using your own **custom or edge build** of JSLint or JSHint.
 
 
