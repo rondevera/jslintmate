@@ -83,7 +83,7 @@ module JSLintMate
 
         # Convert JS file (containing valid JSON or JS) to a JSON string
         cmd = %{#{JSC_PATH} -e 'print(JSON.stringify(eval(arguments[0])))' } <<
-              %{-- "($(cat #{config_file_path}))"}
+              %{-- "($(cat "#{config_file_path}"))"}
           # => `./jsc -e 'print(...)' -- "path/to/options.json"`
         options_string = `#{cmd}`
         cmd_status = $?
