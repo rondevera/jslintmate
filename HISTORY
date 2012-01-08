@@ -3,6 +3,8 @@ JSLintMate
 
 * FEATURE: Added basic TextMate 2 support.
 * FEATURE: Added support for JSON options files, not just YAML.
+* FEATURE: Added a problem list preview to the tooltip that appears when saving
+  JS files.
 * IMPROVEMENT: In the problem list, made the hover state more subtle (to better
   bring attention to the blue "current" state), and added an active state.
 * IMPROVEMENT: Changed *up* key behavior to better mimic the standard OS X

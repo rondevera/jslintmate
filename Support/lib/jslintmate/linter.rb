@@ -195,6 +195,8 @@ module JSLintMate
       return '' unless filepath
 
       problems_count = 0
+      lint_preview = []
+      lint_preview_max = 3
       output = ''
 
       # Get lint data
@@ -207,6 +209,10 @@ module JSLintMate
         # Increment problem counter unless this error is actually an alert,
         # which has no code snippet
         problems_count += 1 if code
+
+        if problems_count <= lint_preview_max
+          lint_preview << {:filepath => filepath, :line => line, :desc => desc}
+        end
       end
 
       # Format unused variables, if any
@@ -218,8 +224,22 @@ module JSLintMate
         # For simplicity and less UI noise, display nothing.
         # output = 'Lint-free!'
       else
-        output = "#{self} found #{problems_count} problem#{'s' if
-                  problems_count > 1}. Run JSLintMate for details."
+        # Format lint preview strings
+        max_line_number_width =
+          lint_preview.map { |lint| lint[:line] }.max.to_s.size
+        lint_preview = lint_preview.map do |lint|
+          JSLintMate.error_to_text(
+            :line       => lint[:line],
+            :line_width => max_line_number_width,
+            :desc       => lint[:desc]
+          )
+        end.join("\n")
+
+        # Build output string
+        output =  "#{self} found #{problems_count} " <<
+                  "problem#{'s' if problems_count > 1}. " <<
+                  "Run JSLintMate for details."
+        output << "\n\nPreview:\n" << lint_preview if lint_preview != ''
       end
 
       output.strip

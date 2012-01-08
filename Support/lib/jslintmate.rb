@@ -132,6 +132,22 @@ module JSLintMate
     }.strip.split.join(' ')
   end
 
+  def self.error_to_text(error_data, options={})
+    # `error_data` is a hash whose keys should match
+    # `JSLintMate::LintError#initialize`.
+    #
+    # Returns a plain text string that represents the given error data.
+    #
+    # Options:
+    # - `:line_width`:  The width of the "Line #" half of the string. Useful
+    #                   for producing text in neat columns.
+
+    line_width = error_data.delete(:line_width)
+    to_s_options = (line_width.nil? ? {} : {:line_width => line_width})
+
+    JSLintMate::LintError.new(error_data).to_s(to_s_options)
+  end
+
   def self.error_to_html(error_data)
     # `error_data` is a hash whose keys should match
     # `JSLintMate::LintError#initialize`.

@@ -14,15 +14,28 @@ module JSLintMate
       end
 
       # Set required/optional attributes
-      self.filepath = attrs[:filepath].to_s
+      self.filepath = attrs[:filepath].to_s       # Required for HTML output
       self.line     = attrs[:line].to_s
       self.column   = (attrs[:column] || 0).to_s  # Optional
-      self.desc     = attrs[:desc].to_s
-      self.code     = attrs[:code].to_s           # Optional
+      self.desc     = attrs[:desc].to_s.strip
+      self.code     = attrs[:code].to_s.strip     # Optional
 
       # Ensure numeric values for `line` and `column`
       self.line   = self.line.scan(/\d+/)[0].to_s
       self.column = self.column.scan(/\d+/)[0].to_s
+    end
+
+    def to_s(options={})
+      # Returns a plain text representation of this error. For use with tooltips
+      # and any other simple output methods.
+      #
+      # Options:
+      # - `:line_width`:  The width of the "Line #" half of the string. Useful
+      #                   for producing text in neat columns.
+
+      options[:line_width] ||= 0
+      "Line #{line}: ".ljust(options[:line_width] + 7) << desc
+        # In `ljust` argument, add number of chars that are hardcoded in output
     end
 
     def to_html
