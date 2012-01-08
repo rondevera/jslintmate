@@ -1,6 +1,7 @@
 JSLintMate
 ==========
 
+* FEATURE: Added basic TextMate 2 support.
 * FEATURE: Added support for JSON options files, not just YAML.
 * IMPROVEMENT: In the problem list, made the hover state more subtle (to better
   bring attention to the blue "current" state), and added an active state.
