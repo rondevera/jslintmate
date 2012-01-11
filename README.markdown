@@ -61,13 +61,15 @@ Or via Git:
 
 ### TextMate 2 ###
 
-While TextMate 2 is in development, installation is temporarily a bit more involved:
+While TextMate 2 is in development, installation is temporarily a bit more
+involved:
 
 1.  [Download JSLintMate.tmbundle][download] and unzip it.
 2.  Open `~/Library/Application Support/Avian/Pristine Copy/Bundles/`.
 3.  Drop `JavaScript JSLintMate.tmbundle` into the `Bundles` directory.
 
-In TextMate 2, JSLintMate runs in a panel in the main window, rather than in a separate window.
+In TextMate 2, JSLintMate runs in a panel in the main window, rather than in a
+separate window.
 
 [download]: https://github.com/downloads/rondevera/jslintmate/JavaScript%20JSLintMate%201.2.tmbundle.zip
 
@@ -144,16 +146,17 @@ teammates stick to the same standards. Three ways to do this:
 
 * Keep a **personal options file**:
 
-    You can use an options file to use your favorite JSLint/JSHint options
-    across projects. By default, JSLintMate looks in your home directory for a
-    `~/.jslintrc` or `~/.jshintrc` file.
+    You can maintain an options file to use your favorite JSLint/JSHint options
+    across projects. These files can be written in JSON or YAML.
 
-    Your options file(s) should be in YAML format. The simple YAML file used
-    by [jslint\_on\_rails][jslint_on_rails config] is a good example, but
-    check the latest [JSLint docs][jslint options] and
-    [JSHint docs][jshint options] for the exact option names and values.
+    JSLintMate comes with some example options files:
+    [jslint.json][jslint.json], [jslint.yml][jslint.yml],
+    [jshint.json][jshint.json], and [jshint.yml][jshint.yml]. To use one of
+    these, save a copy as `~/.jslintrc` or `~/.jshintrc`. JSLintMate reads from
+    these paths by default, and automatically detects whether they contain JSON
+    or YAML.
 
-    If you want to keep your options file somewhere else:
+    If you want to rename your options files or store them elsewhere:
 
     1.  Within TextMate, select *Bundles > Bundle Editor >
         Show Bundle Editor*.
@@ -174,8 +177,8 @@ teammates stick to the same standards. Three ways to do this:
     2.  Expand *JavaScript JSLintMate* and highlight *Options Files*.
     3.  Change the value for `TM_JSLINTMATE_JSLINT_OPTIONS_FILE` to
         a path in your project, e.g.,
-        `$TM_PROJECT_DIRECTORY/config/jslint.yml`. Do the same for JSHint,
-        making sure to use a separate options file.
+        `$TM_PROJECT_DIRECTORY/config/jslint.yml`. Do the same for JSHint if
+        needed, making sure to use a separate options file.
 
     Options files are meant to be understood by a wide variety of tools, not
     just JSLintMate. This includes lint tools in other editors, continuous
@@ -207,7 +210,10 @@ merged at runtime:
 For more info, read about [JSLint's options][jslint options] and
 [JSHint's options][jshint options].
 
-[jslint_on_rails config]: https://github.com/psionides/jslint_on_rails/blob/master/lib/jslint/config/jslint.yml
+[jslint.json]:     https://raw.github.com/rondevera/jslintmate/master/Support/config/jslint.json
+[jslint.yml]:      https://raw.github.com/rondevera/jslintmate/master/Support/config/jslint.yml
+[jshint.json]:     https://raw.github.com/rondevera/jslintmate/master/Support/config/jshint.json
+[jshint.yml]:      https://raw.github.com/rondevera/jslintmate/master/Support/config/jshint.yml
 [jslint options]:  http://jslint.com/lint.html#options
 [jshint options]:  http://www.jshint.com/options/
 

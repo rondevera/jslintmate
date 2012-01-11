@@ -81,7 +81,8 @@ module JSLintMate
         # options in `self.config_file_path`. Assumes that the file is readable
         # and contains JSON or evaluates to a JS object.
 
-        # Convert JS file (containing valid JSON or JS) to a JSON string
+        # Convert JS file (containing valid JSON or JS, including comments) to
+        # a JSON string
         cmd = %{#{JSC_PATH} -e 'print(JSON.stringify(eval(arguments[0])))' } <<
               %{-- "($(cat "#{config_file_path}"))"}
           # => `./jsc -e 'print(...)' -- "path/to/options.json"`
