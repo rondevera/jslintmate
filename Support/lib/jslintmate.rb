@@ -163,6 +163,10 @@ module JSLintMate
     File.expand_path(path)
   end
 
+  def self.render(output)
+    print(output) unless ENV['ENV'] == 'test'
+  end
+
 end # module JSLintMate
 
 
@@ -180,12 +184,12 @@ format   = args['format']
 
 # Show results
 if format == 'short'
-  # Print short string for tooltip
+  # Render short string for tooltip
   result = linter.get_short_output(filepath)
-  print result if result
+  JSLintMate.render(result) if result
 else
-  # Print HTML for popup
+  # Render HTML for popup
   result = linter.get_html_output(filepath)
   template = ERB.new(JSLintMate.html)
-  print template.result(binding)
+  JSLintMate.render template.result(binding)
 end
