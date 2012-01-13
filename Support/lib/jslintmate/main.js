@@ -157,6 +157,15 @@ window.jslm = (function(w, d) {
 
   /*** Appearance ***/
 
+  // Push problems (if any) below header and notices
+  (function() {
+    var problemsList = $qs('ul.problems');
+
+    if (problemsList) {
+      problemsList.style.top = nav.headerHeight() + 'px';
+    }
+  }());
+
   // Add styling hook to `<html>`:
   if (support.css.insetBoxShadow) {
     d.documentElement.setAttribute('data-css-inset-box-shadow', 1);
