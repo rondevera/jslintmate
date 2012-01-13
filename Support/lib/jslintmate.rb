@@ -30,7 +30,8 @@
 #   curl -o jslint.js http://jslint.com/jslint.js
 #   curl -o jshint.js http://jshint.com/jshint.js
 
-$LOAD_PATH << File.join(ENV['TM_BUNDLE_SUPPORT'] || 'Support', 'lib')
+$LOAD_PATH << File.expand_path(
+  File.join(ENV['TM_BUNDLE_SUPPORT'] || 'Support', 'lib'))
 require 'erb'
 require 'jslintmate/lint_error'
 require 'jslintmate/linter'
@@ -40,7 +41,8 @@ module JSLintMate
 
   def self.version
     @version ||= begin
-      version_filepath = File.join(JSLintMate.bundle_path, 'VERSION')
+      version_filepath =
+        File.expand_path(File.join(JSLintMate.bundle_path, 'VERSION'))
       File.read(version_filepath).strip
     end
   end
@@ -85,7 +87,7 @@ module JSLintMate
     #   lib_path('x.js')  # => /path/to/JSLintMate.tmbundle/Support/lib/x.js
 
     dirs = ['lib'] << args
-    File.join(bundle_path, 'Support', *dirs)
+    File.expand_path(File.join(bundle_path, 'Support', *dirs))
   end
 
   def self.bundle_path
@@ -112,15 +114,15 @@ module JSLintMate
           sub(short_bundle_rxp, "/#{long_bundle_name}")
           # => .../TextMate/Bundles/JavaScript JSLintMate.tmbundle
       ]
-      paths.detect { |path| File.directory?(path) }
+      paths.detect { |path| File.directory?(File.expand_path(path)) }
     end
   end
 
-  def self.html ; File.read lib_path('jslintmate/main.html.erb') ; end
-  def self.css  ; File.read lib_path('jslintmate/main.css')      ; end
+  def self.html ; File.read lib_path('jslintmate', 'main.html.erb') ; end
+  def self.css  ; File.read lib_path('jslintmate', 'main.css')      ; end
   def self.js
-    File.read(lib_path('jslintmate/main.js')) <<
-    File.read(lib_path('jslintmate/version.js'))
+    File.read(lib_path('jslintmate', 'main.js')) <<
+    File.read(lib_path('jslintmate', 'version.js'))
   end
 
   def self.link_to_website
