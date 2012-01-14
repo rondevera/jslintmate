@@ -26,7 +26,7 @@
 #
 # To update jslint.js and jshint.js:
 #
-#   cd /path/to/JSLintMate.tmbundle/Support/lib/
+#   cd /path/to/JavaScript JSLintMate.tmbundle/Support/lib/
 #   curl -o jslint.js http://jslint.com/jslint.js
 #   curl -o jshint.js http://jshint.com/jshint.js
 
@@ -83,10 +83,20 @@ module JSLintMate
   def self.lib_path(*args)
     # Usage:
     #
-    #   lib_path          # => /path/to/JSLintMate.tmbundle/Support/lib
-    #   lib_path('x.js')  # => /path/to/JSLintMate.tmbundle/Support/lib/x.js
+    #   lib_path          # => /path/to/JavaScript JSLintMate.tmbundle/Support/lib
+    #   lib_path('x.js')  # => /path/to/JavaScript JSLintMate.tmbundle/Support/lib/x.js
 
     dirs = ['lib'] << args
+    File.expand_path(File.join(bundle_path, 'Support', *dirs))
+  end
+
+  def self.views_path(*args)
+    # Usage:
+    #
+    #   views_path           # => /path/to/JavaScript JSLintMate.tmbundle/Support/lib/jslintmate/views
+    #   views_path('x.css')  # => /path/to/JavaScript JSLintMate.tmbundle/Support/lib/jslintmate/views/x.css
+
+    dirs = %w[lib jslintmate views] << args
     File.expand_path(File.join(bundle_path, 'Support', *dirs))
   end
 
@@ -118,11 +128,11 @@ module JSLintMate
     end
   end
 
-  def self.html ; File.read lib_path('jslintmate', 'main.html.erb') ; end
-  def self.css  ; File.read lib_path('jslintmate', 'main.css')      ; end
+  def self.html ; File.read views_path('main.html.erb') ; end
+  def self.css  ; File.read views_path('main.css')      ; end
   def self.js
-    File.read(lib_path('jslintmate', 'main.js')) <<
-    File.read(lib_path('jslintmate', 'version.js'))
+    File.read(views_path('main.js')) <<
+    File.read(views_path('version.js'))
   end
 
   def self.link_to_website
