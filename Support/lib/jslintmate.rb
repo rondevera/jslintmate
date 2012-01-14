@@ -214,7 +214,7 @@ if format == 'short'
   result = linter.get_short_output(filepath)
   JSLintMate.render(result) if result
 else
-  # Render HTML for popup
+  # Render HTML for popup/panel
   result = linter.get_html_output(filepath)
   template = ERB.new(JSLintMate.html)
   JSLintMate.render template.result(binding)

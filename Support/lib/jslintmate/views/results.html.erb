@@ -1,0 +1,16 @@
+<%
+desc         = template_locals[:desc]
+filepath     = template_locals[:filepath]
+header_class = template_locals[:header_class]
+results      = template_locals[:results]
+%>
+<header<%= %{ class="#{header_class}"} if header_class %>>
+  <div class="info">
+    <span class="desc"><%= desc %></span>
+    <% if filepath %>
+    <span class="filepath"><%= filepath %></span>
+    <% end %>
+    <%= JSLintMate.link_to_website %>
+  </div>
+</header>
+<%= results %>

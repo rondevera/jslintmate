@@ -1,4 +1,3 @@
-require 'yaml'
 require 'jslintmate/linter/options_files'
 
 module JSLintMate
@@ -117,6 +116,9 @@ module JSLintMate
     end
 
     def get_html_output(filepath)
+      results_template = ERB.new(File.read(
+        JSLintMate.views_path('results.html.erb')))
+
       if filepath
         problems_count = 0
 
@@ -155,40 +157,33 @@ module JSLintMate
         end
 
         if problems_count == 0
-          # Douglas Crockford would be so proud.
-          output = %{
-            <header>
-              <span class="desc">Lint-free!</span>
-              <span class="filepath">#{filepath}</span>
-              #{JSLintMate.link_to_website}
-            </header>
-            <p class="success">Lint-free!</p>
+          template_locals = {
+            :desc     => 'Lint-free!', # Douglas Crockford would be so proud.
+            :filepath => filepath,
+            :results  => %{<p class="success">Lint-free!</p>}
           }
         else
-          output = %{
-            <header>
-              <span class="desc">Problem#{'s' if
-                problems_count > 1} found in:</span>
-              <span class="filepath">#{filepath}</span>
-              #{JSLintMate.link_to_website}
-            </header>
-            <ul class="problems">#{lint}</ul>
+          template_locals = {
+            :desc     => "Problem#{'s' if problems_count > 1} found in:",
+            :filepath => filepath,
+            :results  => %{<ul class="problems">#{lint}</ul>}
           }
         end
       else # !filepath
-        output = %{
-          <header class="alert">
-            <span class="desc">Oops!</span>
-            #{JSLintMate.link_to_website}
-          </header>
-          <p class="alert">
-            Please save this file before
-            #{self} can hurt your feelings.
-          </p>
+        template_locals = {
+          :desc => 'Oops!',
+          :header_class => 'alert',
+          :results => %{
+            <p class="alert">
+              Please save this file before #{self} can hurt your feelings.
+            </p>
+          }
         }
       end
 
-      output.strip!
+      results_template.result(binding).strip!
+        # Creating a temporary binding might make the template more concise,
+        # but the process can get messy.
     end
 
     def get_short_output(filepath)
