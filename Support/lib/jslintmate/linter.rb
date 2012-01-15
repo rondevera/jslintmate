@@ -119,7 +119,7 @@ module JSLintMate
       unless File.readable?(self.path)
         error_text = %{The linter "#{self.path}" couldn&rsquo;t be read.}
 
-        if self.path == default_path
+        if self.path != default_path
           # This probably isn't the user's fault.
           error_text << %{ <a href="#{JSLintMate::ISSUES_URL}">Report this</a>}
         end
