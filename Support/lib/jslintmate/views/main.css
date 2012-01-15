@@ -34,7 +34,7 @@ body {
 
 /*** Header ***/
 
-header {
+header div.info {
   display: block;
   width: 100%;
   height: 2em;
@@ -51,15 +51,15 @@ header {
   text-shadow: 0 -1px 1px #000;
   z-index: 9;
 }
-header.alert {
+header div.info.alert {
   padding-top: 1em;
   padding-bottom: 0.3333em;
 }
-header .desc {
+header div.info .desc {
   display: block;
   pointer-events: none;
 }
-header .filepath {
+header div.info .filepath {
   display: block;
   width: 95%;
   overflow: hidden;
@@ -68,7 +68,7 @@ header .filepath {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-header a.info {
+header div.info a.info {
   position: absolute;
   right: 5px;
   top: 5px;
@@ -84,7 +84,7 @@ header a.info {
     -webkit-transition: background-color 0.1s linear, opacity 0.25s linear;
   transition:           background-color 0.1s linear, opacity 0.25s linear;
 }
-header a.update {
+header div.info a.update {
   position: absolute;
   right: 35px;
   top: 5px;
@@ -104,22 +104,22 @@ header a.update {
   text-decoration: none;
   text-shadow: 0 -1px 0 #000;
 }
-header a.update:hover,
-header a.update:focus {
+header div.info a.update:hover,
+header div.info a.update:focus {
   background: -webkit-gradient(linear, left top, left bottom,
                                       from(#648bf3), to(#1d60f1));
   background: -webkit-linear-gradient(top, #648bf3,     #1d60f1);
   background:         linear-gradient(top, #648bf3,     #1d60f1);
   border-color: #1d60f1;
 }
-header a.update:active {
+header div.info a.update:active {
     -webkit-animation: none;
   animation:           none;
   border-color: #0d50e1;
     -webkit-box-shadow: inset 0 2px 4px #0d50e1;
   box-shadow:           inset 0 2px 4px #0d50e1;
 }
-html[data-css-inset-box-shadow] header a.info {
+html[data-css-inset-box-shadow] header div.info a.info {
     -webkit-transform:  translateZ(0);
   transform:            translateZ(0); /* Enable hardware acceleration */
     /*  Hack: `header` gets glitchy if using hardware acceleration in older
@@ -127,12 +127,64 @@ html[data-css-inset-box-shadow] header a.info {
         enable hardware acceleration in newer WebKits. This isn't an exact
         correlation; a better test probably exists. */
 }
-html:hover header a.info {
+html:hover header div.info a.info {
   opacity: 1;
 }
-header a.info:hover,
-header a.info:focus {
+header div.info a.info:hover,
+header div.info a.info:focus {
   background-color: rgba(255, 255, 255, 0.25);
+}
+header ul.notices {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+header ul.notices li {
+  padding: 0.5em 1em;
+  background: #0f0;
+  border-top: 1px solid;
+  border-bottom: 1px solid;
+    -webkit-box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  box-shadow:           inset 0 1px 1px rgba(255, 255, 255, 0.1);
+}
+header ul.notices li.debug {
+    background: #222;
+    background: -webkit-gradient(linear, left top, left bottom,
+      from(#222), to(#000));
+    background: -webkit-linear-gradient(top, #222, #000);
+  background:           linear-gradient(top, #222, #000);
+  border-color: #000;
+  color: #0f0;
+  font-family: Monaco, Courier, monospace;
+  text-shadow: 0 0 4px #0f0;
+}
+header ul.notices li.warn {
+    background: #ff9;
+    background: -webkit-gradient(linear, left top, left bottom,
+      from(#ff9), to(#cc6));
+    background:    -moz-linear-gradient(top, #ff9, #cc6);
+    background: -webkit-linear-gradient(top, #ff9, #cc6);
+  background:           linear-gradient(top, #ff9, #cc6);
+  border-top-color: #cc6;
+  border-bottom-color: #993;
+  color: #333;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+header ul.notices li.error {
+    background: #933;
+    background: -webkit-gradient(linear, left top, left bottom,
+      from(#933), to(#600));
+    background: -webkit-linear-gradient(top, #933, #600);
+  background:           linear-gradient(top, #933, #600);
+  border-top-color: #600;
+  border-bottom-color: #300;
+  color: #eee;
+  text-shadow: 0 -1px 0 #000;
+}
+header ul.notices li.debug + li.debug,
+header ul.notices li.warn  + li.warn,
+header ul.notices li.error + li.error {
+  border-top: none;
 }
 
 /*** Body ***/

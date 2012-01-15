@@ -118,6 +118,7 @@ module JSLintMate
     def get_html_output(filepath)
       results_template = ERB.new(File.read(
         JSLintMate.views_path('results.html.erb')))
+      template_locals = {:notices => JSLintMate.notices}
 
       if filepath
         problems_count = 0
@@ -157,28 +158,28 @@ module JSLintMate
         end
 
         if problems_count == 0
-          template_locals = {
+          template_locals.merge!(
             :desc     => 'Lint-free!', # Douglas Crockford would be so proud.
             :filepath => filepath,
             :results  => %{<p class="success">Lint-free!</p>}
-          }
+          )
         else
-          template_locals = {
+          template_locals.merge!(
             :desc     => "Problem#{'s' if problems_count > 1} found in:",
             :filepath => filepath,
             :results  => %{<ul class="problems">#{lint}</ul>}
-          }
+          )
         end
       else # !filepath
-        template_locals = {
+        template_locals.merge!(
           :desc => 'Oops!',
-          :header_class => 'alert',
+          :header_info_class => 'alert',
           :results => %{
             <p class="alert">
               Please save this file before #{self} can hurt your feelings.
             </p>
           }
-        }
+        )
       end
 
       results_template.result(binding).strip!

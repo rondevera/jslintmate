@@ -35,6 +35,7 @@ $LOAD_PATH << File.expand_path(
 require 'erb'
 require 'jslintmate/lint_error'
 require 'jslintmate/linter'
+require 'jslintmate/notice'
 
 module JSLintMate
   WEBSITE_URL = 'http://rondevera.github.com/jslintmate'
@@ -187,6 +188,13 @@ module JSLintMate
       TM_PROJECT_DIRECTORY
     ].each { |var| path.gsub!('$' + var, ENV[var]) if ENV[var] }
     File.expand_path(path)
+  end
+
+  def self.notices ; @notices ; end
+
+  def self.add_notice(type, text)
+    @notices ||= []
+    @notices << Notice.new(type, text)
   end
 
   def self.render(output)
