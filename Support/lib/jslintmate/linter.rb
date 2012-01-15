@@ -106,11 +106,11 @@ module JSLintMate
       # (Mozilla's open-source JS engine). Reference:
       # <http://www.phpied.com/installing-rhino-on-mac/>
 
-      jsc_path = JSLintMate.lib_path('jsc.js')
+      jsc_adapter_path = JSLintMate.lib_path('jsc.js')
 
-      unless File.readable?(jsc_path)
+      unless File.readable?(jsc_adapter_path)
         JSLintMate.error(%{
-          JSC couldn&rsquo;t be found.
+          Argh, sorry. The linter output couldn&rsquo;t be formatted properly.
           <a href="#{JSLintMate::ISSUES_URL}">Report this</a>
         })
         return ''
@@ -128,7 +128,7 @@ module JSLintMate
         return ''
       end
 
-      cmd = %{#{JSC_PATH} "#{self.path}" "#{jsc_path}" -- } <<
+      cmd = %{#{JSC_PATH} "#{self.path}" "#{jsc_adapter_path}" -- } <<
               %{"$(cat "#{filepath}")"} << ' ' <<
               build_command_options(
                 '--linter-options-from-defaults'    => Linter.default_options,
