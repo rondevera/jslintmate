@@ -17,7 +17,9 @@ results           = template_locals[:results]
   <% if notices.any? %>
   <ul class="notices">
     <% notices.each do |notice| %>
-    <li class="<%= notice.type %>"><%= notice.to_html %></li>
+    <li class="<%= notice.type %>"><%=
+      notice.type == :debug ? notice.to_html : notice.text
+    %></li>
     <% end %>
   </ul>
   <% end %>
