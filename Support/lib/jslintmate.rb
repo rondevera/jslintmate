@@ -194,7 +194,11 @@ module JSLintMate
 
   def self.add_notice(type, text)
     @notices ||= []
-    @notices << Notice.new(type, text)
+    @notices << Notice.new(type, text.strip)
+  end
+
+  def self.debug(text)
+    add_notice(:debug, text)
   end
 
   def self.render(output)
