@@ -63,9 +63,8 @@ module JSLintMate
         self.name = 'JSLint'
       end
 
-      default_path = JSLintMate.lib_path("#{key}.js")
-      self.path    = [attrs[:path], default_path].
-                      detect { |path| path && File.readable?(path) }
+      self.path = [attrs[:path], default_path].
+                    detect { |path| path && File.readable?(path) }
 
       self.options_from_bundle      = attrs[:options_from_bundle] || ''
       self.options_from_config_file = ''
@@ -81,6 +80,10 @@ module JSLintMate
     end
 
     def to_s; name; end
+
+    def default_path
+      JSLintMate.lib_path("#{key}.js")
+    end
 
     def build_command_options(opts)
       # Usage:
@@ -110,6 +113,18 @@ module JSLintMate
           JSC couldn&rsquo;t be found.
           <a href="#{JSLintMate::ISSUES_URL}">Report this</a>
         })
+        return ''
+      end
+
+      unless File.readable?(self.path)
+        error_text = %{The linter "#{self.path}" couldn&rsquo;t be read.}
+
+        if self.path == default_path
+          # This probably isn't the user's fault.
+          error_text << %{ <a href="#{JSLintMate::ISSUES_URL}">Report this</a>}
+        end
+
+        JSLintMate.error(error_text)
         return ''
       end
 
