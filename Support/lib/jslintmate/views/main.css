@@ -38,7 +38,7 @@ header div.info {
   display: block;
   width: 100%;
   height: 2em;
-  padding: 0.6667em;
+  padding: 0.6667em 0.875em;
   background: -webkit-gradient(linear, left top, left bottom, from(#333), color-stop(0.5, #191919), color-stop(0.5, #090909), to(#090909));
   background: -webkit-linear-gradient(top, #333, 0.5 #191919, 0.5 #090909, #090909);
   background:         linear-gradient(top, #333, 0.5 #191919, 0.5 #090909, #090909);
@@ -140,7 +140,7 @@ header ul.notices {
   list-style: none;
 }
 header ul.notices li {
-  padding: 0.5em 1em;
+  padding: 0.5em 1.333em;
   background: #0f0;
   border-top: 1px solid;
   border-bottom: 1px solid;
