@@ -39,6 +39,7 @@ require 'jslintmate/notice'
 
 module JSLintMate
   WEBSITE_URL = 'http://rondevera.github.com/jslintmate'
+  ISSUES_URL  = 'https://github.com/rondevera/jslintmate/issues'
 
   def self.version
     @version ||= begin

@@ -103,8 +103,17 @@ module JSLintMate
       # (Mozilla's open-source JS engine). Reference:
       # <http://www.phpied.com/installing-rhino-on-mac/>
 
-      jsc = JSLintMate.lib_path('jsc.js')
-      cmd = %{#{JSC_PATH} "#{self.path}" "#{jsc}" -- } <<
+      jsc_path = JSLintMate.lib_path('jsc.js')
+
+      unless File.readable?(jsc_path)
+        JSLintMate.error(%{
+          JSC couldn&rsquo;t be found.
+          <a href="#{JSLintMate::ISSUES_URL}">Report this</a>
+        })
+        return ''
+      end
+
+      cmd = %{#{JSC_PATH} "#{self.path}" "#{jsc_path}" -- } <<
               %{"$(cat "#{filepath}")"} << ' ' <<
               build_command_options(
                 '--linter-options-from-defaults'    => Linter.default_options,
@@ -118,7 +127,6 @@ module JSLintMate
     def get_html_output(filepath)
       results_template = ERB.new(File.read(
         JSLintMate.views_path('results.html.erb')))
-      template_locals = {:notices => JSLintMate.notices}
 
       if filepath
         problems_count = 0
@@ -157,29 +165,32 @@ module JSLintMate
           )
         end
 
+        template_locals = {
+          :filepath => filepath,
+          :notices  => JSLintMate.notices
+        }
         if problems_count == 0
           template_locals.merge!(
             :desc     => 'Lint-free!', # Douglas Crockford would be so proud.
-            :filepath => filepath,
             :results  => %{<p class="success">Lint-free!</p>}
           )
         else
           template_locals.merge!(
             :desc     => "Problem#{'s' if problems_count > 1} found in:",
-            :filepath => filepath,
             :results  => %{<ul class="problems">#{lint}</ul>}
           )
         end
       else # !filepath
-        template_locals.merge!(
+        template_locals = {
           :desc => 'Oops!',
           :header_info_class => 'alert',
+          :notices => JSLintMate.notices,
           :results => %{
             <p class="alert">
               Please save this file before #{self} can hurt your feelings.
             </p>
           }
-        )
+        }
       end
 
       results_template.result(binding).strip!
