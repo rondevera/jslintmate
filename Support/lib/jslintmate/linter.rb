@@ -108,6 +108,14 @@ module JSLintMate
 
       jsc_adapter_path = JSLintMate.lib_path('jsc.js')
 
+      unless File.executable?(JSC_PATH)
+        JSLintMate.error(%{
+          Ack, sorry. JSC can&rsquo;t run properly on this computer.
+          <a href="#{JSLintMate::ISSUES_URL}">Report this</a>
+        })
+        return ''
+      end
+
       unless File.readable?(jsc_adapter_path)
         JSLintMate.error(%{
           Argh, sorry. The linter output couldn&rsquo;t be formatted properly.
