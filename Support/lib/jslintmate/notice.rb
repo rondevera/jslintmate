@@ -19,5 +19,9 @@ module JSLintMate
       self.text = text
     end
 
+    def to_html
+      CGI.escapeHTML(text)
+    end
+
   end
 end
