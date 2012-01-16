@@ -213,7 +213,11 @@ module JSLintMate
         template_locals.merge!(
           :desc    => 'Oops!',
           :notices => JSLintMate.notices,
-          :results => %{<p class="error">#{JSLintMate.error}</p>}
+          :results => %{
+            <p class="error">
+              <span class="text">#{JSLintMate.error}</span>
+            </p>
+          }
         )
       end
 
