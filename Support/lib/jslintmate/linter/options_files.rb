@@ -42,7 +42,7 @@ module JSLintMate
           end
 
           if self.options_from_config_file.nil?
-            JSLintMate.add_notice(:warn, %{
+            JSLintMate.warn(%{
               The options file "#{self.config_file_path}" could not be parsed.
             })
           end
@@ -50,7 +50,7 @@ module JSLintMate
           # The options file cannot be read, so show a warning. However, not all
           # users will use an options file, so only show the warning if its path
           # has been changed from the default.
-          JSLintMate.add_notice(:warn, %{
+          JSLintMate.warn(%{
             The options file "#{self.config_file_path}" could not be read.
           })
         end
