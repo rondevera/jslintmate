@@ -50,7 +50,7 @@ window.jslm = (function(w, d) {
     updateLink.href      = websiteLink.href;
     updateLink.title     = 'Download JSLintMate ' + version.newest;
     websiteLink.style.display = 'none';
-    d.querySelector('header').appendChild(updateLink);
+    d.querySelector('header div.info').appendChild(updateLink);
   };
 
   version.updateIsAvailable = function() {
