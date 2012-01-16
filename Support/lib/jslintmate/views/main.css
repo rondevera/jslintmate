@@ -38,7 +38,7 @@ header div.info {
   display: block;
   width: 100%;
   height: 2em;
-  padding: 0.6667em 0.875em;
+  padding: 1em 0.875em 0.333em;
   background: -webkit-gradient(linear, left top, left bottom, from(#333), color-stop(0.5, #191919), color-stop(0.5, #090909), to(#090909));
   background: -webkit-linear-gradient(top, #333, 0.5 #191919, 0.5 #090909, #090909);
   background:         linear-gradient(top, #333, 0.5 #191919, 0.5 #090909, #090909);
@@ -51,9 +51,9 @@ header div.info {
   text-shadow: 0 -1px 1px #000;
   z-index: 9;
 }
-header div.info.alert {
-  padding-top: 1em;
-  padding-bottom: 0.3333em;
+header div.info.has-filepath {
+  padding-top: 0.667em;
+  padding-bottom: 0.667em;
 }
 header div.info .desc {
   display: block;
@@ -170,20 +170,8 @@ header ul.notices li.warn {
   color: #333;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
 }
-header ul.notices li.error {
-    background: #933;
-    background: -webkit-gradient(linear, left top, left bottom,
-      from(#933), to(#600));
-    background: -webkit-linear-gradient(top, #933, #600);
-  background:           linear-gradient(top, #933, #600);
-  border-top-color: #600;
-  border-bottom-color: #300;
-  color: #eee;
-  text-shadow: 0 -1px 0 #000;
-}
 header ul.notices li.debug + li.debug,
-header ul.notices li.warn  + li.warn,
-header ul.notices li.error + li.error {
+header ul.notices li.warn  + li.warn {
   border-top: none;
 }
 
@@ -202,7 +190,7 @@ p.success {
   font-weight: bold;
   text-align: center;
 }
-p.alert {
+p.error {
   margin: 15% 7em 2em;
   min-height: 115px;        /* = bg image height */
   padding: 37px 0 0 134px;  /* padding-top  = arbitrary */

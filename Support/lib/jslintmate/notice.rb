@@ -2,7 +2,7 @@ module JSLintMate
 
   # Supports rendering notices (not lint problems) in the output view.
   class Notice
-    TYPES = [:debug, :warn, :error]
+    TYPES = [:debug, :warn]
 
     attr_accessor :type, :text
 

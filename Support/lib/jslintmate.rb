@@ -200,7 +200,9 @@ module JSLintMate
 
   def self.debug(text) ; add_notice(:debug, text) ; end
   def self.warn (text) ; add_notice(:warn,  text) ; end
-  def self.error(text) ; add_notice(:error, text) ; end
+
+  def self.error ; @error ; end
+  def self.error=(text) ; @error = text.strip ; end
 
   def self.render(output)
     print(output) unless ENV['ENV'] == 'test'

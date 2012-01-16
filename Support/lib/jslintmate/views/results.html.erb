@@ -1,9 +1,10 @@
 <%
-desc              = template_locals[:desc]
-filepath          = template_locals[:filepath]
-header_info_class = template_locals[:header_info_class]
-notices           = template_locals[:notices] || []
-results           = template_locals[:results]
+desc     = template_locals[:desc]
+filepath = template_locals[:filepath]
+notices  = template_locals[:notices] || []
+results  = template_locals[:results]
+
+header_info_class = 'has-filepath' if filepath
 %>
 <header>
   <div class="info<%= %{ #{header_info_class}} if header_info_class %>">

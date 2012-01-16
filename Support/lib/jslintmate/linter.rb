@@ -109,19 +109,19 @@ module JSLintMate
       jsc_adapter_path = JSLintMate.lib_path('jsc.js')
 
       unless File.executable?(JSC_PATH)
-        JSLintMate.error(%{
-          Ack, sorry. JSC can&rsquo;t run properly on this computer.
+        JSLintMate.error = %{
+          Ack, sorry. JSC isn&rsquo;t running properly on this computer.
           <a href="#{JSLintMate::ISSUES_URL}">Report this</a>
-        })
-        return ''
+        }
+        return
       end
 
       unless File.readable?(jsc_adapter_path)
-        JSLintMate.error(%{
+        JSLintMate.error = %{
           Argh, sorry. The linter output couldn&rsquo;t be formatted properly.
           <a href="#{JSLintMate::ISSUES_URL}">Report this</a>
-        })
-        return ''
+        }
+        return
       end
 
       unless File.readable?(self.path)
@@ -132,8 +132,8 @@ module JSLintMate
           error_text << %{ <a href="#{JSLintMate::ISSUES_URL}">Report this</a>}
         end
 
-        JSLintMate.error(error_text)
-        return ''
+        JSLintMate.error = error_text
+        return
       end
 
       cmd = %{#{JSC_PATH} "#{self.path}" "#{jsc_adapter_path}" -- } <<
@@ -150,75 +150,74 @@ module JSLintMate
     def get_html_output(filepath)
       results_template = ERB.new(File.read(
         JSLintMate.views_path('results.html.erb')))
+      template_locals = {}
 
       if filepath
         problems_count = 0
-
-        # Get lint data
         lint = get_lint_for_filepath(filepath)
+        template_locals[:filepath] = filepath
 
-        # Format errors, if any
-        lint.gsub!(Linter::LINT_REGEXP) do
-          line, column, desc, code = $2, $3, $4, $5
+        if lint
+          # Format errors, if any
+          lint.gsub!(Linter::LINT_REGEXP) do
+            line, column, desc, code = $2, $3, $4, $5
 
-          # Increment problem counter unless this error is actually an alert,
-          # which has no code snippet
-          problems_count += 1 if code
+            # Increment problem counter unless this error is actually a linter
+            # alert, which has no code snippet
+            problems_count += 1 if code
 
-          JSLintMate.error_to_html(
-            :filepath => filepath,
-            :line     => line,
-            :column   => column,
-            :desc     => desc,
-            :code     => code
-          )
+            JSLintMate.error_to_html(
+              :filepath => filepath,
+              :line     => line,
+              :column   => column,
+              :desc     => desc,
+              :code     => code
+            )
+          end
+
+          # Format unused variables, if any
+          lint.gsub!(Linter::UNUSED_VAR_REGEXP) do
+            line, code = $1, $2
+
+            problems_count += 1
+
+            JSLintMate.error_to_html(
+              :filepath => filepath,
+              :line     => line,
+              :code     => code,
+              :desc     => 'Unused variable.'
+            )
+          end
+
+          template_locals[:notices] = JSLintMate.notices
+          if problems_count == 0
+            template_locals.merge!(
+              :desc     => 'Lint-free!', # Douglas Crockford would be so proud.
+              :results  => %{<p class="success">Lint-free!</p>}
+            )
+          else
+            template_locals.merge!(
+              :desc     => "Problem#{'s' if problems_count > 1} found in:",
+              :results  => %{<ul class="problems">#{lint}</ul>}
+            )
+          end
         end
 
-        # Format unused variables, if any
-        lint.gsub!(Linter::UNUSED_VAR_REGEXP) do
-          line, code = $1, $2
-
-          problems_count += 1
-
-          JSLintMate.error_to_html(
-            :filepath => filepath,
-            :line     => line,
-            :code     => code,
-            :desc     => 'Unused variable.'
-          )
-        end
-
-        template_locals = {
-          :filepath => filepath,
-          :notices  => JSLintMate.notices
-        }
-        if problems_count == 0
-          template_locals.merge!(
-            :desc     => 'Lint-free!', # Douglas Crockford would be so proud.
-            :results  => %{<p class="success">Lint-free!</p>}
-          )
-        else
-          template_locals.merge!(
-            :desc     => "Problem#{'s' if problems_count > 1} found in:",
-            :results  => %{<ul class="problems">#{lint}</ul>}
-          )
-        end
-      else # !filepath
-        template_locals = {
-          :desc => 'Oops!',
-          :header_info_class => 'alert',
-          :notices => JSLintMate.notices,
-          :results => %{
-            <p class="alert">
-              Please save this file before #{self} can hurt your feelings.
-            </p>
-          }
+      else # No filepath
+        JSLintMate.error = %{
+          Please save this file before #{self} can hurt your feelings.
         }
       end
 
+      if JSLintMate.error
+        template_locals.merge!(
+          :desc    => 'Oops!',
+          :notices => JSLintMate.notices,
+          :results => %{<p class="error">#{JSLintMate.error}</p>}
+        )
+      end
+
       results_template.result(binding).strip!
-        # Creating a temporary binding might make the template more concise,
-        # but the process can get messy.
     end
 
     def get_short_output(filepath)
@@ -236,8 +235,8 @@ module JSLintMate
       lint.scan(Linter::LINT_REGEXP) do |match|
         line, column, desc, code = $2, $3, $4, $5
 
-        # Increment problem counter unless this error is actually an alert,
-        # which has no code snippet
+        # Increment problem counter unless this error is actually a linter
+        # alert, which has no code snippet
         problems_count += 1 if code
 
         if problems_count <= lint_preview_max
