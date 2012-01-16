@@ -107,11 +107,14 @@ module JSLintMate
       # <http://www.phpied.com/installing-rhino-on-mac/>
 
       jsc_adapter_path = JSLintMate.lib_path('jsc.js')
+      report_link = %{
+        <a class="report" href="#{JSLintMate::ISSUES_URL}">Report this</a>
+      }.strip!
 
       unless File.executable?(JSC_PATH)
         JSLintMate.error = %{
           Ack, sorry. JSC isn&rsquo;t running properly on this computer.
-          <a href="#{JSLintMate::ISSUES_URL}">Report this</a>
+          #{report_link}
         }
         return
       end
@@ -119,7 +122,7 @@ module JSLintMate
       unless File.readable?(jsc_adapter_path)
         JSLintMate.error = %{
           Argh, sorry. The linter output couldn&rsquo;t be formatted properly.
-          <a href="#{JSLintMate::ISSUES_URL}">Report this</a>
+          #{report_link}
         }
         return
       end
@@ -128,8 +131,8 @@ module JSLintMate
         error_text = %{The linter "#{self.path}" couldn&rsquo;t be read.}
 
         if self.path != default_path
-          # This probably isn't the user's fault.
-          error_text << %{ <a href="#{JSLintMate::ISSUES_URL}">Report this</a>}
+          # Probably isn't the user's fault, so encourage reporting this bug.
+          error_text << ' ' << report_link
         end
 
         JSLintMate.error = error_text

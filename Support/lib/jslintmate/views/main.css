@@ -203,6 +203,38 @@ p.error span.text {
   display: table-cell;
   vertical-align: middle;
 }
+p.error span.text a.report {
+  display: table; /* inline-block + break */
+  margin: 1em 0 0;
+  padding: 0.375em 1.25em;
+  background: #eee;
+  background-color: #ccc;
+  background-image: -webkit-gradient(linear, left top, left bottom,
+                                            from(rgba(255, 255, 255, 0.5)), to(rgba(255, 255, 255, 0)));
+  background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0.5),     rgba(255, 255, 255, 0));
+  background-image:         linear-gradient(top, rgba(255, 255, 255, 0.5),     rgba(255, 255, 255, 0));
+  border: 1px solid #999;
+    -webkit-border-radius: 1em;
+  border-radius:           1em;
+    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75), inset 0 -1px 0 rgba(0, 0, 0, 0.05), 0 1px 0 rgba(255, 255, 255, 0.5);
+  box-shadow:           inset 0 1px 0 rgba(255, 255, 255, 0.75), inset 0 -1px 0 rgba(0, 0, 0, 0.05), 0 1px 0 rgba(255, 255, 255, 0.5);
+  color: #000;
+  font-size: 0.75em;
+  text-decoration: none;
+    -webkit-transition: background 0.15s linear;
+  transition:           background 0.15s linear;
+}
+p.error span.text a.report:hover,
+p.error span.text a.report:focus {
+  background-color: #ddd;
+}
+p.error span.text a.report:active {
+  background-color: #bbb;
+    -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25), 0 1px 0 rgba(255, 255, 255, 0.5);
+  box-shadow:           inset 0 1px 2px rgba(0, 0, 0, 0.25), 0 1px 0 rgba(255, 255, 255, 0.5);
+    -webkit-transition: none;
+  transition:           none;
+}
 
 /*** Body > Problems ***/
 
