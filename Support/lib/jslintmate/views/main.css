@@ -11,10 +11,10 @@ html[data-css-inset-box-shadow] {}
 body {
   overflow: auto;
   overflow-x: hidden;
-    background: -webkit-gradient(linear, left top, left bottom,
-                                        from(#ececec), to(#d2d2d2));
-    background: -webkit-linear-gradient(top, #ececec,     #d2d2d2);
-  background:           linear-gradient(top, #ececec,     #d2d2d2);
+  background: -webkit-gradient(linear, left top, left bottom,
+                                      from(#ececec), to(#d2d2d2));
+  background: -webkit-linear-gradient(top, #ececec,     #d2d2d2);
+  background:         linear-gradient(top, #ececec,     #d2d2d2);
   background-attachment: fixed;
   font-family: "Lucida Grande", "Helvetica Neue", Helvetica, sans-serif;
   font-size: 14px;
@@ -148,23 +148,22 @@ header ul.notices li {
   box-shadow:           inset 0 1px 1px rgba(255, 255, 255, 0.1);
 }
 header ul.notices li.debug {
-    background: #222;
-    background: -webkit-gradient(linear, left top, left bottom,
-      from(#222), to(#000));
-    background: -webkit-linear-gradient(top, #222, #000);
-  background:           linear-gradient(top, #222, #000);
+  background: #222;
+  background: -webkit-gradient(linear, left top, left bottom,
+                                      from(#222), to(#000));
+  background: -webkit-linear-gradient(top, #222,     #000);
+  background:         linear-gradient(top, #222,     #000);
   border-color: #000;
   color: #0f0;
   font-family: Monaco, Courier, monospace;
   text-shadow: 0 0 4px #0f0;
 }
 header ul.notices li.warn {
-    background: #ff9;
-    background: -webkit-gradient(linear, left top, left bottom,
-      from(#ff9), to(#cc6));
-    background:    -moz-linear-gradient(top, #ff9, #cc6);
-    background: -webkit-linear-gradient(top, #ff9, #cc6);
-  background:           linear-gradient(top, #ff9, #cc6);
+  background: #ff9;
+  background: -webkit-gradient(linear, left top, left bottom,
+                                      from(#ff9), to(#cc6));
+  background: -webkit-linear-gradient(top, #ff9,     #cc6);
+  background:         linear-gradient(top, #ff9,     #cc6);
   border-top-color: #cc6;
   border-bottom-color: #993;
   color: #333;
@@ -200,7 +199,7 @@ p.error {
     /* Image from OS X 10.6 */
 }
 p.error span.text {
-  display: table-cell;
+  display: table-cell; /* Enables vertical centering */
   vertical-align: middle;
 }
 p.error span.text a.report {
@@ -257,17 +256,17 @@ ul.problems li.alert {
   padding: 1em;
   background-color: #933;
     /* CSS3 stripes: http://leaverou.me/2010/12/checkered-stripes-other-background-patterns-with-css3-gradients/ */
-    background-image: -webkit-gradient(linear, 0 0, 100% 100%,
-      from(            rgba(0, 0, 0, 0.1)),
-      color-stop(0.25, rgba(0, 0, 0, 0.1)),
-      color-stop(0.25, transparent       ),
-      color-stop(0.5,  transparent       ),
-      color-stop(0.5,  rgba(0, 0, 0 ,0.1)),
-      color-stop(0.75, rgba(0, 0, 0, 0.1)),
-      color-stop(0.75, transparent       ),
-      to(              transparent       ));
-    background-image: -webkit-linear-gradient(-45deg, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0 ,0.25) 50%, rgba(0, 0, 0, 0.25) 75%, transparent 75%, transparent);
-  background-image:           linear-gradient(-45deg, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0 ,0.25) 50%, rgba(0, 0, 0, 0.25) 75%, transparent 75%, transparent);
+  background-image: -webkit-gradient(linear, 0 0, 100% 100%,
+    from(            rgba(0, 0, 0, 0.1)),
+    color-stop(0.25, rgba(0, 0, 0, 0.1)),
+    color-stop(0.25, transparent       ),
+    color-stop(0.5,  transparent       ),
+    color-stop(0.5,  rgba(0, 0, 0 ,0.1)),
+    color-stop(0.75, rgba(0, 0, 0, 0.1)),
+    color-stop(0.75, transparent       ),
+    to(              transparent       ));
+  background-image: -webkit-linear-gradient(-45deg, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0 ,0.25) 50%, rgba(0, 0, 0, 0.25) 75%, transparent 75%, transparent);
+  background-image:         linear-gradient(-45deg, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0 ,0.25) 50%, rgba(0, 0, 0, 0.25) 75%, transparent 75%, transparent);
     -webkit-background-size: 100px 100px;
   background-size:           100px 100px;
   border: 0;
