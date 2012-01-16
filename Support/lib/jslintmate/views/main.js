@@ -50,11 +50,12 @@ window.jslm = (function(w, d) {
 
   /*** Navigation > Scrolling ***/
 
+  nav.scrollingContainer = $qs('ul.problems');
   nav.scrollTo = function(y) {
     // Usage:
     // - `nav.scrollTo(0)`    // => scroll to top
     // - `nav.scrollTo(100)`  // => scroll to 100px from top
-    d.body.scrollTop = y;
+    nav.scrollingContainer.scrollTop = y;
   };
   nav.scrollToShowElement = function(elem) {
     elem = $qs('ul.problems li.' + nav.CUR + ' + li.alert') || elem;
@@ -63,11 +64,11 @@ window.jslm = (function(w, d) {
       // bottom of the window, the alert is shown along with the final
       // selectable list item.
 
-    var bodyScrollTop   = d.body.scrollTop,
+    var bodyScrollTop   = nav.scrollingContainer.scrollTop,
         elemTop         = elem.offsetTop,
         elemBottom      = elem.offsetTop + elem.offsetHeight,
-        elemTopBound    = elemTop - nav.headerHeight(),
-        elemBottomBound = elemBottom - w.innerHeight;
+        elemTopBound    = elemTop,
+        elemBottomBound = elemBottom - nav.scrollingContainer.offsetHeight;
 
     if (bodyScrollTop > elemTopBound) {
       // If `elem` is outside of viewport (top edge is above top of viewport),
