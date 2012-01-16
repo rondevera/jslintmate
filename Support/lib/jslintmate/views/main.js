@@ -205,22 +205,17 @@ window.jslm = (function(w, d) {
     }, false);
   }());
 
-  // Handle link to bundle info
-  (function() {
-    var header = $qs('header');
-    if (!header) { return; }
+  // Handle external links
+  d.body.addEventListener('click', function(ev) { // delegate
+    var target = ev.target;
 
-    header.addEventListener('click', function(ev) { // delegate
-      var target = ev.target;
-
-      if (target.tagName.toLowerCase() === 'a' &&
-          (target.className === 'info' || target.className === 'update')
-        ) {
-        TextMate.system('open ' + target.href, null); // Open in browser
-        ev.preventDefault();
-      }
-    }, false);
-  }());
+    if (target.tagName.toLowerCase() === 'a' &&
+        target.href.indexOf('http') === 0
+      ) {
+      TextMate.system('open ' + target.href, null); // Open in browser
+      ev.preventDefault();
+    }
+  });
 
   // Set up keyboard shortcuts
   if ($qs('ul.problems')) {
