@@ -143,7 +143,7 @@ module JSLintMate
   end
 
   def self.link_to_issues(text='Report this')
-    %{<a href="#{ISSUES_URL}" class="report">#{text}</a>}
+    %{<a href="#{ISSUES_URL}" class="issues">#{text}</a>}
   end
 
   def self.error_to_text(error_data, options={})

@@ -202,7 +202,7 @@ p.error span.text {
   display: table-cell; /* Enables vertical centering */
   vertical-align: middle;
 }
-p.error span.text a.report {
+p.error span.text a.issues {
   display: table; /* inline-block + break */
   margin: 1em 0 0;
   padding: 0.375em 1.25em;
@@ -223,11 +223,11 @@ p.error span.text a.report {
     -webkit-transition: background 0.15s linear;
   transition:           background 0.15s linear;
 }
-p.error span.text a.report:hover,
-p.error span.text a.report:focus {
+p.error span.text a.issues:hover,
+p.error span.text a.issues:focus {
   background-color: #ddd;
 }
-p.error span.text a.report:active {
+p.error span.text a.issues:active {
   background-color: #bbb;
     -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25), 0 1px 0 rgba(255, 255, 255, 0.5);
   box-shadow:           inset 0 1px 2px rgba(0, 0, 0, 0.25), 0 1px 0 rgba(255, 255, 255, 0.5);
