@@ -79,7 +79,7 @@ module JSLintMate
           error_text << ' ' << JSLintMate.link_to_issues
         end
 
-        JSLintMate.error = error_text
+        JSLintMate.set_error(:html, error_text)
         return
       end
 
@@ -125,23 +125,23 @@ module JSLintMate
 
       # Stop if an error has already occurred, e.g., the linter file couldn't
       # be read
-      return if JSLintMate.error
+      return if JSLintMate.error?
 
       jsc_adapter_path = JSLintMate.lib_path('jsc.js')
 
       unless File.executable?(JSC_PATH)
-        JSLintMate.error = %{
+        JSLintMate.set_error(:html, %{
           Ack, sorry. JSC isn&rsquo;t running properly on this computer.
           #{JSLintMate.link_to_issues}
-        }
+        })
         return
       end
 
       unless File.readable?(jsc_adapter_path)
-        JSLintMate.error = %{
+        JSLintMate.set_error(:html, %{
           Argh, sorry. The linter output couldn&rsquo;t be formatted properly.
           #{JSLintMate.link_to_issues}
-        }
+        })
         return
       end
 
@@ -213,18 +213,18 @@ module JSLintMate
         end
 
       else # No filepath
-        JSLintMate.error = %{
+        JSLintMate.set_error(:html, %{
           Please save this file before #{self} can hurt your feelings.
-        }
+        })
       end
 
-      if JSLintMate.error
+      if JSLintMate.error_for(:html)
         template_locals.merge!(
           :desc    => 'Oops!',
           :notices => JSLintMate.notices,
           :results => %{
             <p class="error">
-              <span class="text">#{JSLintMate.error}</span>
+              <span class="text">#{JSLintMate.error_for(:html)}</span>
             </p>
           }
         )

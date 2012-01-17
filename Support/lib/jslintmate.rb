@@ -204,9 +204,34 @@ module JSLintMate
   def self.debug(text) ; add_notice(:debug, text) ; end
   def self.warn (text) ; add_notice(:warn,  text) ; end
 
-  def self.error ; @error ; end
-  def self.error=(text)
-    @error = text ? text.strip : ''
+  def self.error?
+    # Returns a truthy value if an error exists for any format.
+    @error_text && !@error_text.empty?
+  end
+
+  def self.error_for(format)
+    # Returns a string if an error exists for the given format, nil otherwise.
+
+    unless [:html, :text].include?(format)
+      raise ArgumentError,
+        'Errors can only be presented in :html or :text formats.' and return
+    end
+
+    @error_text if @error_format == format.to_sym
+  end
+
+  def self.set_error(format, text)
+    unless [:html, :text].include?(format)
+      raise ArgumentError,
+        'Errors can only be presented in :html or :text formats.' and return
+    end
+
+    @error_format = format
+    @error_text   = text.strip.gsub(/\s+/, ' ')
+  end
+
+  def self.clear_errors
+    @error_format = @error_text = nil
   end
 
   def self.render(output)
