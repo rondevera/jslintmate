@@ -123,6 +123,10 @@ module JSLintMate
       # (Mozilla's open-source JS engine). Reference:
       # <http://www.phpied.com/installing-rhino-on-mac/>
 
+      # Stop if an error has already occurred, e.g., the linter file couldn't
+      # be read
+      return if JSLintMate.error
+
       jsc_adapter_path = JSLintMate.lib_path('jsc.js')
 
       unless File.executable?(JSC_PATH)
