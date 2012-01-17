@@ -220,7 +220,7 @@ module JSLintMate
     @error_text if @error_format == format.to_sym
   end
 
-  def self.set_error(format, text)
+  def self.set_error_for(format, text)
     unless [:html, :text].include?(format)
       raise ArgumentError,
         'Errors can only be presented in :html or :text formats.' and return

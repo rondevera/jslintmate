@@ -64,7 +64,7 @@ module JSLintMate
         self.name = 'JSHint'
       else
         # User changed the quick mode linter to an invalid key
-        JSLintMate.set_error(:text, %{
+        JSLintMate.set_error_for(:text, %{
           Please set your TM_JSLINTMATE_DEFAULT_LINTER preference
           to 'jslint' or 'jshint'.
         })
@@ -82,7 +82,7 @@ module JSLintMate
           error_text << ' ' << JSLintMate.link_to_issues
         end
 
-        JSLintMate.set_error(:html, error_text)
+        JSLintMate.set_error_for(:html, error_text)
         return
       end
 
@@ -133,7 +133,7 @@ module JSLintMate
       jsc_adapter_path = JSLintMate.lib_path('jsc.js')
 
       unless File.executable?(JSC_PATH)
-        JSLintMate.set_error(:html, %{
+        JSLintMate.set_error_for(:html, %{
           Ack, sorry. JSC isn&rsquo;t running properly on this computer.
           #{JSLintMate.link_to_issues}
         })
@@ -141,7 +141,7 @@ module JSLintMate
       end
 
       unless File.readable?(jsc_adapter_path)
-        JSLintMate.set_error(:html, %{
+        JSLintMate.set_error_for(:html, %{
           Argh, sorry. The linter output couldn&rsquo;t be formatted properly.
           #{JSLintMate.link_to_issues}
         })
@@ -216,7 +216,7 @@ module JSLintMate
         end
 
       else # No filepath
-        JSLintMate.set_error(:html, %{
+        JSLintMate.set_error_for(:html, %{
           Please save this file before #{self} can hurt your feelings.
         })
       end
