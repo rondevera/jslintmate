@@ -77,7 +77,7 @@ module JSLintMate
       end
 
       # Read and parse options file
-      read_options_from_config_file
+      read_options_from_config_file(self)
     end
 
     def to_s; name; end

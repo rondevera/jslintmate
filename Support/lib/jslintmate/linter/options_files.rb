@@ -5,8 +5,18 @@ module JSLintMate
 
     # Supports reading linter options from a file.
     module OptionsFiles
+      DEFAULT_JSLINT_OPTIONS_FILE = '~/.jslintrc'
+      DEFAULT_JSHINT_OPTIONS_FILE = '~/.jshintrc'
 
-      def read_options_from_config_file
+      def default_options_file(linter_key)
+        path =  case linter_key
+                when :jslint then DEFAULT_JSLINT_OPTIONS_FILE
+                when :jshint then DEFAULT_JSHINT_OPTIONS_FILE
+                end
+        JSLintMate.expand_path(path)
+      end
+
+      def read_options_from_config_file(linter)
         # Sets `self.options_from_config_file` to a string representation of the
         # options in `self.config_file_path`.
 
@@ -32,11 +42,17 @@ module JSLintMate
           end
 
           if self.options_from_config_file.nil?
-            # TODO: Show error that the file cannot be parsed. Ignore if
-            #       file path is still set to the default.
+            JSLintMate.add_notice(:warn, %{
+              The options file "#{self.config_file_path}" could not be parsed.
+            })
           end
-        else
-          # TODO: Show warning that the file cannot be read
+        elsif self.config_file_path != default_options_file(linter.key)
+          # The options file cannot be read, so show a warning. However, not all
+          # users will use an options file, so only show the warning if its path
+          # has been changed from the default.
+          JSLintMate.add_notice(:warn, %{
+            The options file "#{self.config_file_path}" could not be read.
+          })
         end
       end
 
@@ -71,10 +87,10 @@ module JSLintMate
         # and contains YAML.
 
         # Verify YAML syntax with `YAML.load_file`
-        options_string = YAML.load_file(config_file_path)
+        options_hash = YAML.load_file(config_file_path)
 
         # Store options as a string, never as a hash
-        options_string = Linter.options_hash_to_string(options_from_config_file)
+        options_string = Linter.options_hash_to_string(options_hash)
         self.options_from_config_file = options_string
       end
 
