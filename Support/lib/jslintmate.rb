@@ -138,10 +138,12 @@ module JSLintMate
   end
 
   def self.link_to_website
-    %{
-      <a href="#{WEBSITE_URL}" class="info"
-        title="More info on JSLintMate #{version}">info</a>
-    }.strip.split.join(' ')
+    title = "More info on JSLintMate #{version}"
+    %{<a href="#{WEBSITE_URL}" class="info" title="#{title}">info</a>}
+  end
+
+  def self.link_to_issues(text='Report this')
+    %{<a href="#{ISSUES_URL}" class="report">#{text}</a>}
   end
 
   def self.error_to_text(error_data, options={})
