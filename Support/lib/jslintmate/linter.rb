@@ -67,8 +67,7 @@ module JSLintMate
         JSLintMate.set_error_for(:text, %{
           Please set your TM_JSLINTMATE_DEFAULT_LINTER preference
           to 'jslint' or 'jshint'.
-        })
-        return
+        }) and return
       end
 
       self.path = JSLintMate.expand_path(attrs[:path] || default_path)
@@ -82,8 +81,7 @@ module JSLintMate
           error_text << ' ' << JSLintMate.link_to_issues
         end
 
-        JSLintMate.set_error_for(:html, error_text)
-        return
+        JSLintMate.set_error_for(:html, error_text) and return
       end
 
       self.options_from_bundle       = attrs[:options_from_bundle] || ''
@@ -136,16 +134,14 @@ module JSLintMate
         JSLintMate.set_error_for(:html, %{
           Ack, sorry. JSC isn&rsquo;t running properly on this computer.
           #{JSLintMate.link_to_issues}
-        })
-        return
+        }) and return
       end
 
       unless File.readable?(jsc_adapter_path)
         JSLintMate.set_error_for(:html, %{
           Argh, sorry. The linter output couldn&rsquo;t be formatted properly.
           #{JSLintMate.link_to_issues}
-        })
-        return
+        }) and return
       end
 
       cmd = %{#{JSC_PATH} "#{self.path}" "#{jsc_adapter_path}" -- } <<
