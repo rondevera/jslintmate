@@ -236,6 +236,10 @@ module JSLintMate
     def get_short_output(filepath)
       return '' unless filepath
 
+      # If an error occurred pertaining to quick mode, return/abort
+      error = JSLintMate.error_for(:text)
+      return error if error
+
       problems_count = 0
       lint_preview = []
       lint_preview_max = 3
