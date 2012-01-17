@@ -242,7 +242,7 @@ module JSLintMate
     # Prepare `linter` instance
     args   = JSLintMate.args(ARGV)
     linter = JSLintMate::Linter.new(
-      :key  => args['linter'],
+      :key  => args['linter'] || 'jslint',
       :path => args['linter-file'],
       :options_from_bundle => args['linter-options'],
       :options_file_path   => args['linter-options-file']

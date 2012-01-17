@@ -55,17 +55,20 @@ module JSLintMate
     ### Instance methods ###
 
     def initialize(attrs)
-      attrs[:key] ||= :jslint
-
-      case attrs[:key].to_sym
-      when :jslint
+      case attrs[:key].to_s
+      when 'jslint'
         self.key  = :jslint
         self.name = 'JSLint'
-      when :jshint
+      when 'jshint'
         self.key  = :jshint
         self.name = 'JSHint'
       else
-        raise ArgumentError, 'Invalid key. Expected `:jslint` or `:jshint`.'
+        # User changed the quick mode linter to an invalid key
+        JSLintMate.set_error(:text, %{
+          Please set your TM_JSLINTMATE_DEFAULT_LINTER preference
+          to 'jslint' or 'jshint'.
+        })
+        return
       end
 
       self.path = JSLintMate.expand_path(attrs[:path] || default_path)
