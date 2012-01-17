@@ -54,8 +54,8 @@ module JSLintMate
 
     ### Instance methods ###
 
-    def initialize(attrs)
-      case attrs[:key].to_s
+    def initialize(key, attrs={})
+      case key.to_s
       when 'jslint'
         self.key  = :jslint
         self.name = 'JSLint'
