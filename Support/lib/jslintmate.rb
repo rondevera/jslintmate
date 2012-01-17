@@ -220,7 +220,7 @@ module JSLintMate
       :key  => args['linter'],
       :path => args['linter-file'],
       :options_from_bundle => args['linter-options'],
-      :config_file_path    => args['linter-options-file']
+      :options_file_path   => args['linter-options-file']
     )
     filepath = JSLintMate.expand_path(args['file'] || ENV['TM_FILEPATH'])
     format   = args['format']

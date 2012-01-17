@@ -21,8 +21,8 @@ module JSLintMate
       :name,    # 'JSLint' or 'JSHint'
       :path,    # Path to the linter JS file
       :options_from_bundle,       # JSON string of bundle options, if any
-      :options_from_config_file,  # JSON string of config file options, if any
-      :config_file_path           # Path to config file, if any
+      :options_from_options_file, # JSON string of options file options, if any
+      :options_file_path          # Path to options file, if any
     )
 
     # N.B.: Linter options are stored as strings, never hashes. Strings are
@@ -83,9 +83,9 @@ module JSLintMate
         return
       end
 
-      self.options_from_bundle      = attrs[:options_from_bundle] || ''
-      self.options_from_config_file = ''
-      self.config_file_path         = attrs[:config_file_path]
+      self.options_from_bundle       = attrs[:options_from_bundle] || ''
+      self.options_from_options_file = ''
+      self.options_file_path         = attrs[:options_file_path]
 
       # Wrap bundle options in braces to better approximate JSON
       if options_from_bundle[0] != '{' && options_from_bundle[-1] != '}'
@@ -93,7 +93,7 @@ module JSLintMate
       end
 
       # Read and parse options file
-      read_options_from_config_file(self)
+      read_options_from_options_file(self)
     end
 
     def to_s; name; end
@@ -144,9 +144,9 @@ module JSLintMate
       cmd = %{#{JSC_PATH} "#{self.path}" "#{jsc_adapter_path}" -- } <<
               %{"$(cat "#{filepath}")"} << ' ' <<
               build_command_options(
-                '--linter-options-from-defaults'    => Linter.default_options,
-                '--linter-options-from-bundle'      => options_from_bundle,
-                '--linter-options-from-config-file' => options_from_config_file
+                '--linter-options-from-defaults'     => Linter.default_options,
+                '--linter-options-from-bundle'       => options_from_bundle,
+                '--linter-options-from-options-file' => options_from_options_file
               )
 
       `#{cmd}`

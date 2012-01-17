@@ -85,7 +85,7 @@ Copyright (c) 2009 Apple Inc.
       // Convert known linter options to hashes
       switch (key) {
         case '--linter-options-from-bundle':
-        case '--linter-options-from-config-file':
+        case '--linter-options-from-options-file':
         case '--linter-options-from-defaults':
           value = optionsStringToHash(value); break;
       }
@@ -100,7 +100,7 @@ Copyright (c) 2009 Apple Inc.
     copyProperties(linterOptions,
       options['--linter-options-from-bundle']);
     copyProperties(linterOptions,
-      options['--linter-options-from-config-file']);  // <- highest
+      options['--linter-options-from-options-file']); // <- highest
       // The linter options in the target file override these
       // (i.e., have top precedence).
 
@@ -132,7 +132,7 @@ Copyright (c) 2009 Apple Inc.
   if (!filename) {
     print('Usage: jsc (jslint|jshint).js jsc.js -- "$(cat myFile.js)"' +
           ' [--linter-options-from-bundle=\'a:1,b:[2,3]\']' +
-          ' [--linter-options-from-config-file=\'c:4,d:{e:5,f:6}\']' +
+          ' [--linter-options-from-options-file=\'c:4,d:{e:5,f:6}\']' +
           ' [--linter-options-from-defaults=\'g:7\']');
     quit(1);
   }

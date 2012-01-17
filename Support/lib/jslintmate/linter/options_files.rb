@@ -16,19 +16,19 @@ module JSLintMate
         JSLintMate.expand_path(path)
       end
 
-      def read_options_from_config_file(linter)
-        # Sets `self.options_from_config_file` to a string representation of the
-        # options in `self.config_file_path`.
+      def read_options_from_options_file(linter)
+        # Sets `self.options_from_options_file` to a string representation of
+        # the options in `self.options_file_path`.
 
-        return unless self.config_file_path
+        return unless self.options_file_path
 
-        if File.readable?(config_file_path)
+        if File.readable?(options_file_path)
           # Determine order for testing file formats
           parsing_strategies = {
             :json => Proc.new { read_options_from_json_file },
             :yaml => Proc.new { read_options_from_yaml_file }
           }
-          formats = (possible_config_file_format == :json ?
+          formats = (possible_options_file_format == :json ?
             [:json, :yaml] : [:yaml, :json]
           )
 
@@ -41,32 +41,32 @@ module JSLintMate
             end
           end
 
-          if self.options_from_config_file.nil?
+          if self.options_from_options_file.nil?
             JSLintMate.warn(%{
-              The options file "#{self.config_file_path}" could not be parsed.
+              The options file "#{self.options_file_path}" could not be parsed.
             })
           end
-        elsif self.config_file_path != default_options_file(linter.key)
+        elsif self.options_file_path != default_options_file(linter.key)
           # The options file cannot be read, so show a warning. However, not all
           # users will use an options file, so only show the warning if its path
           # has been changed from the default.
           JSLintMate.warn(%{
-            The options file "#{self.config_file_path}" could not be read.
+            The options file "#{self.options_file_path}" could not be read.
           })
         end
       end
 
-      def possible_config_file_format
-        # Guesses (but does *not* guarantee) the format of `config_file_path`,
+      def possible_options_file_format
+        # Guesses (but does *not* guarantee) the format of `options_file_path`,
         # then returns `:yaml` or `:json`. Assumes that the file is readable.
 
         # Check file extension
-        case File.extname(config_file_path)
+        case File.extname(options_file_path)
         when '.js', 'json'    then return :json
         when '.yml', '.yaml'  then return :yaml
         end
 
-        file_contents = File.read(config_file_path).strip
+        file_contents = File.read(options_file_path).strip
 
         # Check first file character
         case file_contents[0, 1]          # Include `,1` for Ruby 1.8.x compat
@@ -82,33 +82,33 @@ module JSLintMate
       end
 
       def read_options_from_yaml_file
-        # Sets `self.options_from_config_file` to a string representation of the
-        # options in `self.config_file_path`. Assumes that the file is readable
-        # and contains YAML.
+        # Sets `self.options_from_options_file` to a string representation of
+        # the options in `self.options_file_path`. Assumes that the file is
+        # readable and contains YAML.
 
         # Verify YAML syntax with `YAML.load_file`
-        options_hash = YAML.load_file(config_file_path)
+        options_hash = YAML.load_file(options_file_path)
 
         # Store options as a string, never as a hash
         options_string = Linter.options_hash_to_string(options_hash)
-        self.options_from_config_file = options_string
+        self.options_from_options_file = options_string
       end
 
       def read_options_from_json_file
-        # Sets `self.options_from_config_file` to a string representation of the
-        # options in `self.config_file_path`. Assumes that the file is readable
-        # and contains JSON or evaluates to a JS object.
+        # Sets `self.options_from_options_file` to a string representation of
+        # the options in `self.options_file_path`. Assumes that the file is
+        # readable and contains JSON or evaluates to a JS object.
 
         # Convert JS file (containing valid JSON or JS, including comments) to
         # a JSON string
         cmd = %{#{JSC_PATH} -e 'print(JSON.stringify(eval(arguments[0])))' } <<
-              %{-- "($(cat "#{config_file_path}"))"}
+              %{-- "($(cat "#{options_file_path}"))"}
           # => `./jsc -e 'print(...)' -- "path/to/options.json"`
         options_string = `#{cmd}`
         cmd_status = $?
 
         if cmd_status.success?
-          self.options_from_config_file = options_string
+          self.options_from_options_file = options_string
         else
           raise ArgumentError, 'JSON options file could not be parsed'
         end
