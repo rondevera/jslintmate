@@ -227,26 +227,26 @@ module JSLintMate
       lint_preview = []
       lint_preview_max = 3
       output = ''
-
-      # Get lint data
       lint = get_lint_for_filepath(filepath)
 
-      # Format errors, if any
-      lint.scan(Linter::LINT_REGEXP) do |match|
-        line, column, desc, code = $2, $3, $4, $5
+      if lint
+        # Format errors, if any
+        lint.scan(Linter::LINT_REGEXP) do |match|
+          line, column, desc, code = $2, $3, $4, $5
 
-        # Increment problem counter unless this error is actually a linter
-        # alert, which has no code snippet
-        problems_count += 1 if code
+          # Increment problem counter unless this error is actually a linter
+          # alert, which has no code snippet
+          problems_count += 1 if code
 
-        if problems_count <= lint_preview_max
-          lint_preview << {:filepath => filepath, :line => line, :desc => desc}
+          if problems_count <= lint_preview_max
+            lint_preview << {:filepath => filepath, :line => line, :desc => desc}
+          end
         end
-      end
 
-      # Format unused variables, if any
-      lint.scan(Linter::UNUSED_VAR_REGEXP) do |match|
-        problems_count += 1
+        # Format unused variables, if any
+        lint.scan(Linter::UNUSED_VAR_REGEXP) do |match|
+          problems_count += 1
+        end
       end
 
       if problems_count == 0
