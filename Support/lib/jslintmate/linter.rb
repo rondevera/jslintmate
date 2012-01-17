@@ -55,16 +55,33 @@ module JSLintMate
     ### Instance methods ###
 
     def initialize(attrs)
-      if attrs[:key] && attrs[:key].to_sym == :jshint
+      attrs[:key] ||= :jslint
+
+      case attrs[:key].to_sym
+      when :jslint
+        self.key  = :jslint
+        self.name = 'JSLint'
+      when :jshint
         self.key  = :jshint
         self.name = 'JSHint'
       else
-        self.key  = :jslint
-        self.name = 'JSLint'
+        raise ArgumentError, 'Invalid key. Expected `:jslint` or `:jshint`.'
       end
 
-      self.path = [attrs[:path], default_path].
-                    detect { |path| path && File.readable?(path) }
+      self.path = JSLintMate.expand_path(attrs[:path] || default_path)
+
+      # Validate linter path
+      unless File.readable?(self.path)
+        error_text = %{The linter "#{self.path}" couldn&rsquo;t be read.}
+
+        if self.path == default_path
+          # Probably isn't the user's fault, so encourage reporting this bug.
+          error_text << ' ' << JSLintMate.link_to_issues
+        end
+
+        JSLintMate.error = error_text
+        return
+      end
 
       self.options_from_bundle      = attrs[:options_from_bundle] || ''
       self.options_from_config_file = ''
@@ -121,18 +138,6 @@ module JSLintMate
           Argh, sorry. The linter output couldn&rsquo;t be formatted properly.
           #{JSLintMate.link_to_issues}
         }
-        return
-      end
-
-      unless File.readable?(self.path)
-        error_text = %{The linter "#{self.path}" couldn&rsquo;t be read.}
-
-        if self.path != default_path
-          # Probably isn't the user's fault, so encourage reporting this bug.
-          error_text << ' ' << JSLintMate.link_to_issues
-        end
-
-        JSLintMate.error = error_text
         return
       end
 

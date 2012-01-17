@@ -185,6 +185,7 @@ module JSLintMate
     # `/Users/<username>/.jslintrc`,
     # `/Users/<username>/Projects/<project>/config/jslint.yml`).
 
+    path = path.dup
     %w[
       TM_BUNDLE_SUPPORT
       TM_DIRECTORY
@@ -204,7 +205,9 @@ module JSLintMate
   def self.warn (text) ; add_notice(:warn,  text) ; end
 
   def self.error ; @error ; end
-  def self.error=(text) ; @error = text.strip ; end
+  def self.error=(text)
+    @error = text ? text.strip : ''
+  end
 
   def self.render(output)
     print(output) unless ENV['ENV'] == 'test'
@@ -222,7 +225,7 @@ linter = JSLintMate::Linter.new(
   :options_from_bundle => args['linter-options'],
   :config_file_path    => args['linter-options-file']
 )
-filepath = args['file'] || ENV['TM_FILEPATH']
+filepath = JSLintMate.expand_path(args['file'] || ENV['TM_FILEPATH'])
 format   = args['format']
 
 # Show results
