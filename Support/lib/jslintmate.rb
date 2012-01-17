@@ -213,29 +213,31 @@ module JSLintMate
     print(output) unless ENV['ENV'] == 'test'
   end
 
+  def self.start!
+    # Prepare `linter` instance
+    args   = JSLintMate.args(ARGV)
+    linter = JSLintMate::Linter.new(
+      :key  => args['linter'],
+      :path => args['linter-file'],
+      :options_from_bundle => args['linter-options'],
+      :config_file_path    => args['linter-options-file']
+    )
+    filepath = JSLintMate.expand_path(args['file'] || ENV['TM_FILEPATH'])
+    format   = args['format']
+
+    # Show results
+    if format == 'short'
+      # Render short string for tooltip
+      result = linter.get_short_output(filepath)
+      JSLintMate.render(result) if result
+    else
+      # Render HTML for popup/panel
+      result = linter.get_html_output(filepath)
+      template = ERB.new(JSLintMate.html)
+      JSLintMate.render template.result(binding)
+    end
+  end
+
 end # module JSLintMate
 
-
-
-# Prepare `linter` instance
-args   = JSLintMate.args(ARGV)
-linter = JSLintMate::Linter.new(
-  :key  => args['linter'],
-  :path => args['linter-file'],
-  :options_from_bundle => args['linter-options'],
-  :config_file_path    => args['linter-options-file']
-)
-filepath = JSLintMate.expand_path(args['file'] || ENV['TM_FILEPATH'])
-format   = args['format']
-
-# Show results
-if format == 'short'
-  # Render short string for tooltip
-  result = linter.get_short_output(filepath)
-  JSLintMate.render(result) if result
-else
-  # Render HTML for popup/panel
-  result = linter.get_html_output(filepath)
-  template = ERB.new(JSLintMate.html)
-  JSLintMate.render template.result(binding)
-end
+JSLintMate.start!
