@@ -34,9 +34,13 @@ body {
 
 /*** Header ***/
 
-header div.info {
+header {
   position: relative;
-  display: block;
+    -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+  box-shadow:           0 2px 5px rgba(0, 0, 0, 0.25);
+  z-index: 9;
+}
+header div.info {
   height: 2em;
   padding: 1em 0.875em 0.333em;
   background: -webkit-gradient(linear, left top, left bottom, from(#333), color-stop(0.5, #191919), color-stop(0.5, #090909), to(#090909));
@@ -44,12 +48,9 @@ header div.info {
   background:         linear-gradient(top, #333, 0.5 #191919, 0.5 #090909, #090909);
   border-top: 1px solid #555;
   border-bottom: 1px solid #333;
-    -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
-  box-shadow:           0 2px 5px rgba(0, 0, 0, 0.25);
   color: #fff;
   font-size: 1.5em;
   text-shadow: 0 -1px 1px #000;
-  z-index: 9;
 }
 header div.info.has-filepath {
   padding-top: 0.667em;
