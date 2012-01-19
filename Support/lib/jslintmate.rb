@@ -54,9 +54,11 @@ module JSLintMate
     # preferences, and the bundle's defaults.
 
     args = JSLintMate.args_to_hash(args_string)
-    use_jshint = args['linter'] == 'jshint'
 
     # Merge with defaults
+    args['file']   ||= ENV['TM_FILEPATH']
+    args['linter'] ||= 'jslint'
+    use_jshint     = args['linter'] == 'jshint'
     args['linter-file'] ||= use_jshint ?
       ENV['TM_JSLINTMATE_JSHINT_FILE'].dup :
       ENV['TM_JSLINTMATE_JSLINT_FILE'].dup
@@ -65,6 +67,7 @@ module JSLintMate
       ENV['TM_JSLINTMATE_JSLINT_OPTIONS_FILE'].dup
 
     # Expand file paths
+    args['file'] = JSLintMate.expand_path(args['file'])
     args['linter-file'] = JSLintMate.expand_path(args['linter-file'])
     args['linter-options-file'] =
       JSLintMate.expand_path(args['linter-options-file'])
@@ -242,12 +245,12 @@ module JSLintMate
     # Prepare `linter` instance
     args   = JSLintMate.args(ARGV)
     linter = JSLintMate::Linter.new(
-      args['linter'] || 'jslint',
+      args['linter'],
       :path => args['linter-file'],
       :options_from_bundle => args['linter-options'],
       :options_file_path   => args['linter-options-file']
     )
-    filepath = JSLintMate.expand_path(args['file'] || ENV['TM_FILEPATH'])
+    filepath = JSLintMate.expand_path(args['file'])
     format   = args['format']
 
     # Show results
