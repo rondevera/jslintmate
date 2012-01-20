@@ -73,7 +73,7 @@ module JSLintMate
       self.path = JSLintMate.expand_path(attrs[:path] || default_path)
 
       # Validate linter path
-      unless File.readable?(self.path)
+      if !JSLintMate.file_readable?(self.path)
         error_text = %{The linter "#{self.path}" couldn&rsquo;t be read.}
 
         if self.path == default_path
@@ -137,7 +137,7 @@ module JSLintMate
         }) and return
       end
 
-      unless File.readable?(jsc_adapter_path)
+      unless JSLintMate.file_readable?(jsc_adapter_path)
         JSLintMate.set_error_for(:html, %{
           Argh, sorry. The linter output couldn&rsquo;t be formatted properly.
           #{JSLintMate.link_to_issues}

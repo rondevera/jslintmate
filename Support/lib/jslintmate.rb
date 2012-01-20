@@ -133,6 +133,10 @@ module JSLintMate
     end
   end
 
+  def self.file_readable?(path)
+    File.file?(path) && File.readable?(path)
+  end
+
   def self.html ; File.read views_path('main.html.erb') ; end
   def self.css  ; File.read views_path('main.css')      ; end
   def self.js

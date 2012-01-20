@@ -22,7 +22,7 @@ module JSLintMate
 
         return unless self.options_file_path
 
-        if File.readable?(options_file_path)
+        if JSLintMate.file_readable?(options_file_path)
           # Determine order for testing file formats
           parsing_strategies = {
             :json => Proc.new { read_options_from_json_file },
