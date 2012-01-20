@@ -12,16 +12,18 @@
 #   --file                  '/path/to/my-file.js'; defaults to
 #                           `ENV['TM_FILEPATH']`
 #   --linter                'jslint' (default) or 'jshint'
-#   --linter-file           '/path/to/jslint.js' or '/path/to/jshint.js'
-#   --linter-options        Format: 'option1:value1,option2:value'
-#   --linter-options-file   '/path/to/config/jslint.yml'
+#   --linter-file           [deprecated] '/path/to/jslint.js' or
+#                           '/path/to/jshint.js'
+#   --linter-options        [deprecated] Format: 'option1:value1,option2:value'
+#   --linter-options-file   [deprecated] '/path/to/config/jslint.yml'
 #
 # Options precedence:
 #
 #   1.  Highest precedence: In-file options, e.g.,
 #       `/*jslint browser: true, ... */`
-#   2.  Options file (via `--linter-options-file`)
-#   3.  Custom bundle preferences (via `--linter-options`)
+#   2.  Options file (via `TM_JSLINTMATE_JSLINT_OPTIONS_FILE` or
+#       `TM_JSLINTMATE_JSHINT_OPTIONS_FILE`)
+#   3.  [deprecated] Custom bundle preferences (via `--linter-options`)
 #   4.  Default bundle preferences (via `JSLintMate::Linter.default_options`)
 #
 # To update jslint.js and jshint.js:
@@ -40,6 +42,7 @@ require 'jslintmate/notice'
 module JSLintMate
   WEBSITE_URL = 'http://rondevera.github.com/jslintmate'
   ISSUES_URL  = 'https://github.com/rondevera/jslintmate/issues'
+  README_URL  = 'https://github.com/rondevera/jslintmate/#readme'
 
   def self.version
     @version ||= begin
@@ -53,7 +56,13 @@ module JSLintMate
     # Returns a hash of arguments based on `args_string`, the bundle's
     # preferences, and the bundle's defaults.
 
-    args = JSLintMate.args_to_hash(args_string)
+    args = args_to_hash(args_string)
+
+    # Add deprecation warnings
+    deprecate_arg(args, 'file')
+    deprecate_arg(args, 'linter-file',         'Linters')
+    deprecate_arg(args, 'linter-options',      'Options Files')
+    deprecate_arg(args, 'linter-options-file', 'Linters')
 
     # Merge with defaults
     args['file']   ||= ENV['TM_FILEPATH']
@@ -82,6 +91,22 @@ module JSLintMate
       k, v = s.split('=', 2)
       k.sub!(/^--/, '')
       hsh.merge(k => v)
+    end
+  end
+
+  def self.deprecate_arg(args, deprecated_arg_name, prefs_name=nil)
+    if args[deprecated_arg_name]
+      warning = %{
+        The <code>--#{deprecated_arg_name}</code> option is deprecated, and will
+        be removed in a future version.
+      }.strip!
+      if prefs_name
+        warning << %{
+          Use the &ldquo;#{prefs_name}&rdquo; preferences instead;
+          <a href="#{README_URL}">read the instructions</a> for details.
+        }.strip!
+      end
+      JSLintMate.warn(warning)
     end
   end
 
@@ -201,12 +226,15 @@ module JSLintMate
     File.expand_path(path)
   end
 
-  def self.notices ; @notices ; end
+  def self.notices ; @notices ||= [] ; end
 
   def self.add_notice(type, text)
     @notices ||= []
-    @notices << Notice.new(type, text.strip)
+    notice = Notice.new(type, text.strip)
+    @notices << notice unless @notices.map(&:text).include?(notice.text)
   end
+
+  def self.clear_notices ; @notices = [] ; end
 
   def self.debug(text) ; add_notice(:debug, text) ; end
   def self.warn (text) ; add_notice(:warn,  text) ; end
