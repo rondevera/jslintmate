@@ -73,8 +73,9 @@ module JSLintMate
       self.path = JSLintMate.expand_path(attrs[:path] || default_path)
 
       # Validate linter path
-      if !JSLintMate.file_readable?(self.path)
-        error_text = %{The linter "#{self.path}" couldn&rsquo;t be read.}
+      unless JSLintMate.file_readable?(self.path)
+        error_text =
+          %{The linter &ldquo;#{self.path}&rdquo; couldn&rsquo;t be read.}
 
         if self.path == default_path
           # Probably isn't the user's fault, so encourage reporting this bug.
@@ -134,6 +135,13 @@ module JSLintMate
         JSLintMate.set_error_for(:html, %{
           Ack, sorry. JSC isn&rsquo;t running properly on this computer.
           #{JSLintMate.link_to_issues}
+        }) and return
+      end
+
+      unless JSLintMate.file_readable?(filepath)
+        JSLintMate.set_error_for(:html, %{
+          The file &ldquo;#{filepath}&rdquo; couldn&rsquo;t be read. Please
+          check that it&rsquo;s saved properly and try again.
         }) and return
       end
 
