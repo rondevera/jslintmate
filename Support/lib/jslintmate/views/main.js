@@ -50,7 +50,7 @@ window.jslm = (function(w, d) {
 
   /*** Navigation > Scrolling ***/
 
-  nav.scrollingContainer = $qs('ul.problems');
+  nav.scrollingContainer = $qs('div.results');
   nav.scrollTo = function(y) {
     // Usage:
     // - `nav.scrollTo(0)`    // => scroll to top
@@ -158,14 +158,8 @@ window.jslm = (function(w, d) {
 
   /*** Appearance ***/
 
-  // Push problems (if any) below header and notices
-  (function() {
-    var problemsList = $qs('ul.problems');
-
-    if (problemsList) {
-      problemsList.style.top = nav.headerHeight() + 'px';
-    }
-  }());
+  // Push results (success/error/problems) below header and notices
+  $qs('div.results').style.top = nav.headerHeight() + 'px';
 
   // Add styling hook to `<html>`:
   if (support.css.insetBoxShadow) {
