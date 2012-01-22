@@ -217,6 +217,8 @@ module JSLintMate
     # `/Users/<username>/.jslintrc`,
     # `/Users/<username>/Projects/<project>/config/jslint.yml`).
 
+    return '' if path.nil? || path == ''
+
     path = path.dup
     %w[
       TM_BUNDLE_SUPPORT

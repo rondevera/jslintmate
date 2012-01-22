@@ -138,7 +138,11 @@ module JSLintMate
         }) and return
       end
 
-      unless JSLintMate.file_readable?(filepath)
+      if filepath.nil? || filepath == ''
+        JSLintMate.set_error_for(:html, %{
+          Please save this file before #{self} can hurt your feelings.
+        }) and return
+      elsif !JSLintMate.file_readable?(filepath)
         JSLintMate.set_error_for(:html, %{
           The file &ldquo;#{filepath}&rdquo; couldn&rsquo;t be read. Please
           check that it&rsquo;s saved properly and try again.
@@ -167,62 +171,55 @@ module JSLintMate
       results_template = ERB.new(File.read(
         JSLintMate.views_path('results.html.erb')))
       template_locals = {}
+      problems_count = 0
+      lint = get_lint_for_filepath(filepath)
 
-      if filepath
-        problems_count = 0
-        lint = get_lint_for_filepath(filepath)
+      if lint
         template_locals[:filepath] = filepath
 
-        if lint
-          # Format errors, if any
-          lint.gsub!(Linter::LINT_REGEXP) do
-            line, column, desc, code = $2, $3, $4, $5
+        # Format errors, if any
+        lint.gsub!(Linter::LINT_REGEXP) do
+          line, column, desc, code = $2, $3, $4, $5
 
-            # Increment problem counter unless this error is actually a linter
-            # alert, which has no code snippet
-            problems_count += 1 if code
+          # Increment problem counter unless this error is actually a linter
+          # alert, which has no code snippet
+          problems_count += 1 if code
 
-            JSLintMate.error_to_html(
-              :filepath => filepath,
-              :line     => line,
-              :column   => column,
-              :desc     => desc,
-              :code     => code
-            )
-          end
-
-          # Format unused variables, if any
-          lint.gsub!(Linter::UNUSED_VAR_REGEXP) do
-            line, code = $1, $2
-
-            problems_count += 1
-
-            JSLintMate.error_to_html(
-              :filepath => filepath,
-              :line     => line,
-              :code     => code,
-              :desc     => 'Unused variable.'
-            )
-          end
-
-          template_locals[:notices] = JSLintMate.notices
-          if problems_count == 0
-            template_locals.merge!(
-              :desc     => 'Lint-free!', # Douglas Crockford would be so proud.
-              :results  => %{<p class="success">Lint-free!</p>}
-            )
-          else
-            template_locals.merge!(
-              :desc     => "Problem#{'s' if problems_count > 1} found in:",
-              :results  => %{<ul class="problems">#{lint}</ul>}
-            )
-          end
+          JSLintMate.error_to_html(
+            :filepath => filepath,
+            :line     => line,
+            :column   => column,
+            :desc     => desc,
+            :code     => code
+          )
         end
 
-      else # No filepath
-        JSLintMate.set_error_for(:html, %{
-          Please save this file before #{self} can hurt your feelings.
-        })
+        # Format unused variables, if any
+        lint.gsub!(Linter::UNUSED_VAR_REGEXP) do
+          line, code = $1, $2
+
+          problems_count += 1
+
+          JSLintMate.error_to_html(
+            :filepath => filepath,
+            :line     => line,
+            :code     => code,
+            :desc     => 'Unused variable.'
+          )
+        end
+
+        template_locals[:notices] = JSLintMate.notices
+        if problems_count == 0
+          template_locals.merge!(
+            :desc     => 'Lint-free!', # Douglas Crockford would be so proud.
+            :results  => %{<p class="success">Lint-free!</p>}
+          )
+        else
+          template_locals.merge!(
+            :desc     => "Problem#{'s' if problems_count > 1} found in:",
+            :results  => %{<ul class="problems">#{lint}</ul>}
+          )
+        end
       end
 
       if JSLintMate.error_for(:html)
