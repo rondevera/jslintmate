@@ -316,6 +316,9 @@ ul.problems a {
   text-decoration: none;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
 }
+ul.problems li:first-child a {
+  border-top: 0; /* Original bright border clashes with header shadow. */
+}
 ul.problems a:active {
   background: -webkit-gradient(linear, left top, left bottom,
                                       from(#dcdcdc), to(#c2c2c2));
