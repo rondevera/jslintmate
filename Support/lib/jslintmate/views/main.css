@@ -135,6 +135,15 @@ header div.info a.info:hover,
 header div.info a.info:focus {
   background-color: rgba(255, 255, 255, 0.25);
 }
+@media screen and (max-height: 350px) {
+  /* For single-window panel view */
+  header div.info {
+    height: 1.25em;
+  }
+  header div.info .filepath {
+    display: none;
+  }
+}
 header ul.notices {
   margin: 0;
   padding: 0;
