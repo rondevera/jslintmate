@@ -216,7 +216,7 @@ module JSLintMate
           )
         else
           template_locals.merge!(
-            :desc     => "Problem#{'s' if problems_count > 1} found in:",
+            :desc     => "Problem#{'s' if problems_count > 1} found:",
             :results  => %{<ul class="problems">#{lint}</ul>}
           )
         end
