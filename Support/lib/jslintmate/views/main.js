@@ -42,10 +42,7 @@ window.jslm = (function(w, d) {
   /*** Navigation ***/
 
   nav.headerHeight = function() {
-    if (typeof nav.headerHeight._value === 'undefined') {
-      nav.headerHeight._value = $qs('header').offsetHeight;
-    }
-    return nav.headerHeight._value;
+    return $qs('header').offsetHeight;
   };
 
   /*** Navigation > Scrolling ***/
@@ -159,7 +156,23 @@ window.jslm = (function(w, d) {
   /*** Appearance ***/
 
   // Push results (success/error/problems) below header and notices
-  $qs('div.results').style.top = nav.headerHeight() + 'px';
+  (function() {
+    var resizeTimeout;
+
+    function repositionResults() {
+      $qs('div.results').style.top = nav.headerHeight() + 'px';
+      resizeTimeout = null;
+    }
+
+    repositionResults();
+
+    window.addEventListener('resize', function() {
+      // Throttle resize events
+      if (!resizeTimeout) {
+        resizeTimeout = setTimeout(repositionResults, 100);
+      }
+    }, false);
+  }());
 
   // Add styling hook to `<html>`:
   if (support.css.insetBoxShadow) {
