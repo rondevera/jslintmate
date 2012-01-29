@@ -54,6 +54,12 @@ window.jslm = (function(w, d) {
     // - `nav.scrollTo(100)`  // => scroll to 100px from top
     nav.scrollingContainer.scrollTop = y;
   };
+  nav.scrollToTop = function() {
+    nav.scrollTo(0);
+  };
+  nav.scrollToBottom = function() {
+    nav.scrollTo(nav.scrollingContainer.scrollHeight);
+  };
   nav.scrollToShowElement = function(elem) {
     elem = $qs('ul.problems li.' + nav.CUR + ' + li.alert') || elem;
       // If the next element is an alert (not selectable), use its bottom edge
@@ -238,6 +244,10 @@ window.jslm = (function(w, d) {
           nav.highlightPrev();   ev.preventDefault(); break;
         case 27: // escape
           nav.highlightNone();   ev.preventDefault(); break;
+        case 36: // home
+          nav.scrollToTop();     ev.preventDefault(); break;
+        case 35: // end
+          nav.scrollToBottom();  ev.preventDefault(); break;
       }
     }, false);
   }
