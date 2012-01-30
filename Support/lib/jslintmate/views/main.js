@@ -60,6 +60,24 @@ window.jslm = (function(w, d) {
   nav.scrollToBottom = function() {
     nav.scrollTo(nav.scrollingContainer.scrollHeight);
   };
+  nav.scrollByPage = function(numPages) {
+    // Usage:
+    // - `nav.scrollByPage(2)`  // scroll down (forward) by two pages
+    // - `nav.scrollByPage(-2)` // scroll up (backward) by two pages
+
+    var container       = nav.scrollingContainer,
+        currentPosition = container.scrollTop,
+        pageHeight      = container.offsetHeight,
+        itemHeight      = container.querySelector('li').offsetHeight + 1,
+                            // `+ 1`: Border width
+        pageIncrement   = itemHeight * Math.floor(pageHeight / itemHeight);
+                            // `Math.floor`: After scrolling, the first item in
+                            // view should be completely visible, not partially.
+
+    nav.scrollTo(currentPosition + (numPages * pageIncrement));
+  };
+  nav.scrollToNextPage = function() { nav.scrollByPage( 1); };
+  nav.scrollToPrevPage = function() { nav.scrollByPage(-1); };
   nav.scrollToShowElement = function(elem) {
     elem = $qs('ul.problems li.' + nav.CUR + ' + li.alert') || elem;
       // If the next element is an alert (not selectable), use its bottom edge
@@ -235,19 +253,23 @@ window.jslm = (function(w, d) {
     d.addEventListener('keydown', function(ev) {
       switch (ev.keyCode) {
         case 13: // enter
-          nav.openHighlighted(); ev.preventDefault(); break;
+          nav.openHighlighted();  ev.preventDefault(); break;
         case 40: // down arrow
         case 74: // 'j'
-          nav.highlightNext();   ev.preventDefault(); break;
+          nav.highlightNext();    ev.preventDefault(); break;
         case 38: // up arrow
         case 75: // 'k'
-          nav.highlightPrev();   ev.preventDefault(); break;
+          nav.highlightPrev();    ev.preventDefault(); break;
         case 27: // escape
-          nav.highlightNone();   ev.preventDefault(); break;
+          nav.highlightNone();    ev.preventDefault(); break;
         case 36: // home
-          nav.scrollToTop();     ev.preventDefault(); break;
+          nav.scrollToTop();      ev.preventDefault(); break;
         case 35: // end
-          nav.scrollToBottom();  ev.preventDefault(); break;
+          nav.scrollToBottom();   ev.preventDefault(); break;
+        case 33: // page up
+          nav.scrollToPrevPage(); ev.preventDefault(); break;
+        case 34: // page down
+          nav.scrollToNextPage(); ev.preventDefault(); break;
       }
     }, false);
   }
