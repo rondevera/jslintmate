@@ -52,7 +52,57 @@ window.jslm = (function(w, d) {
     // Usage:
     // - `nav.scrollTo(0)`    // => scroll to top
     // - `nav.scrollTo(100)`  // => scroll to 100px from top
-    nav.scrollingContainer.scrollTop = y;
+
+    var container   = nav.scrollingContainer,
+        oldPosition = container.scrollTop,
+        newPosition = y,
+        duration    = 200, // milliseconds
+        msPerFrame  = 20,
+        frame, frames;
+
+    nav.clearScrollTimeouts();
+
+    // Check if content is scrollable
+    if (container.scrollHeight <= container.offsetHeight) {
+      return;
+    }
+
+    frames = Math.floor(duration / msPerFrame);
+    for (frame = 0; frame <= frames; frame++) {
+      nav.scrollTimeouts[frame] = setTimeout(
+        nav.getScrollTimeoutCallback({
+          frame:       frame,
+          frames:      frames,
+          oldPosition: oldPosition,
+          newPosition: newPosition
+        }),
+        frame * msPerFrame
+      );
+    }
+  };
+  nav.getScrollTimeoutCallback = function(args) {
+    // Returns a callback for use with `setTimeout`. `args` keys:
+    // - `frame`:       Current frame index
+    // - `frames`:      Total number of frames
+    // - `oldPosition`: Original position before starting to scroll
+    // - `newPosition`: Target position at end of scroll
+
+    return function() {
+      var positionDelta = (args.newPosition - args.oldPosition) *
+        Math.pow(Math.sin(Math.PI / 2 * args.frame / args.frames), 2);
+      nav.scrollingContainer.scrollTop = args.oldPosition + positionDelta;
+    };
+  };
+  nav.clearScrollTimeouts = function() {
+    var i;
+
+    if (nav.scrollTimeouts) {
+      i = nav.scrollTimeouts.length;
+      while (i--) {
+        clearTimeout(nav.scrollTimeouts[i]);
+      }
+    }
+    nav.scrollTimeouts = [];
   };
   nav.scrollToTop = function() {
     nav.scrollTo(0);
