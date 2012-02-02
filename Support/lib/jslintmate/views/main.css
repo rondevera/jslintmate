@@ -9,8 +9,7 @@ html[data-css-inset-box-shadow] {}
       stops `position: fixed` elements from flickering while hardware
       acceleration is active. */
 body {
-  overflow: auto;
-  overflow-x: hidden;
+  overflow: hidden;
   background: -webkit-gradient(linear, left top, left bottom,
                                       from(#ececec), to(#d2d2d2));
   background: -webkit-linear-gradient(top, #ececec,     #d2d2d2);
