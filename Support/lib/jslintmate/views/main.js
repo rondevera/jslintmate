@@ -56,7 +56,7 @@ window.jslm = (function(w, d) {
     var container   = nav.scrollingContainer,
         oldPosition = container.scrollTop,
         newPosition = y,
-        duration    = 200, // milliseconds
+        duration    = 500, // milliseconds
         msPerFrame  = 20,
         frame, frames;
 
@@ -70,27 +70,28 @@ window.jslm = (function(w, d) {
     frames = Math.floor(duration / msPerFrame);
     for (frame = 0; frame <= frames; frame++) {
       nav.scrollTimeouts[frame] = setTimeout(
-        nav.getScrollTimeoutCallback({
-          frame:       frame,
-          frames:      frames,
-          oldPosition: oldPosition,
-          newPosition: newPosition
-        }),
+        nav.getScrollTimeoutCallback(
+          frame / frames, oldPosition, newPosition - oldPosition),
         frame * msPerFrame
       );
     }
   };
-  nav.getScrollTimeoutCallback = function(args) {
-    // Returns a callback for use with `setTimeout`. `args` keys:
-    // - `frame`:       Current frame index
-    // - `frames`:      Total number of frames
-    // - `oldPosition`: Original position before starting to scroll
-    // - `newPosition`: Target position at end of scroll
+  nav.getScrollTimeoutCallback = function(percent, origPosition, deltaPosition) {
+    // Returns a callback for use with `setTimeout` to animate scrolling.
+    // Arguments:
+    // - `percent`:       Percentage of animation completion
+    // - `origPosition`:  Original position before starting to scroll
+    // - `deltaPosition`: Distance to scroll by the end of the whole animation
 
     return function() {
-      var positionDelta = (args.newPosition - args.oldPosition) *
-        Math.pow(Math.sin(Math.PI / 2 * args.frame / args.frames), 2);
-      nav.scrollingContainer.scrollTop = args.oldPosition + positionDelta;
+      nav.scrollingContainer.scrollTop = origPosition + (deltaPosition * (
+        // Quintic ease out:
+               Math.pow(percent, 5)  +
+        ( -5 * Math.pow(percent, 4)) +
+        ( 10 * Math.pow(percent, 3)) +
+        (-10 * Math.pow(percent, 2)) +
+        (  5 *          percent    )
+      ));
     };
   };
   nav.clearScrollTimeouts = function() {
