@@ -251,8 +251,8 @@ About
   Development happens in the [development branch][dev branch].
 - **History:** [History/changelog for JSLintMate][history]
 - **Compatibility:** Tested with OS X 10.6+, Safari/WebKit 5+ (6533+), and
-  TextMate 1.5.10. Probably works with older software, but it's not
-  guaranteed.
+  TextMate 1.5.10+ (including TextMate 2.0a). Probably works with older
+  software, but it's not guaranteed.
 
 This project is adapted from:
 
