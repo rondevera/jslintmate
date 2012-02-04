@@ -48,7 +48,7 @@ window.jslm = (function(w, d) {
   /*** Navigation > Scrolling ***/
 
   nav.scrollingContainer = $qs('div.results');
-  nav.scrollTo = function(y) {
+  nav.scrollTo = function(y, duration) {
     // Usage:
     // - `nav.scrollTo(0)`    // => scroll to top
     // - `nav.scrollTo(100)`  // => scroll to 100px from top
@@ -56,9 +56,9 @@ window.jslm = (function(w, d) {
     var container   = nav.scrollingContainer,
         oldPosition = container.scrollTop,
         newPosition = y,
-        duration    = 500, // milliseconds
         msPerFrame  = 20,
         frame, frames;
+    if (duration === undefined) { duration = 500; } // milliseconds
 
     nav.clearScrollTimeouts();
 
@@ -67,13 +67,19 @@ window.jslm = (function(w, d) {
       return;
     }
 
-    frames = Math.floor(duration / msPerFrame);
-    for (frame = 0; frame <= frames; frame++) {
-      nav.scrollTimeouts[frame] = setTimeout(
-        nav.getScrollTimeoutCallback(
-          frame / frames, oldPosition, newPosition - oldPosition),
-        frame * msPerFrame
-      );
+    if (duration > 0) {
+      // Scroll with animation
+      frames = Math.floor(duration / msPerFrame);
+      for (frame = 0; frame <= frames; frame++) {
+        nav.scrollTimeouts[frame] = setTimeout(
+          nav.getScrollTimeoutCallback(
+            frame / frames, oldPosition, newPosition - oldPosition),
+          frame * msPerFrame
+        );
+      }
+    } else {
+      // Scroll immediately without animating
+      nav.scrollingContainer.scrollTop = y;
     }
   };
   nav.getScrollTimeoutCallback = function(percent, origPosition, deltaPosition) {
@@ -145,12 +151,12 @@ window.jslm = (function(w, d) {
     if (bodyScrollTop > elemTopBound) {
       // If `elem` is outside of viewport (top edge is above top of viewport),
       // scroll to put it at top of viewport.
-      nav.scrollTo(elemTopBound);
+      nav.scrollTo(elemTopBound, 0);
 
     } else if (bodyScrollTop < elemBottomBound) {
       // If `elem` is outside of viewport (bottom edge is below bottom of
       // viewport), scroll to put it at bottom of viewport.
-      nav.scrollTo(elemBottomBound);
+      nav.scrollTo(elemBottomBound, 0);
     }
   };
 
