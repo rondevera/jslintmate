@@ -170,7 +170,7 @@ module JSLintMate
   end
 
   def self.link_to_website
-    title = "More info on JSLintMate #{version}"
+    title = "About JSLintMate #{version}"
     %{<a href="#{WEBSITE_URL}" class="info" title="#{title}">info</a>}
   end
 
