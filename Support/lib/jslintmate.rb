@@ -40,9 +40,9 @@ require 'jslintmate/linter'
 require 'jslintmate/notice'
 
 module JSLintMate
-  WEBSITE_URL = 'http://rondevera.github.com/jslintmate'
   ISSUES_URL  = 'https://github.com/rondevera/jslintmate/issues'
   README_URL  = 'https://github.com/rondevera/jslintmate/#readme'
+  WEBSITE_URL = 'http://rondevera.github.com/jslintmate/'
 
   def self.version
     @version ||= begin

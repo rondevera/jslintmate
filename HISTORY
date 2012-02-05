@@ -7,6 +7,7 @@ JSLintMate
   the repository.
 * FEATURE: Added a problem list preview to the tooltip that appears when saving
   JS files.
+* FEATURE: Added menu commands: "About JSLintMate", "Help", and "Report a Bug".
 * IMPROVEMENT: In the problem list, made the hover state more subtle (to better
   bring attention to the blue "current" state), and added an active state.
 * IMPROVEMENT: Changed *up* key behavior to better mimic the standard OS X

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>open 'https://github.com/rondevera/jslintmate/issues'</string>
+	<key>input</key>
+	<string>none</string>
+	<key>name</key>
+	<string>Report a Bug…</string>
+	<key>output</key>
+	<string>discard</string>
+	<key>scope</key>
+	<string>source.js - source.js.embedded.html</string>
+	<key>uuid</key>
+	<string>8682E071-F767-4923-9367-E6BCF1D239DF</string>
+</dict>
+</plist>
