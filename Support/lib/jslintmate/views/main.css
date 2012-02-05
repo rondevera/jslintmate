@@ -198,6 +198,10 @@ div.results {
   bottom: 0;
   overflow: auto;
 }
+div.results-success,
+div.results-error {
+  height: 75%; /* Fixes alignment in Safari 5.1 (7534) */
+}
 p {
   position: relative;
   top: 40%;

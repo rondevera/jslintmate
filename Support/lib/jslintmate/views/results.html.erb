@@ -1,8 +1,9 @@
 <%
-desc     = template_locals[:desc]
-filepath = template_locals[:filepath]
-notices  = template_locals[:notices] || []
-results  = template_locals[:results]
+desc         = template_locals[:desc]
+filepath     = template_locals[:filepath]
+notices      = template_locals[:notices] || []
+results      = template_locals[:results]
+results_type = template_locals[:results_type]
 
 header_info_class = 'has-filepath' if filepath
 %>
@@ -26,6 +27,6 @@ header_info_class = 'has-filepath' if filepath
   <% end %>
 </header>
 
-<div class="results">
+<div class="results results-<%= results_type %>">
   <%= results %>
 </div>

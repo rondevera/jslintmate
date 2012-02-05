@@ -211,14 +211,16 @@ module JSLintMate
         template_locals[:notices] = JSLintMate.notices
         if problems_count == 0
           template_locals.merge!(
-            :desc     => 'Lint-free!', # Douglas Crockford would be so proud.
-            :results  => %{<p class="success">Lint-free!</p>}
+            :desc         => 'Lint-free!', # Douglas Crockford would be proud.
+            :results      => %{<p class="success">Lint-free!</p>},
+            :results_type => 'success'
           )
         else
           template_locals.merge!(
-            :desc     => "#{self} found #{problems_count == 1 ?
-                          'a problem' : 'problems'}:",
-            :results  => %{<ul class="problems">#{lint}</ul>}
+            :desc         => "#{self} found #{problems_count == 1 ?
+                              'a problem' : 'problems'}:",
+            :results      => %{<ul class="problems">#{lint}</ul>},
+            :results_type => 'problems'
           )
         end
       end
@@ -231,7 +233,8 @@ module JSLintMate
             <p class="error">
               <span class="text">#{JSLintMate.error_for(:html)}</span>
             </p>
-          }
+          },
+          :results_type => 'error'
         )
       end
 
