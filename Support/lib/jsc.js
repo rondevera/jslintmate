@@ -35,6 +35,9 @@ Copyright (c) 2009 Apple Inc.
       linterOptions = {},
       linterData;
 
+  // Convert options array to hash
+  options = parseOptions(options);
+
 
 
   /*** Options ***/
@@ -47,7 +50,7 @@ Copyright (c) 2009 Apple Inc.
         // Using `eval` because the input might not be valid JSON. Trusts that
         // any collaborators aren't messing with each other.
     } catch (e) {
-      return {};
+      return {}; // Not parseable
     }
   }
 
@@ -69,10 +72,9 @@ Copyright (c) 2009 Apple Inc.
   function parseOptions(optionsArray) {
     // Given an array `optionsArray`, returns a hash where each array item
     // is split into a key and value. Known linter options are also converted
-    // into hashes, and merged according to precedence rules.
+    // into hashes.
 
-    var options = {},       // Initial conversion of `optionsArray` to hash
-        linterOptions = {}, // Merged options to pass to linter
+    var options = {},
         i, option, key, value;
 
     i = optionsArray.length; while (i--) {
@@ -94,7 +96,16 @@ Copyright (c) 2009 Apple Inc.
       options[key] = value;
     }
 
-    // Merge options                                  // Precedence:
+    return options;
+  }
+
+  function mergeLinterOptions(options) {
+    // Given a hash of options from `parseOptions`, returns a merged hash of
+    // options to be used by the linter.
+
+    var linterOptions = {};
+
+                                                      // Precedence:
     copyProperties(linterOptions,
       options['--linter-options-from-defaults']);     // <- lowest
     copyProperties(linterOptions,
@@ -105,6 +116,10 @@ Copyright (c) 2009 Apple Inc.
       // (i.e., have top precedence).
 
     return linterOptions;
+  }
+
+  function shouldWarnAboutUnusedVars() {
+    return options['--warn-about-unused-vars'] === 'true';
   }
 
 
@@ -123,6 +138,10 @@ Copyright (c) 2009 Apple Inc.
       linterData.unused = linterData.unuseds; // Value may be `null`
     }
 
+    if (!shouldWarnAboutUnusedVars()) {
+      delete linterData.unused;
+    }
+
     return linterData;
   }
 
@@ -133,15 +152,15 @@ Copyright (c) 2009 Apple Inc.
     print('Usage: jsc (jslint|jshint).js jsc.js -- "$(cat myFile.js)"' +
           ' [--linter-options-from-bundle=\'a:1,b:[2,3]\']' +
           ' [--linter-options-from-options-file=\'c:4,d:{e:5,f:6}\']' +
-          ' [--linter-options-from-defaults=\'g:7\']');
+          ' [--linter-options-from-defaults=\'g:7\']' +
+          ' [--warn-about-unused-vars=true|false]'
+    );
     quit(1);
   }
 
-  // Convert arguments (options array) to linter options (hash)
-  linterOptions = parseOptions(options);
-
   // Run linter and fetch data
-  linterData = findLint(linter, linterOptions, filename);
+  linterOptions = mergeLinterOptions(options);
+  linterData    = findLint(linter, linterOptions, filename);
 
   if (linterData.errors || linterData.unused) {
     // Format errors

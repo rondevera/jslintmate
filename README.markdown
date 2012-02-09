@@ -221,6 +221,20 @@ For more info, read about [JSLint's options][jslint options] and
 [jshint options]:  http://www.jshint.com/options/
 
 
+Unused variables
+----------------
+
+JSLintMate reports warnings from JSLint/JSHint about variables that are declared
+but not used. It's good to clean up code by removing unused variables, but if
+you'd rather not see these warnings:
+
+1.  Within TextMate, select *Bundles > Bundle Editor > Show Bundle Editor*.
+2.  Expand *JavaScript JSLintMate* and highlight *Unused Variables*.
+3.  Change the value of `TM_JSLINTMATE_WARN_ABOUT_UNUSED_VARIABLES` to `false`.
+
+To resume seeing warnings about unused variables, set this value back to `true`.
+
+
 Custom JSLint/JSHint builds
 ---------------------------
 

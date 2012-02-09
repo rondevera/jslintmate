@@ -34,6 +34,15 @@ module JSLintMate
 
     ### Class methods ###
 
+    def self.default_options
+      # Returns a hash representation of `DEFAULT_OPTIONS`.
+      @default_options ||= options_hash_to_string(DEFAULT_OPTIONS)
+    end
+
+    def self.jsc_adapter_path
+      JSLintMate.lib_path('jsc.js')
+    end
+
     def self.options_hash_to_string(options_hash)
       # Returns a valid JSON (string) representation of `options_hash`.
       #
@@ -45,9 +54,9 @@ module JSLintMate
       options_hash.inspect.gsub!('=>', ':')
     end
 
-    def self.default_options
-      # Returns a hash representation of `DEFAULT_OPTIONS`.
-      @default_options ||= options_hash_to_string(DEFAULT_OPTIONS)
+    def self.warn_about_unused_variables?
+      %w[true 1 on yes y].include?(
+        ENV['TM_JSLINTMATE_WARN_ABOUT_UNUSED_VARIABLES'])
     end
 
 
@@ -104,14 +113,31 @@ module JSLintMate
       JSLintMate.lib_path("#{key}.js")
     end
 
-    def build_command_options(opts)
+    def jsc_adapter_command(filepath)
+      adapter_path = JSLintMate::Linter.jsc_adapter_path
+
+      adapter_options = {
+        '--linter-options-from-defaults'     => Linter.default_options,
+        '--linter-options-from-bundle'       => options_from_bundle,
+        '--linter-options-from-options-file' => options_from_options_file
+      }
+      if Linter.warn_about_unused_variables?
+        adapter_options['--warn-about-unused-vars'] = true
+      end
+
+      %{#{JSC_PATH} "#{self.path}" "#{adapter_path}" -- } <<
+        %{"$(cat "#{filepath}")" } <<
+        jsc_adapter_command_options(adapter_options)
+    end
+
+    def jsc_adapter_command_options(opts)
       # Usage:
       #
-      #     build_command_options('--a' => 1, '--b' => 2)
+      #     jsc_adapter_command_options('--a' => 1, '--b' => 2)
       #     => '--a="1" --b="2"'
 
       opts.inject('') { |str, (k, v)|
-        str << %{ #{k}="#{v.gsub('"', '\\"')}"} if v && v != ''
+        str << %{ #{k}="#{v.to_s.gsub('"', '\\"')}"} if v && v != ''
         str
       }.strip!
     end
@@ -129,7 +155,7 @@ module JSLintMate
       # be read
       return if JSLintMate.error?
 
-      jsc_adapter_path = JSLintMate.lib_path('jsc.js')
+      jsc_adapter_path = JSLintMate::Linter.jsc_adapter_path
 
       unless File.executable?(JSC_PATH)
         JSLintMate.set_error_for(:html, %{
@@ -156,14 +182,7 @@ module JSLintMate
         }) and return
       end
 
-      cmd = %{#{JSC_PATH} "#{self.path}" "#{jsc_adapter_path}" -- } <<
-              %{"$(cat "#{filepath}")"} << ' ' <<
-              build_command_options(
-                '--linter-options-from-defaults'     => Linter.default_options,
-                '--linter-options-from-bundle'       => options_from_bundle,
-                '--linter-options-from-options-file' => options_from_options_file
-              )
-
+      cmd = jsc_adapter_command(filepath)
       `#{cmd}`
     end
 
