@@ -295,14 +295,27 @@ window.jslm = (function(w, d) {
     }, false);
   }());
 
-  // Handle external links
+  // Open external links in browser
   d.body.addEventListener('click', function(ev) { // delegate
     var target = ev.target;
 
     if (target.tagName.toLowerCase() === 'a' &&
         target.href.indexOf('http') === 0
       ) {
-      TextMate.system('open ' + target.href, null); // Open in browser
+      TextMate.system('open ' + target.href, null);
+      ev.preventDefault();
+    }
+  });
+
+  // Prevent dragging links
+  d.body.addEventListener('mousedown', function(ev) { // delegate
+    var target = ev.target;
+
+    // Check if dragging a link or a child of a link. Given the DOM structure,
+    // this doesn't need to check further.
+    if (target.tagName.toLowerCase() === 'a' ||
+        target.parentNode.tagName.toLowerCase() === 'a'
+      ) {
       ev.preventDefault();
     }
   });
