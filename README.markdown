@@ -221,8 +221,8 @@ For more info, read about [JSLint's options][jslint options] and
 [jshint options]:  http://www.jshint.com/options/
 
 
-JSLint/JSHint builds
---------------------
+Custom JSLint/JSHint builds
+---------------------------
 
 JSLintMate is packaged with copies of JSLint and JSHint, but you can use your
 own copies instead. This is useful for testing an edge build or using your
