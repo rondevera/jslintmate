@@ -271,22 +271,24 @@ window.jslm = (function(w, d) {
     if (!problemsList) { return; }
 
     problemsList.addEventListener('click', function(ev) {
-      var link = ev.target,
-          linkTagName = link.tagName.toLowerCase(),
-          li, liCur;
+      var li = ev.target,
+          liTagName = li.tagName.toLowerCase(),
+          liCurrent;
 
-      // If not `<a>`, find it in ancestors
+      // Find closest `<li>`
       while (
-          linkTagName !== 'a' && // Search up tree,
-          linkTagName !== 'ul'   // but not too far
+          liTagName !== 'li' && // Search ancestors,
+          liTagName !== 'ul'    // but not too far
         ) {
-        link = link.parentNode;
-        linkTagName = link.tagName.toLowerCase();
+        li = li.parentNode;
+        liTagName = li.tagName.toLowerCase();
       }
 
-      li    = link.parentNode;
-      liCur = $qs('ul.problems li.' + nav.CUR);
-      if (liCur) { liCur.className = ''; }
+      // Only handle if `<li>` contains a problem item
+      if (/alert/.test(li.className)) { return; }
+
+      liCurrent = $qs('ul.problems li.' + nav.CUR);
+      if (liCurrent) { liCurrent.className = ''; }
       li.className = nav.CUR;
 
       // Allow event to continue normally, i.e., follow the link's `href`
