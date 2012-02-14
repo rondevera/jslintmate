@@ -372,7 +372,7 @@ ul.problems .desc {
   padding: 0 4px;
 }
 ul.problems pre {
-  margin-top: 2px;
+  margin-top: 0.375em;
   padding: 2px 4px;
   overflow: hidden;
   background: -webkit-gradient(linear, left top, left bottom,
