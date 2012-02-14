@@ -115,7 +115,8 @@ window.jslm = (function(w, d) {
     nav.scrollTo(0);
   };
   nav.scrollToBottom = function() {
-    nav.scrollTo(nav.scrollingContainer.scrollHeight);
+    var container = nav.scrollingContainer;
+    nav.scrollTo(container.scrollHeight - container.offsetHeight);
   };
   nav.scrollByPage = function(numPages) {
     // Usage:
