@@ -35,9 +35,6 @@ Copyright (c) 2009 Apple Inc.
       linterOptions = {},
       linterData;
 
-  // Convert options array to hash
-  options = parseOptions(options);
-
 
 
   /*** Options ***/
@@ -159,6 +156,7 @@ Copyright (c) 2009 Apple Inc.
   }
 
   // Run linter and fetch data
+  options       = parseOptions(options);
   linterOptions = mergeLinterOptions(options);
   linterData    = findLint(linter, linterOptions, filename);
 
