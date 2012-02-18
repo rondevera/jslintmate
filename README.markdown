@@ -8,7 +8,7 @@ of OS X by default. No need to install anything else. Everything works
 offline.
 
 <img src="http://rondevera.github.com/jslintmate/img/jslintmate-screenshots.png"
-  alt="JSLintMate screenshots" width="911" height="575" />
+  alt="JSLintMate screenshots" width="900" height="573" />
 
 (CSS geeks: Only three images are used throughout the UI. The red, striped
 error uses only CSS.)
