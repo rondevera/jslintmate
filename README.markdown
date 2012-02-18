@@ -30,7 +30,8 @@ Key features
 
 * Quick JSLint/JSHint on **command-S**.
 * Full problem details on **control-L** (JSLint) or **control-shift-L**
-  (JSHint), including keyboard navigation.
+  (JSHint)&mdash;both customizable. Navigate the full problem list with your
+  mouse/trackpad or keyboard.
 * Support for **options files** that can be kept in your home directory or in
   project repositories. They can be read not just by JSLintMate, but also by
   teammates' lint tools in other editors, continuous integration systems,
@@ -116,7 +117,7 @@ through JSLint, or **control-shift-L** to use JSHint. Click a problem to jump
 to that line in the file. Fix and repeat.
 
 You can also navigate the list of problems with your keyboard: *up/down/k/j*
-to move up/down, and *enter* to select.
+to move up/down, and *return* to select.
 
 
 Options
