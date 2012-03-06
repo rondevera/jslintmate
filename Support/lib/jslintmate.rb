@@ -69,11 +69,11 @@ module JSLintMate
     args['linter'] ||= 'jslint'
     use_jshint     = args['linter'] == 'jshint'
     args['linter-file'] ||= use_jshint ?
-      ENV['TM_JSLINTMATE_JSHINT_FILE'].dup :
-      ENV['TM_JSLINTMATE_JSLINT_FILE'].dup
+      (ENV['TM_JSLINTMATE_JSHINT_FILE'] || '').dup :
+      (ENV['TM_JSLINTMATE_JSLINT_FILE'] || '').dup
     args['linter-options-file'] ||= use_jshint ?
-      ENV['TM_JSLINTMATE_JSHINT_OPTIONS_FILE'].dup :
-      ENV['TM_JSLINTMATE_JSLINT_OPTIONS_FILE'].dup
+      (ENV['TM_JSLINTMATE_JSHINT_OPTIONS_FILE'] || '').dup :
+      (ENV['TM_JSLINTMATE_JSLINT_OPTIONS_FILE'] || '').dup
 
     # Expand file paths
     args['file'] = JSLintMate.expand_path(args['file'])
