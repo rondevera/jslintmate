@@ -62,8 +62,8 @@ Or via Git:
 
 ### TextMate 2 ###
 
-While TextMate 2 is in development, installation is temporarily a bit more
-involved:
+While TextMate 2 is in development, installation is
+[temporarily a bit more involved][textmate 2 bundles]:
 
 1.  [Download JSLintMate.tmbundle][download] and unzip it.
 2.  Open `~/Library/Application Support/Avian/Pristine Copy/Bundles/`.
@@ -75,6 +75,7 @@ separate window. To make TextMate 2 open JSLintMate in a separate window, run
 Terminal ([source][textmate 2 htmlOutputPlacement]).
 
 [download]: https://github.com/downloads/rondevera/jslintmate/JavaScript%20JSLintMate%201.3.tmbundle.zip
+[textmate 2 bundles]: http://blog.macromates.com/2011/locating-bundles/
 [textmate 2 htmlOutputPlacement]: http://lists.macromates.com/textmate/2011-December/033616.html
 
 
