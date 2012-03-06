@@ -18,7 +18,7 @@ JSLintMate
 * IMPROVEMENT: Revamped showing warnings and errors about invalid options files
   and other preferences. Includes deprecation warnings for old `--linter-file`
   and similar switches; the bundle's preferences should be used instead.
-* IMPROVEMENT: Upgraded to JSLint 2012-02-03 and JSHint 2012-01-19 (r05).
+* IMPROVEMENT: Upgraded to JSLint 2012-03-02 and JSHint 2012-01-19 (r05).
 * FIX: Fixed version notification to not cache the last result. This allows a
   freshly updated copy of the bundle to know that it matches the latest reported
   version.
