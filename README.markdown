@@ -7,6 +7,8 @@ JSLintMate uses [Ruby][ruby] and [JSC][jsc] behind the scenes; both are part
 of OS X by default. No need to install anything else. Everything works
 offline.
 
+[Download JSLintMate.tmbundle][download]
+
 <img src="http://rondevera.github.com/jslintmate/img/jslintmate-screenshots.png"
   alt="JSLintMate screenshots" width="900" height="573" />
 
