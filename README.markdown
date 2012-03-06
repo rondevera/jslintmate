@@ -74,7 +74,7 @@ separate window. To make TextMate 2 open JSLintMate in a separate window, run
 `defaults write com.macromates.TextMate.preview htmlOutputPlacement window` in
 Terminal ([source][textmate 2 htmlOutputPlacement]).
 
-[download]: https://github.com/downloads/rondevera/jslintmate/JavaScript%20JSLintMate%201.2.tmbundle.zip
+[download]: https://github.com/downloads/rondevera/jslintmate/JavaScript%20JSLintMate%201.3.tmbundle.zip
 [textmate 2 htmlOutputPlacement]: http://lists.macromates.com/textmate/2011-December/033616.html
 
 

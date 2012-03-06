@@ -1,6 +1,8 @@
 JSLintMate
 ==========
 
+1.3 (2012-03-05)
+----------------
 * FEATURE: Added support for TextMate 2.
 * FEATURE: Added support for JSON options files, not just YAML.
 * FEATURE: Added example options files (e.g., `jslint.json`, `jshint.yml`) to
