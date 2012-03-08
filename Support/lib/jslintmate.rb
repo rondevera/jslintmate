@@ -101,9 +101,11 @@ module JSLintMate
         be removed in a future version.
       }.strip!
       if prefs_name
-        warning << %{
-          Use the &ldquo;#{prefs_name}&rdquo; preferences instead;
-          <a href="#{README_URL}">read the instructions</a> for details.
+        warning << ' ' << %{
+          Instead, open TextMate&rsquo;s bundle editor (in the
+          &ldquo;Bundles&rdquo; menu) and use JSLintMate&rsquo;s
+          &ldquo;#{prefs_name}&rdquo; settings.
+          (<a href="#{README_URL}">More info</a>)
         }.strip!
       end
       JSLintMate.warn(warning)

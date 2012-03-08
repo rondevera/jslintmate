@@ -154,12 +154,13 @@ header ul.notices {
   list-style: none;
 }
 header ul.notices li {
-  padding: 0.5em 1.333em;
+  padding: 0.75em 1.333em;
   background: #0f0;
   border-top: 1px solid;
   border-bottom: 1px solid;
     -webkit-box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
   box-shadow:           inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  font-size: 0.875em;
 }
 header ul.notices li.debug {
   background: #222;
@@ -180,12 +181,15 @@ header ul.notices li.warn {
   background:         linear-gradient(top, #ff9,     #cc6);
   border-top-color: #cc6;
   border-bottom-color: #993;
-  color: #333;
+  color: #550;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 header ul.notices li.debug + li.debug,
 header ul.notices li.warn  + li.warn {
   border-top: none;
+}
+header ul.notices li.warn a {
+  white-space: nowrap;
 }
 
 /*** Body ***/
