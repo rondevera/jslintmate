@@ -261,6 +261,18 @@ window.jslm = (function(w, d) {
     d.documentElement.setAttribute('data-css-inset-box-shadow', 1);
   }
 
+  // Hide ugly internal URLs when hovering over problem items in TextMate 2
+  (function() {
+    var links = $qsa('ul.problems a'),
+        link, i = links.length;
+
+    while (i--) {
+      link = links[i];
+      link.parentNode.setAttribute('data-href', link.href);
+      link.removeAttribute('href');
+    }
+  }());
+
 
 
   /*** Behaviors ***/
@@ -288,9 +300,13 @@ window.jslm = (function(w, d) {
       // Only handle if `<li>` contains a problem item
       if (/alert/.test(li.className)) { return; }
 
+      // Highlight as current problem
       liCurrent = $qs('ul.problems li.' + nav.CUR);
       if (liCurrent) { liCurrent.className = ''; }
       li.className = nav.CUR;
+
+      // Show problem in source file
+      window.location = li.getAttribute('data-href');
 
       // Allow event to continue normally, i.e., follow the link's `href`
     }, false);
@@ -301,7 +317,7 @@ window.jslm = (function(w, d) {
     var target = ev.target;
 
     if (target.tagName.toLowerCase() === 'a' &&
-        target.href.indexOf('http') === 0
+        target.href && target.href.indexOf('http') === 0
       ) {
       TextMate.system('open ' + target.href, null);
       ev.preventDefault();
