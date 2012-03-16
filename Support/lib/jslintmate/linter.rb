@@ -289,7 +289,14 @@ module JSLintMate
 
         # Format unused variables, if any
         lint.scan(Linter::UNUSED_VAR_REGEXP) do |match|
+          line, code = $1, $2
           problems_count += 1
+
+          if problems_count <= lint_preview_max
+            lint_preview << {
+              :filepath => filepath, :line => line, :desc => 'Unused variable.'
+            }
+          end
         end
       end
 

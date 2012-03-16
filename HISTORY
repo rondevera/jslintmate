@@ -3,6 +3,8 @@ JSLintMate
 
 * IMPROVEMENT: Hid ugly internal URLs when hovering over problem items in
   TextMate 2.
+* FIX: Added unused variable warnings (if the option is enabled) to the quick
+  mode tooltip.
 
 
 1.3 (2012-03-05)
