@@ -27,7 +27,8 @@
 
 
 (function(args) {
-  var filename  = args[0],
+  var Runner    = {},
+      filename  = args[0],
       linter    = (typeof JSHINT !== 'undefined' ? JSHINT : JSLINT),
       options   = args.slice(1), // Array; all but first
       linterOptions = {},
@@ -37,7 +38,9 @@
 
   /*** Options ***/
 
-  function optionsStringToHash(string) {
+  Runner.Options = {};
+
+  Runner.Options.stringToHash = function (string) {
     // Given a string '{a:1,b:[2,3],c:{d:4,e:5}}`, returns an object/hash.
 
     try {
@@ -47,24 +50,9 @@
     } catch (e) {
       return {}; // Not parseable
     }
-  }
+  };
 
-  function copyProperties(orig, overrides) {
-    // Overwrites properties in `orig` (hash) with properties from `overrides`
-    // in place. Shallow only.
-
-    var key;
-
-    if (!overrides) { return; }
-    for (key in overrides) {
-      if (typeof overrides[key] !== 'undefined' &&
-          overrides.hasOwnProperty(key)) {
-        orig[key] = overrides[key];
-      }
-    }
-  }
-
-  function parseOptions(optionsArray) {
+  Runner.Options.parse = function (optionsArray) {
     // Given an array `optionsArray`, returns a hash where each array item
     // is split into a key and value. Known linter options are also converted
     // into hashes.
@@ -84,7 +72,7 @@
         case '--linter-options-from-bundle':
         case '--linter-options-from-options-file':
         case '--linter-options-from-defaults':
-          value = optionsStringToHash(value); break;
+          value = Runner.Options.stringToHash(value); break;
       }
 
       // Copy to hash
@@ -92,36 +80,38 @@
     }
 
     return options;
-  }
+  };
 
-  function mergeLinterOptions(options) {
-    // Given a hash of options from `parseOptions`, returns a merged hash of
-    // options to be used by the linter.
+  Runner.Options.build = function (options) {
+    // Given a hash of options from `Runner.Options.parse`, returns a merged
+    // hash of options to be used by the linter.
 
     var linterOptions = {};
 
                                                       // Precedence:
-    copyProperties(linterOptions,
+    Runner.Util.merge(linterOptions,
       options['--linter-options-from-defaults']);     // <- lowest
-    copyProperties(linterOptions,
+    Runner.Util.merge(linterOptions,
       options['--linter-options-from-bundle']);
-    copyProperties(linterOptions,
+    Runner.Util.merge(linterOptions,
       options['--linter-options-from-options-file']); // <- highest
       // The linter options in the target file override these
       // (i.e., have top precedence).
 
     return linterOptions;
-  }
+  };
 
-  function shouldWarnAboutUnusedVars() {
+  Runner.Options.shouldWarnAboutUnusedVars = function () {
     return options['--warn-about-unused-vars'] === 'true';
-  }
+  };
 
 
 
   /*** Lint ***/
 
-  function findLint(linter, linterOptions, filename) {
+  Runner.Lint = {};
+
+  Runner.Lint.find = function (linter, linterOptions, filename) {
     var linterData;
 
     linter(filename, linterOptions);
@@ -133,12 +123,33 @@
       linterData.unused = linterData.unuseds; // Value may be `null`
     }
 
-    if (!shouldWarnAboutUnusedVars()) {
+    if (!Runner.Options.shouldWarnAboutUnusedVars()) {
       delete linterData.unused;
     }
 
     return linterData;
-  }
+  };
+
+
+
+  /*** Utilities ***/
+
+  Runner.Util = {};
+
+  Runner.Util.merge = function (orig, overrides) {
+    // Overwrites properties in `orig` (hash) with properties from `overrides`
+    // in place. Shallow only.
+
+    var key;
+
+    if (!overrides) { return; }
+    for (key in overrides) {
+      if (typeof overrides[key] !== 'undefined' &&
+          overrides.hasOwnProperty(key)) {
+        orig[key] = overrides[key];
+      }
+    }
+  };
 
 
 
@@ -154,9 +165,9 @@
   }
 
   // Run linter and fetch data
-  options       = parseOptions(options);
-  linterOptions = mergeLinterOptions(options);
-  linterData    = findLint(linter, linterOptions, filename);
+  options       = Runner.Options.parse(options);
+  linterOptions = Runner.Options.build(options);
+  linterData    = Runner.Lint.find(linter, linterOptions, filename);
 
   if (linterData.errors || linterData.unused) {
     // Format errors
