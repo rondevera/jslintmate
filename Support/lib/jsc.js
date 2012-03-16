@@ -7,11 +7,9 @@
 // Adapted from:
 // - http://blog.pulletsforever.com/2009/07/09/running_jslint_with_safaris_javascript_core/
 // - https://github.com/jshint/jshint/blob/master/env/rhino.js
-
-/*
-Copyright (c) 2002 Douglas Crockford (www.JSLint.com) JSC Edition
-Copyright (c) 2009 Apple Inc.
-*/
+//
+// Copyright (c) 2002 Douglas Crockford (www.JSLint.com) JSC Edition
+// Copyright (c) 2009 Apple Inc.
 
 /*jslint  browser:  false,
           evil:     true,
