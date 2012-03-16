@@ -155,7 +155,7 @@
 
   // Check for JS code
   if (!filename) {
-    print('Usage: jsc (jslint|jshint).js jsc.js -- "$(cat myFile.js)"' +
+    print('Usage: jsc (jslint|jshint).js runner.js -- "$(cat myFile.js)"' +
           ' [--linter-options-from-bundle=\'a:1,b:[2,3]\']' +
           ' [--linter-options-from-options-file=\'c:4,d:{e:5,f:6}\']' +
           ' [--linter-options-from-defaults=\'g:7\']' +

@@ -39,8 +39,8 @@ module JSLintMate
       @default_options ||= options_hash_to_string(DEFAULT_OPTIONS)
     end
 
-    def self.jsc_adapter_path
-      JSLintMate.lib_path('jsc.js')
+    def self.runner_path
+      JSLintMate.lib_path('runner.js')
     end
 
     def self.options_hash_to_string(options_hash)
@@ -113,27 +113,27 @@ module JSLintMate
       JSLintMate.lib_path("#{key}.js")
     end
 
-    def jsc_adapter_command(filepath)
-      adapter_path = JSLintMate::Linter.jsc_adapter_path
+    def runner_command(filepath)
+      runner_path = JSLintMate::Linter.runner_path
 
-      adapter_options = {
+      runner_options = {
         '--linter-options-from-defaults'     => Linter.default_options,
         '--linter-options-from-bundle'       => options_from_bundle,
         '--linter-options-from-options-file' => options_from_options_file
       }
       if Linter.warn_about_unused_variables?
-        adapter_options['--warn-about-unused-vars'] = true
+        runner_options['--warn-about-unused-vars'] = true
       end
 
-      %{#{JSC_PATH} "#{self.path}" "#{adapter_path}" -- } <<
+      %{#{JSC_PATH} "#{self.path}" "#{runner_path}" -- } <<
         %{"$(cat "#{filepath}")" } <<
-        jsc_adapter_command_options(adapter_options)
+        runner_command_options(runner_options)
     end
 
-    def jsc_adapter_command_options(opts)
+    def runner_command_options(opts)
       # Usage:
       #
-      #     jsc_adapter_command_options('--a' => 1, '--b' => 2)
+      #     runner_command_options('--a' => 1, '--b' => 2)
       #     => '--a="1" --b="2"'
 
       opts.inject('') { |str, (k, v)|
@@ -144,7 +144,7 @@ module JSLintMate
 
     def get_lint_for_filepath(filepath)
       # Returns human-readable errors found in the file at `filepath`. Errors
-      # are formatted according to `Support/lib/jsc.js`. Uses OS X's built-in
+      # are formatted according to `Linter.runner_path`. Uses OS X's built-in
       # JSC engine.
       #
       # With some hacking, this can probably be made to work with Rhino
@@ -155,7 +155,7 @@ module JSLintMate
       # be read
       return if JSLintMate.error?
 
-      jsc_adapter_path = JSLintMate::Linter.jsc_adapter_path
+      runner_path = JSLintMate::Linter.runner_path
 
       unless File.executable?(JSC_PATH)
         JSLintMate.set_error_for(:html, %{
@@ -175,14 +175,14 @@ module JSLintMate
         }) and return
       end
 
-      unless JSLintMate.file_readable?(jsc_adapter_path)
+      unless JSLintMate.file_readable?(runner_path)
         JSLintMate.set_error_for(:html, %{
           Argh, sorry. The linter output couldn&rsquo;t be formatted properly.
           #{JSLintMate.link_to_issues}
         }) and return
       end
 
-      cmd = jsc_adapter_command(filepath)
+      cmd = runner_command(filepath)
       `#{cmd}`
     end
 
