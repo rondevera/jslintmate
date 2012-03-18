@@ -27,12 +27,39 @@
 
 
 (function(args) {
-  var Runner    = {},
-      filename  = args[0],
-      linter    = (typeof JSHINT !== 'undefined' ? JSHINT : JSLINT),
-      options   = args.slice(1), // Array; all but first
-      linterOptions = {},
-      linterData;
+  var Runner = {};
+
+  Runner.init = function(args) {
+    var filename      = args[0],
+        options       = args.slice(1), // Array; all but first
+        linter        = (typeof JSHINT !== 'undefined' ? JSHINT : JSLINT),
+        linterOptions = {},
+        linterData;
+
+    // Check for JS code
+    if (!filename) {
+      print(Runner.Util.usage());
+      quit(1);
+    }
+
+    // Run linter and fetch data
+    options       = Runner.Options.parse(options);
+    linterOptions = Runner.Options.build(options);
+    linterData    = Runner.Lint.find({
+      filename:      filename,
+      linter:        linter,
+      linterOptions: linterOptions,
+      runnerOptions: options
+    });
+
+    if (linterData.errors || linterData.unused) {
+      Runner.Lint.print(linter, linterData);
+      quit(2);
+    } else {
+      print('No problems found.');
+      quit();
+    }
+  };
 
 
 
@@ -101,8 +128,8 @@
     return linterOptions;
   };
 
-  Runner.Options.shouldWarnAboutUnusedVars = function () {
-    return options['--warn-about-unused-vars'] === 'true';
+  Runner.Options.shouldWarnAboutUnusedVars = function (runnerOptions) {
+    return runnerOptions['--warn-about-unused-vars'] === 'true';
   };
 
 
@@ -111,8 +138,12 @@
 
   Runner.Lint = {};
 
-  Runner.Lint.find = function (linter, linterOptions, filename) {
-    var linterData;
+  Runner.Lint.find = function (args) {
+    var filename      = args.filename,
+        linter        = args.linter,
+        linterOptions = args.linterOptions,
+        runnerOptions = args.runnerOptions,
+        linterData;
 
     linter(filename, linterOptions);
     linterData = linter.data();
@@ -123,11 +154,54 @@
       linterData.unused = linterData.unuseds; // Value may be `null`
     }
 
-    if (!Runner.Options.shouldWarnAboutUnusedVars()) {
+    if (!Runner.Options.shouldWarnAboutUnusedVars(runnerOptions)) {
       delete linterData.unused;
     }
 
     return linterData;
+  };
+
+  Runner.Lint.print = function(linter, linterData) {
+    var errors      = (linter.errors || []).concat(linterData.unused || []),
+        errorsCount = errors.length,
+        stripRegexp = /^\s*(\S*(\s+\S+)*)\s*$/,
+          // For use in stripping leading/trailing whitespace from a string
+        error, i;
+
+    errors = Runner.Lint.sortErrors(errors);
+
+    // Format errors as readable strings
+    for (i = 0; i < errorsCount; i++) {
+      error = errors[i];
+      if (!error) { continue; }
+
+      if (error.name) {
+        print('Unused variable at line ' + error.line + ': ' + error.name);
+      } else {
+        print('Lint at line ' + error.line + ' character ' +
+          error.character + ': ' + error.reason);
+        print(error.evidence ? error.evidence.replace(stripRegexp, "$1") : '');
+      }
+
+      print(''); // New line
+    }
+  };
+
+  Runner.Lint.sortErrors = function(errors) {
+    // Returns `errors` sorted by line number.
+
+    return errors.sort(function(errorA, errorB) {
+      if (!errorA || !errorB || !errorA.line || !errorB.line) { return 0; }
+
+      // If alert (e.g., "Too many errors"), force to be listed last.
+      // `!errorA.name` implies that the error is not "Unused variable", and
+      // `!errorA.evidence` implies that the error has no code context
+      // ("evidence").
+      if (!errorA.name && !errorA.evidence) { return  1; }
+      if (!errorB.name && !errorB.evidence) { return -1; }
+
+      return errorA.line - errorB.line;
+    });
   };
 
 
@@ -151,71 +225,18 @@
     }
   };
 
-
-
-  // Check for JS code
-  if (!filename) {
-    print('Usage: jsc (jslint|jshint).js runner.js -- "$(cat myFile.js)"' +
-          ' [--linter-options-from-bundle=\'a:1,b:[2,3]\']' +
-          ' [--linter-options-from-options-file=\'c:4,d:{e:5,f:6}\']' +
-          ' [--linter-options-from-defaults=\'g:7\']' +
-          ' [--warn-about-unused-vars=true|false]'
+  Runner.Util.usage = function() {
+    return (
+      'Usage: jsc (jslint|jshint).js runner.js -- "$(cat myFile.js)"' +
+      ' [--linter-options-from-bundle=\'a:1,b:[2,3]\']' +
+      ' [--linter-options-from-options-file=\'c:4,d:{e:5,f:6}\']' +
+      ' [--linter-options-from-defaults=\'g:7\']' +
+      ' [--warn-about-unused-vars=true|false]'
     );
-    quit(1);
-  }
+  };
 
-  // Run linter and fetch data
-  options       = Runner.Options.parse(options);
-  linterOptions = Runner.Options.build(options);
-  linterData    = Runner.Lint.find(linter, linterOptions, filename);
 
-  if (linterData.errors || linterData.unused) {
-    // Format errors
-    (function() {
-      // TODO: Move to a separate named function
 
-      var errors = (linter.errors || []).concat(linterData.unused || []),
-          errorsCount = errors.length,
-          stripRegexp = /^\s*(\S*(\s+\S+)*)\s*$/,
-            // For use in stripping leading/trailing whitespace from a string
-          error, i;
+  Runner.init(args);
 
-      // Sort errors by line number
-      errors = errors.sort(function(errorA, errorB) {
-        if (!errorA || !errorB || !errorA.line || !errorB.line) { return 0; }
-
-        // If alert (e.g., "Too many errors"), force to be listed last.
-        // `!errorA.name` implies that the error is not "Unused variable", and
-        // `!errorA.evidence` implies that the error has no code context
-        // ("evidence").
-        if (!errorA.name && !errorA.evidence) { return  1; }
-        if (!errorB.name && !errorB.evidence) { return -1; }
-
-        return errorA.line - errorB.line;
-      });
-
-      // Format errors as readable strings
-      for (i = 0; i < errorsCount; i++) {
-        error = errors[i];
-        if (error) {
-          if (error.name) {
-            print('Unused variable at line ' + error.line + ': ' +
-              error.name);
-          } else {
-            print('Lint at line ' + error.line + ' character ' +
-              error.character + ': ' + error.reason);
-            print(error.evidence ?
-              error.evidence.replace(stripRegexp, "$1") : '');
-          }
-
-          print('');
-        }
-      }
-    }());
-
-    quit(2);
-  } else {
-    print('No problems found.');
-    quit();
-  }
 }(arguments));
