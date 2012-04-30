@@ -324,6 +324,7 @@ ul.problems a {
   border-top: 1px solid #f9f9f9;
   border-bottom: 1px solid #ccc;
   color: #000;
+  cursor: default;
   padding: 0.75em 1em 0.25em;
   text-decoration: none;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
