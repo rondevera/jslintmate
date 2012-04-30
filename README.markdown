@@ -187,6 +187,13 @@ teammates stick to the same standards. Three ways to do this:
         `$TM_PROJECT_DIRECTORY/config/jslint.yml`. Do the same for JSHint if
         needed, making sure to use a separate options file.
 
+    *TextMate 2 users:* If you use `$TM_PROJECT_DIRECTORY` in your settings, you
+    also need to create a `.tm_properties` file in your project directory (or
+    some parent directory) containing this ([source][tm_properties]):
+
+        projectDirectory     = "$CWD"
+        TM_PROJECT_DIRECTORY = "$projectDirectory"
+
     Options files are meant to be understood by a wide variety of tools, not
     just JSLintMate. This includes lint tools in other editors, continuous
     integration systems, and other automated testing systems.
@@ -223,6 +230,7 @@ For more info, read about [JSLint's options][jslint options] and
 [jshint.yml]:      https://raw.github.com/rondevera/jslintmate/master/Support/config/jshint.yml
 [jslint options]:  http://jslint.com/lint.html#options
 [jshint options]:  http://www.jshint.com/options/
+[tm_properties]:   https://gist.github.com/1478685
 
 
 Unused variables
