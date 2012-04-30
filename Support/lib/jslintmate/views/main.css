@@ -141,8 +141,8 @@ header div.info a.info:focus {
   /* For single-window panel view */
   header div.info {
     height: 1.25em;
-    padding-top: 0.667em;
-    padding-bottom: 0.667em;
+    padding: 0.667em 1.375em;
+    font-size: 1em;
   }
   header div.info .filepath {
     display: none;
