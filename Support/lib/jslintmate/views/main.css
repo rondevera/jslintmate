@@ -366,6 +366,7 @@ ul.problems .location {
   color: rgba(0, 0, 0, 0.5);
   font-size: 0.75em;
   text-transform: lowercase;
+  white-space: nowrap;
 }
 ul.problems li.alert .location,
 ul.problems li.current a .location {
@@ -421,4 +422,32 @@ ul.problems li.current a pre {
   box-shadow:           0 1px 0 rgba(255, 255, 255, 0.15);
     -webkit-transition: none;
   transition:           none;
+}
+@media screen and (max-height: 350px) {
+  ul.problems a {
+    padding: 0.5em 1em 0;
+  }
+  ul.problems .location {
+    width: 7%;
+    margin-top: 0.75em;
+    text-align: right;
+    vertical-align: top;
+  }
+  ul.problems .desc {
+    display: inline-block;
+    width: 33%;
+    margin: 0.375em 1em 1em 0;
+    vertical-align: top;
+  }
+  ul.problems pre {
+    display: inline-block;
+    width: 50%;
+    vertical-align: top;
+  }
+  ul.problems li.alert .location {
+    margin: 0;
+  }
+  ul.problems li.alert .desc {
+    margin: 0;
+  }
 }
