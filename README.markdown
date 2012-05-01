@@ -130,88 +130,89 @@ If JSLint or JSHint are too strict or lenient for your taste, you can set
 options for each. These options serve as a barebones code style guide, and let
 teammates stick to the same standards. Three ways to do this:
 
-* Set options at the **top of each JS file**:
+### Set options at the top of each JS file ###
 
-    Adding options atop each JS file gives you fine-grained control. For
-    example:
+Adding options atop each JS file gives you fine-grained control. For
+example:
 
-          /*jslint  browser:  true,
-                    newcap:   true,
-                    nomen:    false,
-                    plusplus: false,
-                    undef:    true,
-					vars:     false,
-                    white:    false */
-          /*global  window, jQuery, $, MyApp */
+      /*jslint  browser:  true,
+                newcap:   true,
+                nomen:    false,
+                plusplus: false,
+                undef:    true,
+			vars:     false,
+                white:    false */
+      /*global  window, jQuery, $, MyApp */
 
-    This example is specifically for JSLint. To use it with JSHint, change
-    `/*jslint` to `/*jshint` and tweak options as needed.
+This example is specifically for JSLint. To use it with JSHint, change
+`/*jslint` to `/*jshint` and tweak options as needed.
 
-    The exact option names and values change occasionally. For the latest,
-    check the [JSLint docs][jslint options] and the
-    [JSHint docs][jshint options].
+The exact option names and values change occasionally. For the latest,
+check the [JSLint docs][jslint options] and the
+[JSHint docs][jshint options].
 
-* Keep a **personal options file**:
+### Keep a personal options file ###
 
-    You can maintain an options file to use your favorite JSLint/JSHint options
-    across projects. These files can be written in JSON or YAML.
+You can maintain an options file to use your favorite JSLint/JSHint options
+across projects. These files can be written in JSON or YAML.
 
-    JSLintMate comes with some example options files:
-    [jslint.json][jslint.json], [jslint.yml][jslint.yml],
-    [jshint.json][jshint.json], and [jshint.yml][jshint.yml]. To use one of
-    these, save a copy as `~/.jslintrc` or `~/.jshintrc`. JSLintMate reads from
-    these paths by default, and automatically detects whether they contain JSON
-    or YAML.
+JSLintMate comes with some example options files:
+[jslint.json][jslint.json], [jslint.yml][jslint.yml],
+[jshint.json][jshint.json], and [jshint.yml][jshint.yml]. To use one of
+these, save a copy as `~/.jslintrc` or `~/.jshintrc`. JSLintMate reads from
+these paths by default, and automatically detects whether they contain JSON
+or YAML.
 
-    If you want to rename your options files or store them elsewhere:
+If you want to rename your options files or store them elsewhere:
 
-    1.  Within TextMate, select *Bundles > Bundle Editor >
-        Show Bundle Editor*.
-    2.  Expand *JavaScript JSLintMate* and highlight *Options Files*.
-    3.  Change the values for `TM_JSLINTMATE_JSLINT_OPTIONS_FILE` and
-        `TM_JSLINTMATE_JSHINT_OPTIONS_FILE` to the file paths you prefer.
+1.  Within TextMate, select *Bundles > Bundle Editor >
+    Show Bundle Editor*.
+2.  Expand *JavaScript JSLintMate* and highlight *Options Files*.
+3.  Change the values for `TM_JSLINTMATE_JSLINT_OPTIONS_FILE` and
+    `TM_JSLINTMATE_JSHINT_OPTIONS_FILE` to the file paths you prefer.
 
-* Keep an **options file in your project**:
+### Keep an options file in your project ###
 
-    You can also store your options file in your project. This is great for
-    sharing options with collaborators&mdash;everyone uses the same options
-    for all JS files, and different projects can have different options.
+You can also store your options file in your project. This is great for
+sharing options with collaborators&mdash;everyone uses the same options
+for all JS files, and different projects can have different options.
 
-    To set this up:
+To set this up:
 
-    1.  Within TextMate, select *Bundles > Bundle Editor >
-        Show Bundle Editor*.
-    2.  Expand *JavaScript JSLintMate* and highlight *Options Files*.
-    3.  Change the value for `TM_JSLINTMATE_JSLINT_OPTIONS_FILE` to
-        a path in your project, e.g.,
-        `$TM_PROJECT_DIRECTORY/config/jslint.yml`. Do the same for JSHint if
-        needed, making sure to use a separate options file.
+1.  Within TextMate, select *Bundles > Bundle Editor >
+    Show Bundle Editor*.
+2.  Expand *JavaScript JSLintMate* and highlight *Options Files*.
+3.  Change the value for `TM_JSLINTMATE_JSLINT_OPTIONS_FILE` to
+    a path in your project, e.g.,
+    `$TM_PROJECT_DIRECTORY/config/jslint.yml`. Do the same for JSHint if
+    needed, making sure to use a separate options file.
 
-    *TextMate 2 users:* If you use `$TM_PROJECT_DIRECTORY` in your settings, you
-    also need to create a `.tm_properties` file in your project directory (or
-    some parent directory) containing this ([source][tm_properties]):
+*TextMate 2 users:* If you use `$TM_PROJECT_DIRECTORY` in your settings, you
+also need to create a `.tm_properties` file in your project directory (or
+some parent directory) containing this ([source][tm_properties]):
 
-        projectDirectory     = "$CWD"
-        TM_PROJECT_DIRECTORY = "$projectDirectory"
+    projectDirectory     = "$CWD"
+    TM_PROJECT_DIRECTORY = "$projectDirectory"
 
-    Options files are meant to be understood by a wide variety of tools, not
-    just JSLintMate. This includes lint tools in other editors, continuous
-    integration systems, and other automated testing systems.
+Options files are meant to be understood by a wide variety of tools, not
+just JSLintMate. This includes lint tools in other editors, continuous
+integration systems, and other automated testing systems.
 
-* **Deprecated:** Specify global JSLint/JSHint options for use across
-  projects:
+### Deprecated: Specify global options for use across projects: ###
 
-    Here's the old way to maintain personal, cross-project options. **This
-    feature will be removed in an upcoming version. Please use a
-    `~/.jslintrc` or `~/.jshintrc` file via the "Options Files" preferences
-    instead.** Bundle commands no longer need to be modified directly.
+Here's the old way to maintain personal, cross-project options. **This
+feature will be removed in an upcoming version. Please use a
+`~/.jslintrc` or `~/.jshintrc` file via the "Options Files" preferences
+instead.** Bundle commands no longer need to be modified directly.
 
-    1.  Within TextMate, select *Bundles > Bundle Editor > Edit Commands >
-        JavaScript JSLintMate > Run JSLintMate*.
-    2.  Add your list of options as `--linter-options`. For example:
+1.  Within TextMate, select *Bundles > Bundle Editor > Edit Commands >
+    JavaScript JSLintMate > Run JSLintMate*.
+2.  Add your list of options as `--linter-options`. For example:
 
-              ruby "$TM_BUNDLE_SUPPORT/lib/jslintmate.rb" \
-                --linter-options=browser:true,white:false
+          ruby "$TM_BUNDLE_SUPPORT/lib/jslintmate.rb" \
+            --linter-options=browser:true,white:false
+
+---
 
 If you specify options in your JS files *and* in options files, they'll be
 merged at runtime:
