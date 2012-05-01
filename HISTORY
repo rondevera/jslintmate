@@ -1,6 +1,8 @@
 JSLintMate
 ==========
 
+* IMPROVEMENT: Added compact layout for use in TextMate 2 (or in TextMate 1 if
+  the window is small enough).
 * IMPROVEMENT: Hid ugly internal URLs when hovering over problem items in
   TextMate 2.
 * FIX: Added unused variable warnings (if the option is enabled) to the quick
