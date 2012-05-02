@@ -34,23 +34,16 @@
 
 $LOAD_PATH << File.expand_path(
   File.join(ENV['TM_BUNDLE_SUPPORT'] || 'Support', 'lib'))
+
 require 'erb'
-require 'jslintmate/lint_error'
-require 'jslintmate/linter'
-require 'jslintmate/notice'
+Dir.glob(File.dirname(__FILE__) << '/jslintmate/*.rb').each do |file|
+  require file
+end
 
 module JSLintMate
   ISSUES_URL  = 'https://github.com/rondevera/jslintmate/issues'
   README_URL  = 'https://github.com/rondevera/jslintmate/#readme'
   WEBSITE_URL = 'http://rondevera.github.com/jslintmate/'
-
-  def self.version
-    @version ||= begin
-      version_filepath =
-        File.expand_path(File.join(JSLintMate.bundle_path, 'VERSION'))
-      File.read(version_filepath).strip
-    end
-  end
 
   def self.args(args_string)
     # Returns a hash of arguments based on `args_string`, the bundle's

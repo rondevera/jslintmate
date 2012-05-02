@@ -1,4 +1,4 @@
-require 'jslintmate/linter/options_files'
+require File.dirname(__FILE__) << '/linter/options_files'
 
 module JSLintMate
 
