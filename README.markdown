@@ -214,12 +214,22 @@ instead.** Bundle commands no longer need to be modified directly.
 
 ---
 
+### Options file fallbacks ###
+
+When setting `TM_JSLINTMATE_JSLINT_OPTIONS_FILE` or
+`TM_JSLINTMATE_JSHINT_OPTIONS_FILE`, you can also specify a list of fallback
+option files. To do so, change each setting to a colon-separated list of file
+paths, e.g., `$TM_PROJECT_DIRECTORY/config/jslint.json:~/.jslintrc`.
+JSLintMate will use the first readable file in each list.
+
+### Option precedence ###
+
 If you specify options in your JS files *and* in options files, they'll be
 merged at runtime:
 
 1.  Highest precedence: Options in the JS file, e.g.,
     `/*jslint browser: true */`
-2.  Options file
+2.  First readable options file
 3.  JSLintMate's default options
 
 For more info, read about [JSLint's options][jslint options] and

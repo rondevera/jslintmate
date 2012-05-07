@@ -71,8 +71,8 @@ module JSLintMate
     # Expand file paths
     args['file'] = JSLintMate.expand_path(args['file'])
     args['linter-file'] = JSLintMate.expand_path(args['linter-file'])
-    args['linter-options-file'] =
-      JSLintMate.expand_path(args['linter-options-file'])
+    args['linter-options-file'] = args['linter-options-file'].
+      split(':').map { |path| JSLintMate.expand_path(path) }
 
     args
   end
@@ -277,7 +277,7 @@ module JSLintMate
       args['linter'],
       :path => args['linter-file'],
       :options_from_bundle => args['linter-options'],
-      :options_file_path   => args['linter-options-file']
+      :options_file_paths  => args['linter-options-file']
     )
     filepath = JSLintMate.expand_path(args['file'])
     format   = args['format']

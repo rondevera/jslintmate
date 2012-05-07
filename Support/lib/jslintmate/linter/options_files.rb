@@ -3,7 +3,8 @@ require 'yaml'
 module JSLintMate
   class Linter
 
-    # Supports reading linter options from a file.
+    # `JSLintMate::Linter` mixin that adds support for reading linter options
+    # from a file.
     module OptionsFiles
       DEFAULT_JSLINT_OPTIONS_FILE = '~/.jslintrc'
       DEFAULT_JSHINT_OPTIONS_FILE = '~/.jshintrc'
@@ -16,21 +17,32 @@ module JSLintMate
         JSLintMate.expand_path(path)
       end
 
+      def using_custom_options_file?
+        self.options_file_paths.any? &&
+        self.options_file_paths.first != default_options_file(self.key)
+      end
+
+      def first_readable_options_file_path
+        self.options_file_paths.find { |path| JSLintMate.file_readable?(path) }
+      end
+
       def read_options_from_options_file(linter)
         # Sets `self.options_from_options_file` to a string representation of
-        # the options in `self.options_file_path`.
+        # the options in `self.options_file_paths`.
 
-        return unless self.options_file_path
+        return unless self.options_file_paths
 
-        if JSLintMate.file_readable?(options_file_path)
+        options_file_path = self.first_readable_options_file_path
+
+        if options_file_path
           # Determine order for testing file formats
-          parsing_strategies = {
-            :json => Proc.new { read_options_from_json_file },
-            :yaml => Proc.new { read_options_from_yaml_file }
-          }
-          formats = (possible_options_file_format == :json ?
+          formats = (possible_options_file_format(options_file_path) == :json ?
             [:json, :yaml] : [:yaml, :json]
           )
+          parsing_strategies = {
+            :json => Proc.new { read_options_from_json_file(options_file_path) },
+            :yaml => Proc.new { read_options_from_yaml_file(options_file_path) }
+          }
 
           formats.each do |format|
             begin
@@ -43,20 +55,26 @@ module JSLintMate
 
           if self.options_from_options_file.nil?
             JSLintMate.warn(%{
-              The options file "#{self.options_file_path}" could not be parsed.
+              The options file "#{options_file_path}" could not be parsed.
             })
           end
-        elsif self.options_file_path != default_options_file(linter.key)
+        elsif using_custom_options_file?
           # The options file cannot be read, so show a warning. However, not all
           # users will use an options file, so only show the warning if its path
           # has been changed from the default.
-          JSLintMate.warn(%{
-            The options file "#{self.options_file_path}" could not be read.
-          })
+          if self.options_file_paths.size == 1
+            path = self.options_file_paths.first
+            JSLintMate.warn(%{ The options file "#{path}" could not be read. })
+          else
+            paths = self.options_file_paths.map { |path| '"' << path << '"' }
+            JSLintMate.warn(%{
+              These options files could not be read: #{paths.join(', ')}
+            })
+          end
         end
       end
 
-      def possible_options_file_format
+      def possible_options_file_format(options_file_path)
         # Guesses (but does *not* guarantee) the format of `options_file_path`,
         # then returns `:yaml` or `:json`. Assumes that the file is readable.
 
@@ -81,10 +99,10 @@ module JSLintMate
         return :json
       end
 
-      def read_options_from_yaml_file
+      def read_options_from_yaml_file(options_file_path)
         # Sets `self.options_from_options_file` to a string representation of
-        # the options in `self.options_file_path`. Assumes that the file is
-        # readable and contains YAML.
+        # the options in `options_file_path`. Assumes that the file is readable
+        # and contains YAML.
 
         # Verify YAML syntax with `YAML.load_file`
         options_hash = YAML.load_file(options_file_path)
@@ -94,10 +112,10 @@ module JSLintMate
         self.options_from_options_file = options_string
       end
 
-      def read_options_from_json_file
+      def read_options_from_json_file(options_file_path)
         # Sets `self.options_from_options_file` to a string representation of
-        # the options in `self.options_file_path`. Assumes that the file is
-        # readable and contains JSON or evaluates to a JS object.
+        # the options in `options_file_path`. Assumes that the file is readable
+        # and contains JSON or evaluates to a JS object.
 
         # Convert JS file (containing valid JSON or JS, including comments) to
         # a JSON string

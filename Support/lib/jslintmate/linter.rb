@@ -22,7 +22,7 @@ module JSLintMate
       :path,    # Path to the linter JS file
       :options_from_bundle,       # JSON string of bundle options, if any
       :options_from_options_file, # JSON string of options file options, if any
-      :options_file_path          # Path to options file, if any
+      :options_file_paths         # Array of paths to options files, if any
     )
 
     # N.B.: Linter options are stored as strings, never hashes. Strings are
@@ -96,7 +96,7 @@ module JSLintMate
 
       self.options_from_bundle       = attrs[:options_from_bundle] || ''
       self.options_from_options_file = ''
-      self.options_file_path         = attrs[:options_file_path]
+      self.options_file_paths        = attrs[:options_file_paths]
 
       # Wrap bundle options in braces to better approximate JSON
       if options_from_bundle[0] != '{' && options_from_bundle[-1] != '}'
