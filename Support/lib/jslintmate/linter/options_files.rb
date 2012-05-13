@@ -75,7 +75,7 @@ module JSLintMate
         end
 
         # Check last file character
-        return :json if file_contents[-1, 1] == '}'
+        return :json if file_contents[-1, 1] == '}' # End of an object literal
 
         # Wild guess
         return :json
