@@ -9,12 +9,12 @@
 #
 # Options:
 #
-#   --file                  '/path/to/my-file.js'; defaults to
-#                           `ENV['TM_FILEPATH']`
-#   --linter                'jslint' (default) or 'jshint'
-#   --linter-file           [deprecated] '/path/to/jslint.js' or
-#                           '/path/to/jshint.js'
-#   --linter-options        [deprecated] Format: 'option1:value1,option2:value'
+#   --file            '/path/to/my-file.js'; defaults to
+#                     `ENV['TM_FILEPATH']`
+#   --linter          'jslint' (default) or 'jshint'
+#   --linter-file     [deprecated] '/path/to/jslint.js' or
+#                     '/path/to/jshint.js'
+#   --linter-options  [deprecated] Format: 'option1:value1,option2:value'
 #
 # Options precedence:
 #
@@ -52,8 +52,8 @@ module JSLintMate
 
     # Add deprecation warnings
     deprecate_arg(args, 'file')
-    deprecate_arg(args, 'linter-file',         'Linters')
-    deprecate_arg(args, 'linter-options',      'Options Files')
+    deprecate_arg(args, 'linter-file',    'Linters')
+    deprecate_arg(args, 'linter-options', 'Options Files')
 
     # Merge with defaults
     args['file']   ||= ENV['TM_FILEPATH']
