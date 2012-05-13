@@ -62,7 +62,7 @@ module JSLintMate
 
         # Check file extension
         case File.extname(options_file_path)
-        when '.js', 'json'    then return :json
+        when '.js', '.json'   then return :json
         when '.yml', '.yaml'  then return :yaml
         end
 
