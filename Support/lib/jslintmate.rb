@@ -15,7 +15,6 @@
 #   --linter-file           [deprecated] '/path/to/jslint.js' or
 #                           '/path/to/jshint.js'
 #   --linter-options        [deprecated] Format: 'option1:value1,option2:value'
-#   --linter-options-file   [deprecated] '/path/to/config/jslint.yml'
 #
 # Options precedence:
 #
@@ -55,7 +54,6 @@ module JSLintMate
     deprecate_arg(args, 'file')
     deprecate_arg(args, 'linter-file',         'Linters')
     deprecate_arg(args, 'linter-options',      'Options Files')
-    deprecate_arg(args, 'linter-options-file', 'Linters')
 
     # Merge with defaults
     args['file']   ||= ENV['TM_FILEPATH']
@@ -64,14 +62,14 @@ module JSLintMate
     args['linter-file'] ||= use_jshint ?
       (ENV['TM_JSLINTMATE_JSHINT_FILE'] || '').dup :
       (ENV['TM_JSLINTMATE_JSLINT_FILE'] || '').dup
-    args['linter-options-file'] ||= use_jshint ?
+    args['linter-options-files'] = use_jshint ?
       (ENV['TM_JSLINTMATE_JSHINT_OPTIONS_FILE'] || '').dup :
       (ENV['TM_JSLINTMATE_JSLINT_OPTIONS_FILE'] || '').dup
 
     # Expand file paths
     args['file'] = JSLintMate.expand_path(args['file'])
     args['linter-file'] = JSLintMate.expand_path(args['linter-file'])
-    args['linter-options-file'] = args['linter-options-file'].
+    args['linter-options-files'] = args['linter-options-files'].
       split(':').map { |path| JSLintMate.expand_path(path) }
 
     args
@@ -277,7 +275,7 @@ module JSLintMate
       args['linter'],
       :path => args['linter-file'],
       :options_from_bundle => args['linter-options'],
-      :options_file_paths  => args['linter-options-file']
+      :options_file_paths  => args['linter-options-files']
     )
     filepath = JSLintMate.expand_path(args['file'])
     format   = args['format']
