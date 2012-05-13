@@ -96,7 +96,7 @@ module JSLintMate
 
       self.options_from_bundle       = attrs[:options_from_bundle] || ''
       self.options_from_options_file = ''
-      self.options_file_paths        = attrs[:options_file_paths]
+      self.options_file_paths        = attrs[:options_file_paths] || []
 
       # Wrap bundle options in braces to better approximate JSON
       if options_from_bundle[0] != '{' && options_from_bundle[-1] != '}'
