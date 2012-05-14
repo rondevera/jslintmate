@@ -40,7 +40,7 @@ module JSLintMate
     end
 
     def self.runner_path
-      JSLintMate.lib_path('runner.js')
+      @runner_path ||= JSLintMate.lib_path('runner.js')
     end
 
     def self.options_hash_to_string(options_hash)
