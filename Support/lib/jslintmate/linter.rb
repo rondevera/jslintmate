@@ -189,7 +189,9 @@ module JSLintMate
     def get_html_output(filepath)
       results_template = ERB.new(File.read(
         JSLintMate.views_path('results.html.erb')))
-      template_locals = {}
+      template_locals = {
+        :options_file_path => first_readable_options_file_path
+      }
       problems_count = 0
       lint = get_lint_for_filepath(filepath)
 

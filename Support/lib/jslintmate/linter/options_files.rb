@@ -23,7 +23,8 @@ module JSLintMate
       end
 
       def first_readable_options_file_path
-        self.options_file_paths.find { |path| JSLintMate.file_readable?(path) }
+        @first_readable_options_file_path ||=
+          options_file_paths.find { |path| JSLintMate.file_readable?(path) }
       end
 
       def read_options_from_options_file(linter)

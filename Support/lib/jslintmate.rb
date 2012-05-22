@@ -162,8 +162,14 @@ module JSLintMate
     File.read(views_path('version.js'))
   end
 
-  def self.link_to_website
+  def self.link_to_website(options = {})
     title = "About JSLintMate #{version}"
+
+    if options[:options_file_path]
+      title << "\n\nOptions file: #{options[:options_file_path]}"
+    end
+
+    title.gsub!('"', '&quot;')
     %{<a href="#{WEBSITE_URL}" class="info" title="#{title}">info</a>}
   end
 

@@ -1,9 +1,10 @@
 <%
-desc         = template_locals[:desc]
-filepath     = template_locals[:filepath]
-notices      = template_locals[:notices] || []
-results      = template_locals[:results]
-results_type = template_locals[:results_type]
+desc              = template_locals[:desc]
+filepath          = template_locals[:filepath]
+notices           = template_locals[:notices] || []
+options_file_path = template_locals[:options_file_path]
+results           = template_locals[:results]
+results_type      = template_locals[:results_type]
 
 header_info_class = 'has-filepath' if filepath
 %>
@@ -13,7 +14,7 @@ header_info_class = 'has-filepath' if filepath
     <% if filepath %>
     <span class="filepath"><%= filepath %></span>
     <% end %>
-    <%= JSLintMate.link_to_website %>
+    <%= JSLintMate.link_to_website(:options_file_path => options_file_path) %>
   </div>
 
   <% if notices.any? %>
