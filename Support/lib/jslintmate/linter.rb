@@ -6,11 +6,12 @@ module JSLintMate
   class Linter
     include OptionsFiles
 
-    # Use `default_options` instead of `DEFAULT_OPTIONS`.
+    # Use `default_options` instead of `DEFAULT_OPTIONS`. See also `jslint.json`
+    # and `jshint.json`.
     DEFAULT_OPTIONS = {
-      'undef' => false  # `true` if variables and functions need not be
-                        # declared before use.
-    }
+      :jslint => { 'undef' => false },
+      :jshint => { 'undef' => true }
+    }.freeze
     JSC_PATH          = '/System/Library/Frameworks/' <<
                         'JavaScriptCore.framework/Versions/A/Resources/jsc'
     LINT_REGEXP       = /^(Lint at line )(\d+)(.+?:)(.+?)\n(?:(.+?))?$/
@@ -33,11 +34,6 @@ module JSLintMate
 
 
     ### Class methods ###
-
-    def self.default_options
-      # Returns a hash representation of `DEFAULT_OPTIONS`.
-      @default_options ||= options_hash_to_string(DEFAULT_OPTIONS)
-    end
 
     def self.runner_path
       @runner_path ||= JSLintMate.lib_path('runner.js')
@@ -109,15 +105,20 @@ module JSLintMate
 
     def to_s; name; end
 
+    def default_options
+      @default_options ||= DEFAULT_OPTIONS[key]
+    end
+
     def default_path
       JSLintMate.lib_path("#{key}.js")
     end
 
     def runner_command(filepath)
       runner_path = JSLintMate::Linter.runner_path
+      default_options_string = Linter.options_hash_to_string(default_options)
 
       runner_options = {
-        '--linter-options-from-defaults'     => Linter.default_options,
+        '--linter-options-from-defaults'     => default_options_string,
         '--linter-options-from-bundle'       => options_from_bundle,
         '--linter-options-from-options-file' => options_from_options_file
       }

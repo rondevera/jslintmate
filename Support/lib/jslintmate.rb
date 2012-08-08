@@ -23,7 +23,7 @@
 #   2.  Options file (via `TM_JSLINTMATE_JSLINT_OPTIONS_FILE` or
 #       `TM_JSLINTMATE_JSHINT_OPTIONS_FILE`)
 #   3.  [deprecated] Custom bundle preferences (via `--linter-options`)
-#   4.  Default bundle preferences (via `JSLintMate::Linter.default_options`)
+#   4.  Default bundle preferences (via `JSLintMate::Linter#default_options`)
 #
 # To update jslint.js and jshint.js:
 #

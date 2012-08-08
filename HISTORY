@@ -10,6 +10,7 @@ JSLintMate
   TextMate 2.
 * FIX: Added unused variable warnings (if the option is enabled) to the quick
   mode tooltip.
+* FIX: Differentiated default `undef` settings for JSLint and JSHint.
 
 
 1.3 (2012-03-05)
