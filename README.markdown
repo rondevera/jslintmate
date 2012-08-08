@@ -35,10 +35,10 @@ Key features
   (JSHint)&mdash;both customizable. Navigate the full problem list with your
   mouse/trackpad or keyboard.
 * Support for **options files** that can be kept in your home directory or in
-  project repositories. They can be read not just by JSLintMate, but also by
-  teammates' lint tools in other editors, continuous integration systems,
-  automated testing systems, and more. Great for helping your team use the same
-  coding standards everywhere.
+  project repositories. They use standard JSON/YAML formats, so they can be read
+  not just by JSLintMate, but also by teammates' lint tools in other editors,
+  continuous integration systems, automated testing systems, and more. Great for
+  helping your team use the same coding standards everywhere.
 * Support for using your own **custom or edge build** of JSLint or JSHint.
 
 
@@ -95,9 +95,9 @@ JSLintMate has two modes:
 
 ### Quick mode ###
 
-While you're writing JS code, hit **command-S** to save changes. JSLintMate
-automatically runs it through JSLint, and if it finds any problems, shows the
-number of problems in a tooltip.
+While you're coding, hit **command-S** to save changes and automatically run the
+file through JSLint. If any problems are found, JSLintMate shows the number in a
+tooltip.
 
 If you'd prefer to run JSHint on save:
 
@@ -198,7 +198,7 @@ Options files are meant to be understood by a wide variety of tools, not
 just JSLintMate. This includes lint tools in other editors, continuous
 integration systems, and other automated testing systems.
 
-### Deprecated: Specify global options for use across projects: ###
+### Deprecated: Specify global options for use across projects ###
 
 Here's the old way to maintain personal, cross-project options. **This
 feature will be removed in an upcoming version. Please use a
@@ -216,10 +216,9 @@ instead.** Bundle commands no longer need to be modified directly.
 
 ### Options file fallbacks ###
 
-When setting `TM_JSLINTMATE_JSLINT_OPTIONS_FILE` or
-`TM_JSLINTMATE_JSHINT_OPTIONS_FILE`, you can also specify a list of fallback
-files. To do so, change each setting to a colon-separated list of file paths.
-JSLintMate will use the first readable file in each list.
+`TM_JSLINTMATE_JSLINT_OPTIONS_FILE` and `TM_JSLINTMATE_JSHINT_OPTIONS_FILE`
+support options file fallbacks. Change each setting to a colon-separated list of
+file paths, and JSLintMate will use the first readable file in each list.
 
 For example, `$TM_PROJECT_DIRECTORY/config/jslint.json:~/.jslintrc` tells
 JSLintMate to first look for a project-specific options file (e.g., for options
