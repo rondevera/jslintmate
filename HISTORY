@@ -8,6 +8,7 @@ JSLintMate
   the window is small enough).
 * IMPROVEMENT: Hid ugly internal URLs when hovering over problem items in
   TextMate 2.
+* IMPROVEMENT: Upgraded to JSLint 2012-07-27 and JSHint 2012-08-05 (r09).
 * FIX: Added unused variable warnings (if the option is enabled) to the quick
   mode tooltip.
 * FIX: Differentiated default `undef` settings for JSLint and JSHint.
