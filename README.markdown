@@ -218,9 +218,13 @@ instead.** Bundle commands no longer need to be modified directly.
 
 When setting `TM_JSLINTMATE_JSLINT_OPTIONS_FILE` or
 `TM_JSLINTMATE_JSHINT_OPTIONS_FILE`, you can also specify a list of fallback
-option files. To do so, change each setting to a colon-separated list of file
-paths, e.g., `$TM_PROJECT_DIRECTORY/config/jslint.json:~/.jslintrc`.
+files. To do so, change each setting to a colon-separated list of file paths.
 JSLintMate will use the first readable file in each list.
+
+For example, `$TM_PROJECT_DIRECTORY/config/jslint.json:~/.jslintrc` tells
+JSLintMate to first look for a project-specific options file (e.g., for options
+shared with a team). If this file is not readable, JSLintMate uses your personal
+options file as a fallback.
 
 ### Option precedence ###
 
