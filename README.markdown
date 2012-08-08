@@ -139,8 +139,8 @@ example:
                 newcap:   true,
                 nomen:    false,
                 plusplus: false,
-                undef:    true,
-			vars:     false,
+                undef:    false,
+                vars:     false,
                 white:    false */
       /*global  window, jQuery, $, MyApp */
 
