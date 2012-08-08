@@ -288,8 +288,9 @@ About
   [short URL][shorturl] for this repo!
 - **Contributing:** Found a bug or have a suggestion? [Please open an
   issue][issues] or ping [@ronalddevera on Twitter][twitter]. If you want to
-  hack on some features, feel free to fork and send a pull request.
-  Development happens in the [development branch][dev branch].
+  hack on some features, feel free to fork and send a pull request for the
+  **[development branch][dev branch]**. (The master branch is for stable builds
+  only.)
 - **History:** [History/changelog for JSLintMate][history]
 - **Compatibility:** Tested with OS X 10.6+, Safari/WebKit 5+ (6533+), and
   TextMate 1.5.10+ (including TextMate 2.0a). Probably works with older
