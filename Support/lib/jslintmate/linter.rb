@@ -112,7 +112,7 @@ module JSLintMate
     end
 
     def default_path
-      JSLintMate.lib_path("#{key}.js")
+      @default_path ||= JSLintMate.lib_path("#{key}.js")
     end
 
     def runner_command(filepath)
