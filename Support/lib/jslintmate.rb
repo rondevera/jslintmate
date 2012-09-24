@@ -237,8 +237,14 @@ module JSLintMate
 
   def self.clear_notices ; @notices = [] ; end
 
-  def self.debug(text) ; add_notice(:debug, text) ; end
-  def self.warn (text) ; add_notice(:warn,  text) ; end
+  def self.debug(obj)
+    text = obj.respond_to?(:strip) ? obj.strip : obj.inspect
+    add_notice(:debug, text)
+  end
+
+  def self.warn(text)
+    add_notice(:warn, text)
+  end
 
   def self.error?
     # Returns a truthy value if an error exists for any format.
