@@ -299,7 +299,9 @@ module JSLintMate
 
           if problems_count <= lint_preview_max
             lint_preview << {
-              :filepath => filepath, :line => line, :desc => 'Unused variable.'
+              :filepath => filepath,
+              :line     => line,
+              :desc     => %{Unused variable "#{code}".}
             }
           end
         end
