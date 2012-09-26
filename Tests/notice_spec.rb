@@ -27,6 +27,13 @@ describe JSLintMate::Notice do
     end
   end
 
+  describe '#to_s' do
+    it 'returns text' do
+      notice = JSLintMate::Notice.new(:warn, 'asdf')
+      notice.to_s.should == 'asdf'
+    end
+  end
+
   describe '#to_html' do
     it 'returns text as valid HTML' do
       notice = JSLintMate::Notice.new(:warn, 'asdf')

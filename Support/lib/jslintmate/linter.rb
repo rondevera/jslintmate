@@ -326,6 +326,9 @@ module JSLintMate
         output =  "#{self} found #{problems_count} " <<
                   "problem#{'s' if problems_count > 1}. " <<
                   "Run JSLintMate for details."
+        if JSLintMate.notices.any?
+          output << "\n\n" << JSLintMate.notices.map(&:to_s).join("\n")
+        end
         output << "\n\nPreview:\n" << lint_preview if lint_preview != ''
       end
 
