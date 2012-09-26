@@ -305,6 +305,8 @@ module JSLintMate
             }
           end
         end
+
+        lint_preview = lint_preview.sort_by { |item| item[:line] }
       end
 
       if problems_count == 0
