@@ -297,16 +297,16 @@ module JSLintMate
           line, code = $1, $2
           problems_count += 1
 
-          if problems_count <= lint_preview_max
-            lint_preview << {
-              :filepath => filepath,
-              :line     => line,
-              :desc     => %{Unused variable "#{code}".}
-            }
-          end
+          lint_preview << {
+            :filepath => filepath,
+            :line     => line,
+            :desc     => %{Unused variable "#{code}".}
+          }
         end
 
-        lint_preview = lint_preview.sort_by { |item| item[:line] }
+        lint_preview = lint_preview.
+          sort_by { |lint| lint[:line].to_i }.
+          first(lint_preview_max)
       end
 
       if problems_count == 0
