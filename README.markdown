@@ -68,7 +68,8 @@ While TextMate 2 is in development, installation is
 [temporarily a bit more involved][textmate 2 bundles]:
 
 1.  [Download JSLintMate.tmbundle][download] and unzip it.
-2.  Open `~/Library/Application Support/Avian/Pristine Copy/Bundles/`.
+2.  Create the bundles path: `mkdir -p ~/Library/Application\ Support/Avian/Pristine\ Copy/Bundles/`.
+2.  Open the same path: `open ~/Library/Application\ Support/Avian/Pristine\ Copy/Bundles/`.
 3.  Drop `JavaScript JSLintMate.tmbundle` into the `Bundles` directory.
 
 In TextMate 2, JSLintMate runs in a panel in the main window, rather than in a
