@@ -1,5 +1,5 @@
 // jslint.js
-// 2012-09-19
+// 2012-10-03
 
 // Copyright (c) 2002 Douglas Crockford  (www.JSLint.com)
 
@@ -1246,7 +1246,7 @@ var JSLINT = (function () {
             the_token.thru = character;
             id = the_token.id;
             prereg = id && (
-                ('(,=:[!&|?{};'.indexOf(id.charAt(id.length - 1)) >= 0) ||
+                ('(,=:[!&|?{};~+-*%^<>'.indexOf(id.charAt(id.length - 1)) >= 0) ||
                 id === 'return' || id === 'case'
             );
             return the_token;
@@ -2435,7 +2435,8 @@ klass:              do {
             case 'prefix':
             case 'suffix':
             case undefined:
-                return a.id === b.id && are_similar(a.first, b.first);
+                return a.id === b.id && are_similar(a.first, b.first) &&
+                    a.id !== '{' && a.id !== '[';
             case 'infix':
                 return are_similar(a.first, b.first) &&
                     are_similar(a.second, b.second);
@@ -4548,7 +4549,10 @@ klass:              do {
             if (next_token.id === '/' || next_token.id === '(regexp)') {
                 warn('wrap_regexp');
             }
-            this.first = expression(20);
+            this.first = expression(0);
+            if (this.first.assign) {
+                warn('unexpected_a', this.first);
+            }
         }
         if (peek(0).id === '}' && peek(1).id === 'else') {
             warn('unexpected_else', this);
@@ -6447,7 +6451,7 @@ klass:              do {
 
     itself.jslint = itself;
 
-    itself.edition = '2012-09-19';
+    itself.edition = '2012-10-03';
 
     return itself;
 }());
