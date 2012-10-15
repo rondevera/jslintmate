@@ -300,7 +300,7 @@ module JSLintMate
           lint_preview << {
             :filepath => filepath,
             :line     => line,
-            :desc     => %{Unused variable "#{code}".}
+            :desc     => "Unused variable '#{code}'."
           }
         end
 
