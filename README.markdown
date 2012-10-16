@@ -10,7 +10,7 @@ offline.
 [Download JSLintMate.tmbundle][download]
 
 <img src="http://rondevera.github.com/jslintmate/img/jslintmate-screenshots.png"
-  alt="JSLintMate screenshots" width="900" height="573" />
+  alt="JSLintMate screenshots" width="850" height="541" />
 
 (CSS geeks: Only three images are used throughout the UI. The red, striped
 error uses only CSS.)
