@@ -147,6 +147,9 @@ header div.info a.info:focus {
   header div.info .filepath {
     display: none;
   }
+  header div.info a.update {
+    font-size: 0.75em;
+  }
 }
 header ul.notices {
   margin: 0;
