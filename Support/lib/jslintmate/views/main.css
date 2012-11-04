@@ -40,7 +40,7 @@ header {
   z-index: 9;
 }
 header div.info {
-  height: 2em;
+  height: 4em;
   padding: 1em 0.875em 0.333em;
   background: -webkit-gradient(linear, left top, left bottom, from(#333), color-stop(0.5, #191919), color-stop(0.5, #090909), to(#090909));
   background: -webkit-linear-gradient(top, #333, 0.5 #191919, 0.5 #090909, #090909);
@@ -48,7 +48,7 @@ header div.info {
   border-top: 1px solid #555;
   border-bottom: 1px solid #333;
   color: #fff;
-  font-size: 1.5em;
+  font-size: 1em;
   text-shadow: 0 -1px 1px #000;
   white-space: nowrap;
 }
@@ -60,6 +60,8 @@ header div.info .desc {
   display: block;
   width: 95%;
   overflow: hidden;
+  margin-top: 0.25em;
+  font-size: 1.5em;
   pointer-events: none;
   text-overflow: ellipsis;
 }
@@ -68,7 +70,7 @@ header div.info .filepath {
   width: 95%;
   overflow: hidden;
   color: rgba(255, 255, 255, 0.5);
-  font-size: 0.5833em;
+  font-size: 0.875em;
   text-overflow: ellipsis;
 }
 header div.info a.info {
@@ -103,7 +105,7 @@ header div.info a.update {
     -webkit-border-radius: 2em;
   border-radius:           2em;
   color: #fff;
-  font-size: 0.5em;
+  font-size: 0.75em;
   text-decoration: none;
   text-shadow: 0 -1px 0 #000;
 }
@@ -142,6 +144,9 @@ header div.info a.info:focus {
   header div.info {
     height: 1.25em;
     padding: 0.667em 1.375em;
+  }
+  header div.info .desc {
+    margin-top: 0;
     font-size: 1em;
   }
   header div.info .filepath {
