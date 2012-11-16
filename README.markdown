@@ -32,13 +32,13 @@ Key features
 
 * Quick JSLint/JSHint on **command-S**.
 * Full problem details on **control-L** (JSLint) or **control-shift-L**
-  (JSHint)&mdash;both customizable. Navigate the full problem list with your
-  mouse/trackpad or keyboard.
-* Support for **options files** that can be kept in your home directory or in
-  project repositories. They use standard JSON/YAML formats, so they can be read
-  not just by JSLintMate, but also by teammates' lint tools in other editors,
-  continuous integration systems, automated testing systems, and more. Great for
-  helping your team use the same coding standards everywhere.
+  (JSHint)&mdash;both customizable. Navigate the list with full
+  mouse/trackpad/keyboard support.
+* Support for **options files** that help you&mdash;and your teammates&mdash;use
+  the same coding standards everywhere. Options files can live in your home
+  directory or in project repositories. They use standard JSON/YAML, so they can
+  be read not just by JSLintMate, but also by teammates' lint tools in other
+  editors, automated testing systems, continuous integration systems, and more.
 * Support for using your own **custom or edge build** of JSLint or JSHint.
 
 
@@ -64,7 +64,7 @@ Or via Git:
 
 ### TextMate 2 ###
 
-While TextMate 2 is in development, installation is
+**Installation:** While TextMate 2 is in development, installation is
 [temporarily a bit more involved][textmate 2 bundles]:
 
 1.  [Download JSLintMate.tmbundle][download] and unzip it.
@@ -72,14 +72,27 @@ While TextMate 2 is in development, installation is
 2.  Open the same path: `open ~/Library/Application\ Support/Avian/Pristine\ Copy/Bundles/`.
 3.  Drop `JavaScript JSLintMate.tmbundle` into the `Bundles` directory.
 
-In TextMate 2, JSLintMate runs in a panel in the main window, rather than in a
-separate window. To make TextMate 2 open JSLintMate in a separate window, run
-`defaults write com.macromates.TextMate.preview htmlOutputPlacement window` in
-Terminal ([source][textmate 2 htmlOutputPlacement]).
+**Project setup:** It's worth creating a `.tm_properties` file in your project
+directory containing this ([source][tm_properties]):
+
+    projectDirectory     = "$CWD"
+    TM_PROJECT_DIRECTORY = "$projectDirectory"
+
+This lets you use `$TM_PROJECT_DIRECTORY` in your JSLintMate settings, which is
+useful for pointing to project-specific JSLint/JSHint options and custom builds.
+
+**Display:** In TextMate 2, JSLintMate runs in a panel in the main window,
+rather than in a separate window. To make TextMate 2 open JSLintMate in a
+separate window, run this in Terminal
+([source][textmate 2 htmlOutputPlacement]):
+
+    defaults write com.macromates.TextMate.preview htmlOutputPlacement window
+
 
 [download]: https://github.com/downloads/rondevera/jslintmate/JavaScript%20JSLintMate%201.3.tmbundle.zip
 [textmate 2 bundles]: http://blog.macromates.com/2011/locating-bundles/
 [textmate 2 htmlOutputPlacement]: http://lists.macromates.com/textmate/2011-December/033616.html
+[tm_properties]:   https://gist.github.com/1478685
 
 
 Usage
@@ -87,8 +100,8 @@ Usage
 
 JSLintMate has two modes:
 
-* **Quick mode** shows a tooltip with the number of problems (if any) whenever
-  you hit **command-S**.
+* **Quick mode** shows a tooltip with a preview of the problems (if any)
+  whenever you hit **command-S**.
 
 * **Full mode** shows a full list of problems whenever you hit **control-L**
   (JSLint) or **control-shift-L** (JSHint).
@@ -97,8 +110,8 @@ JSLintMate has two modes:
 ### Quick mode ###
 
 While you're coding, hit **command-S** to save changes and automatically run the
-file through JSLint. If any problems are found, JSLintMate shows the number in a
-tooltip.
+file through JSLint. If any problems are found, JSLintMate shows a few of them
+in a tooltip.
 
 If you'd prefer to run JSHint on save:
 
@@ -188,13 +201,6 @@ To set this up:
     `$TM_PROJECT_DIRECTORY/config/jslint.yml`. Do the same for JSHint if
     needed, making sure to use a separate options file.
 
-*TextMate 2 users:* If you use `$TM_PROJECT_DIRECTORY` in your settings, you
-also need to create a `.tm_properties` file in your project directory (or
-some parent directory) containing this ([source][tm_properties]):
-
-    projectDirectory     = "$CWD"
-    TM_PROJECT_DIRECTORY = "$projectDirectory"
-
 Options files are meant to be understood by a wide variety of tools, not
 just JSLintMate. This includes lint tools in other editors, continuous
 integration systems, and other automated testing systems.
@@ -245,7 +251,6 @@ For more info, read about [JSLint's options][jslint options] and
 [jshint.yml]:      https://raw.github.com/rondevera/jslintmate/master/Support/config/jshint.yml
 [jslint options]:  http://jslint.com/lint.html#options
 [jshint options]:  http://www.jshint.com/options/
-[tm_properties]:   https://gist.github.com/1478685
 
 
 Unused variables
