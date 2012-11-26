@@ -89,7 +89,7 @@ separate window, run this in Terminal
     defaults write com.macromates.TextMate.preview htmlOutputPlacement window
 
 
-[download]: https://github.com/downloads/rondevera/jslintmate/JavaScript%20JSLintMate%201.3.tmbundle.zip
+[download]: https://github.com/downloads/rondevera/jslintmate/JavaScript%20JSLintMate%201.4.tmbundle.zip
 [textmate 2 bundles]: http://blog.macromates.com/2011/locating-bundles/
 [textmate 2 htmlOutputPlacement]: http://lists.macromates.com/textmate/2011-December/033616.html
 [tm_properties]:   https://gist.github.com/1478685

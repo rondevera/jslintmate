@@ -1,6 +1,8 @@
 JSLintMate
 ==========
 
+1.4 (2012-11-25)
+----------------
 * FEATURE: Added support for fallback options files. To use it, set
   `TM_JSLINTMATE_JSLINT_OPTIONS_FILE` to a list of paths separated by `:`; the
   first readable options file is used.
