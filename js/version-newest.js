@@ -1,1 +1,1 @@
-jslm.version.setNewest('1.3');
+jslm.version.setNewest('1.4');
