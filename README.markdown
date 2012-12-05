@@ -215,9 +215,9 @@ To get you started, JSLintMate comes with some example options files:
 [jshint.json][jshint.json], and [jshint.yml][jshint.yml]. To use one of these,
 save a copy in your project at the path you chose above.
 
-Options files are meant to be understood by a wide variety of tools, not
-just JSLintMate. This includes lint tools in other editors, continuous
-integration systems, and other automated testing systems.
+Options files can be understood by a wide variety of tools, not just JSLintMate.
+This includes lint tools in other editors, continuous integration systems, and
+other automated testing systems.
 
 ### Deprecated: Specify global options for use across projects ###
 
