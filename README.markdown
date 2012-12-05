@@ -205,6 +205,11 @@ To set this up:
     `$TM_PROJECT_DIRECTORY/config/jslint.yml`. Do the same for JSHint if
     needed, making sure to use a separate options file.
 
+To get you started, JSLintMate comes with some example options files:
+[jslint.json][jslint.json], [jslint.yml][jslint.yml],
+[jshint.json][jshint.json], and [jshint.yml][jshint.yml]. To use one of these,
+save a copy in your project at the path you chose above.
+
 Options files are meant to be understood by a wide variety of tools, not
 just JSLintMate. This includes lint tools in other editors, continuous
 integration systems, and other automated testing systems.
