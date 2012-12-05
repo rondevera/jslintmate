@@ -64,8 +64,12 @@ Or via Git:
 
 ### TextMate 2 ###
 
-**Installation:** While TextMate 2 is in development, installation is
-[temporarily a bit more involved][textmate 2 bundles]:
+**Installation:** If your computer has only TextMate 2, just
+[download JSLintMate.tmbundle][download] and double-click to install it.
+
+If your computer has both TextMate 1.x and 2.x, installation is
+[temporarily a bit more involved][textmate 2 bundles] while TextMate 2 is in
+development:
 
 1.  [Download JSLintMate.tmbundle][download] and unzip it.
 2.  Create the bundles path: `mkdir -p ~/Library/Application\ Support/Avian/Pristine\ Copy/Bundles/`.
@@ -82,7 +86,7 @@ This lets you use `$TM_PROJECT_DIRECTORY` in your JSLintMate settings, which is
 useful for pointing to project-specific JSLint/JSHint options and custom builds.
 
 **Display:** In TextMate 2, JSLintMate runs in a panel in the main window,
-rather than in a separate window. To make TextMate 2 open JSLintMate in a
+rather than in a separate window. If you want TextMate 2 to open JSLintMate in a
 separate window, run this in Terminal
 ([source][textmate 2 htmlOutputPlacement]):
 
@@ -170,7 +174,7 @@ check the [JSLint docs][jslint options] and the
 You can maintain an options file to use your favorite JSLint/JSHint options
 across projects. These files can be written in JSON or YAML.
 
-JSLintMate comes with some example options files:
+To get you started, JSLintMate comes with some example options files:
 [jslint.json][jslint.json], [jslint.yml][jslint.yml],
 [jshint.json][jshint.json], and [jshint.yml][jshint.yml]. To use one of
 these, save a copy as `~/.jslintrc` or `~/.jshintrc`. JSLintMate reads from
