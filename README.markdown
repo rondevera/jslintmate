@@ -35,11 +35,16 @@ Key features
   (JSHint)&mdash;both customizable. Navigate the list with full
   mouse/trackpad/keyboard support.
 * Support for **options files** that help you&mdash;and your teammates&mdash;use
-  the same coding standards everywhere. Options files can live in your home
-  directory or in project repositories. They use standard JSON/YAML, so they can
-  be read not just by JSLintMate, but also by teammates' lint tools in other
-  editors, automated testing systems, continuous integration systems, and more.
+  the same coding standards everywhere. Options files can be global or
+  per-project, and can live in your home directory or in project repositories.
+  They use standard JSON/YAML, so they can be read not just by JSLintMate, but
+  also by lint tools in other editors, automated testing systems, continuous
+  integration systems, and more. [Learn more about options files.][options docs]
 * Support for using your own **custom or edge build** of JSLint or JSHint.
+  [Learn more about running a custom linter.][custom linter docs]
+
+[options docs]:       https://github.com/rondevera/jslintmate/#options
+[custom linter docs]: https://github.com/rondevera/jslintmate/#custom-jslintjshint-builds
 
 
 Setup
