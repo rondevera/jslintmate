@@ -202,6 +202,7 @@ repo-dev-url:       https://github.com/rondevera/jslintmate/commits/development
       white-space: nowrap;
     }
   </style>
+  <script>var _gaq=[['_setAccount','UA-8250595-2'],['_trackPageview'],['_trackPageLoadTime']];</script>
 </head>
 
 <body>
@@ -224,7 +225,7 @@ repo-dev-url:       https://github.com/rondevera/jslintmate/commits/development
 <h2 id="overview">What&rsquo;s this?</h2>
 <div class="download">
   <div>
-    <a class="download" href="{{page.download-url}}"
+    <a id="download-cta" class="download" href="{{page.download-url}}"
       title="Download a .zip of JSLintMate.tmbundle"
       >Download <strong>JSLintMate {{page.version}}</strong></a>
   </div>
@@ -252,7 +253,7 @@ repo-dev-url:       https://github.com/rondevera/jslintmate/commits/development
 
 <h2 id="setup">Setup</h2>
 <p>
-  <strong><a href="{{page.download-url}}">Download JSLintMate.tmbundle</a></strong>
+  <strong><a id="download-setup" href="{{page.download-url}}">Download JSLintMate.tmbundle</a></strong>
   and double-click it. TextMate installs it automatically&mdash;that&rsquo;s
   all.
 </p>
@@ -339,8 +340,15 @@ repo-dev-url:       https://github.com/rondevera/jslintmate/commits/development
 </div> <!-- #page -->
 
 <script>
-var _gaq=_gaq||[];_gaq.push(['_setAccount','UA-8250595-2'],['_trackPageview'],['_trackPageLoadTime']);!function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=!0;g.src=('https:'===d.location.protocol?'https://ssl':'http://www')+'.google-analytics.com/ga.js';s.parentNode.insertBefore(g,s);}(document,'script');
+  document.getElementById('download-cta').addEventListener('click',function(){
+    console.log('CTA click');
+    _gaq.push(['_trackEvent','Download','CTA click']);
+  });
+  document.getElementById('download-setup').addEventListener('click',function(){
+    console.log('Setup click');
+    _gaq.push(['_trackEvent','Download','Setup click']);
+  });
+  !function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=!0;g.src=('https:'===d.location.protocol?'https://ssl':'http://www')+'.google-analytics.com/ga.js';s.parentNode.insertBefore(g,s)}(document,'script');
 </script>
-
 </body>
 </html>
