@@ -29,7 +29,7 @@
 #
 #   cd /path/to/JavaScript JSLintMate.tmbundle/Support/lib/
 #   curl -o jslint.js http://jslint.com/jslint.js
-#   curl -o jshint.js http://jshint.com/jshint.js
+#   curl -o jshint.js https://raw.githubusercontent.com/jshint/jshint/master/dist/jshint.js
 
 $LOAD_PATH << File.expand_path(
   File.join(ENV['TM_BUNDLE_SUPPORT'] || 'Support', 'lib'))
